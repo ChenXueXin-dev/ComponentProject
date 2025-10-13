@@ -1,0 +1,33 @@
+{
+    "language": "Language",
+    "home": {
+        "title": "Home",
+        "serialNumber": "SerialNum",
+        "date": "Date",
+        "name": "Name",
+        "address": "Address",
+        "age": "Age",
+        "sex": "Sex",
+        "phone": "Phone",
+        "email": "Email",
+        "operate": "Operate"
+    },
+    "layout": {
+        "collapse": "Collapse",
+        "expand": "Expand"
+    },
+    "router": { 
+        "home": "Home",
+        "order": "Order",
+        "outboundOrder": "Outbound Order",
+        "preOrder": "Pre Order",
+        "stock": "Stock",
+        "system": "System",
+        "bill": "Bill"
+    },
+    "user": {
+        "personalCenter": "Personal Center",
+        "changePassword": "Change Password",
+        "logout": "Logout"
+    }
+}
