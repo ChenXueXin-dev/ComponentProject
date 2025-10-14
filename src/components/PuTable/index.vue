@@ -14,30 +14,33 @@
         v-if="selection"
         type="selection"
         :selectable="selectable"
-        min-width="55"
+        width="55"
       />
-      <template #headerCell="{ title, column }">
-        <div>wqewq</div>
-      </template>
       <template v-for="column in Pucolumns" :key="column.prop">
         <el-table-column
           :fixed="column.fixed"
           :prop="column.name"
           :label="column.label"
-          :width="column.width"
+          :min-width="column.width"
         >
+          <template v-for="(_value, key) in $slots" :key="key" #[key]="scope">
+            <slot :name="key" v-bind="scope"></slot>
+          </template>
+          <!-- Element Plus 内部：el-table-column 会将 prop 值存储为 property -->
           <template #default="{ row, column: col, $index }">
-            <div v-if="column.customRender">
-              <component
-                :is="column.customRender"
-                :row="row"
-                :column="col"
-                :index="$index"
-              />
-            </div>
-            <div v-else>
-              {{ row[column.name] !== undefined ? row[column.name] : "--" }}
-            </div>
+            <slot name="bodyCell" :column="col" :row="row" :index="$index">
+              <div v-if="column.customRender">
+                <component
+                  :is="column.customRender"
+                  :row="row"
+                  :column="col"
+                  :index="$index"
+                />
+              </div>
+              <div v-else>
+                {{ row[column.name] !== undefined ? row[column.name] : "--" }}
+              </div>
+            </slot>
           </template>
         </el-table-column>
       </template>
@@ -82,12 +85,18 @@ const props = defineProps({
   },
 });
 
+const showColColumns = computed(() => {
+  return props.columns
+    .filter((item) => item.showCol !== false)
+    .map((item) => {
+      return {
+        ...item,
+      };
+    });
+});
+
 const Pucolumns = computed(() => {
-  return props.columns.map((item) => {
-    return {
-      ...item,
-    };
-  });
+  return showColColumns.value;
 });
 
 defineExpose({});

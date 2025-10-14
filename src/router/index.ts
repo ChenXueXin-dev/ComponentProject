@@ -30,13 +30,13 @@ export const routes: RouteRecordRaw[] = [
         path: "/home",
         name: "Home",
         component: () => import("@/views/Home/index.vue"),
-        meta: { title: t("base.router.home"), icon: "House" }, // 补充菜单标题和图标,
+        meta: { title: t("base.router.home"), icon: "House" },
       },
       {
         path: "/home1",
         name: "Home1",
         redirect: "/home1/test1",
-        meta: { title: t("base.router.order"), icon: "Grid" }, // 补充菜单标题和图标
+        meta: { title: t("base.router.order"), icon: "Grid" },
         children: [
           {
             path: "/test1",
@@ -48,7 +48,7 @@ export const routes: RouteRecordRaw[] = [
             path: "/test2",
             name: "Hometest2",
             component: () => import("@/views/Home/test2/index.vue"),
-            meta: { title: t("base.router.preOrder") }, // 子菜单标题
+            meta: { title: t("base.router.preOrder") },
           },
         ],
       },

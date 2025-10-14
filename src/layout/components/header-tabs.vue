@@ -4,7 +4,6 @@
     <div class="spaceBlock"></div>
     <el-scrollbar>
       <div class="scrollbar-flex-content">
-        <!-- 如果是当前路径的标签要高亮 -->
         <el-tag
           class="tag-item"
           v-for="tag in tags"
