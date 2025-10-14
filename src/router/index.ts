@@ -3,8 +3,6 @@ import {
   createWebHistory,
   type RouteRecordRaw,
 } from "vue-router";
-import i18n from "@/i18n/index";
-const { t } = i18n.global;
 
 // 扩展路由元信息类型
 declare module "vue-router" {
@@ -22,7 +20,7 @@ export const routes: RouteRecordRaw[] = [
   },
   {
     path: "/",
-    component: () => import("@/Layout/index.vue"),
+    component: () => import("@/layout/index.vue"),
     redirect: "/home",
     meta: { hidden: true, title: "layout" },
     children: [
@@ -30,25 +28,35 @@ export const routes: RouteRecordRaw[] = [
         path: "/home",
         name: "Home",
         component: () => import("@/views/Home/index.vue"),
-        meta: { title: t("base.router.home"), icon: "House" },
+        meta: {
+          icon: "House",
+          titleKey: "base.router.home",
+        },
       },
       {
         path: "/home1",
         name: "Home1",
         redirect: "/home1/test1",
-        meta: { title: t("base.router.order"), icon: "Grid" },
+        meta: {
+          icon: "Grid",
+          titleKey: "base.router.order",
+        },
         children: [
           {
             path: "/test1",
             name: "Hometest1",
             component: () => import("@/views/Home/test1/index.vue"),
-            meta: { title: t("base.router.outboundOrder") },
+            meta: {
+              titleKey: "base.router.outboundOrder",
+            },
           },
           {
             path: "/test2",
             name: "Hometest2",
             component: () => import("@/views/Home/test2/index.vue"),
-            meta: { title: t("base.router.preOrder") },
+            meta: {
+              titleKey: "base.router.preOrder",
+            },
           },
         ],
       },
@@ -56,19 +64,28 @@ export const routes: RouteRecordRaw[] = [
         path: "/home2",
         name: "Home2",
         component: () => import("@/views/Home2/index.vue"),
-        meta: { title: t("base.router.stock"), icon: "User" },
+        meta: {
+          icon: "User",
+          titleKey: "base.router.stock",
+        },
       },
       {
         path: "/home3",
         name: "Home3",
         component: () => import("@/views/Home3/index.vue"),
-        meta: { title: t("base.router.system"), icon: "Document" },
+        meta: {
+          icon: "Document",
+          titleKey: "base.router.system",
+        },
       },
       {
         path: "/home4",
         name: "Home4",
         component: () => import("@/views/Home4/index.vue"),
-        meta: { title: t("base.router.bill"), icon: "Document" },
+        meta: {
+          icon: "Document",
+          titleKey: "base.router.bill",
+        },
       },
     ],
   },

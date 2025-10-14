@@ -1,6 +1,8 @@
 <template>
   <div class="tabs-wrapper">
-    <el-button size="large" type="text" @click="handleToHome">首页</el-button>
+    <el-button size="large" type="text" @click="handleToHome">
+      {{ t("base.router.home") }}
+    </el-button>
     <div class="spaceBlock"></div>
     <el-scrollbar>
       <div class="scrollbar-flex-content">
@@ -15,7 +17,7 @@
           @close="handleClose(tag.path)"
           @click="handleClick(tag.path)"
         >
-          {{ tag.name }}
+          {{ t(tag.name) }}
         </el-tag>
       </div>
     </el-scrollbar>
@@ -25,6 +27,8 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 // 定义标签的数据解构
 interface Tag {
@@ -61,7 +65,7 @@ const addTags = (path: string) => {
   }
   tags.value.push({
     path: path,
-    name: route.meta.title || "",
+    name: route.meta.titleKey || "",
   });
   saveTabsToStorage();
 };
@@ -90,7 +94,6 @@ watch(
 
 onMounted(() => {
   initTags();
-  console.log("route", route.fullPath);
   addTags(route.fullPath);
 });
 </script>

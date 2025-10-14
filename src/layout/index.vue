@@ -14,9 +14,11 @@
         </div>
         <RecursiveMenu :routes="filteredRoutes" />
       </el-menu>
-      <button class="collapse-btn" @click="isCollapse = !isCollapse">
-        {{ isCollapse ? t("base.layout.expand") : t("base.layout.collapse") }}
-      </button>
+      <div class="collapse-btn" @click="isCollapse = !isCollapse">
+        <el-icon>
+          <component :is="isCollapse ? 'Expand' : 'Fold'" />
+        </el-icon>
+      </div>
     </div>
     <div class="layout-right">
       <div class="layout-header">
@@ -84,6 +86,7 @@ onMounted(() => {
 .layout-left {
   height: 100%;
   transition: width 0.3s;
+  position: relative;
 }
 
 .logo-wrapper {
@@ -151,5 +154,34 @@ onMounted(() => {
   padding: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.collapse-btn {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #a0cfff;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #d4eaff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(185, 221, 255, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.collapse-btn:hover {
+  background-color: #d9eafc;
+  color: #fff;
+  border-color: #c9e4ff;
+  box-shadow: 0 4px 12px rgba(185, 221, 255, 0.4);
+  transform: translateX(-50%) scale(1.1);
 }
 </style>

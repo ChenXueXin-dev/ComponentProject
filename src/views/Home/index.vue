@@ -10,11 +10,7 @@
     >
       <template #bodyCell="{ column, row }">
         <template v-if="column.property === 'operate'">
-          <PuOperateButton
-            :butlist="fewButtons"
-            :butCount="3"
-            @buttonClick="handleButtonClick"
-          />
+          <PuOperateButton :butlist="fewButtons" :butCount="3" />
         </template>
       </template>
     </PuTable>
@@ -48,12 +44,12 @@ const fewButtons = ref([
   {
     label: "查看",
     type: "warning",
-    onClick: () => ElMessage.info("点击了编辑按钮"),
+    onClick: () => ElMessage.info("点击了查看按钮"),
   },
   {
     label: "复制",
     type: "info",
-    onClick: () => ElMessage.warning("点击了删除按钮"),
+    onClick: () => ElMessage.warning("点击了复制按钮"),
   },
   {
     label: "导出",

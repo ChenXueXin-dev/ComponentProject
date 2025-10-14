@@ -35,7 +35,7 @@
           direction="vertical"
         />
       </template>
-      <el-dropdown @command="handleCommand">
+      <el-dropdown>
         <el-link type="primary" underline="false">
           更多
           <el-icon class="el-icon--right">
@@ -103,11 +103,6 @@ const handleClick = (buttonItem: ButtonItem) => {
     buttonItem.onClick();
   }
   emit("buttonClick", buttonItem);
-};
-
-// 处理下拉菜单命令
-const handleCommand = (buttonItem: ButtonItem) => {
-  handleClick(buttonItem);
 };
 </script>
 
