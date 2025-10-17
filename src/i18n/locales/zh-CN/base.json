@@ -19,10 +19,15 @@
     "router": {
         "home": "首页",
         "order": "订单",
+        "orderManagement": "订单管理",
         "outboundOrder": "出货单",
+        "inboundOrder": "入库单",
         "preOrder": "预订单",
+        "warehouseManagement": "仓库管理",
         "stock": "库存",
         "system": "系统",
+        "inventory": "库存",    
+        "location": "位置",
         "bill": "账单"
     },
     "user": {

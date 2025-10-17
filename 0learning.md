@@ -1,6 +1,4 @@
-# 09.15
-
-## 如何去除原始的边距等
+# 如何去除原始的边距等
 
 ```css
 /*  这里不加scope ，全局样式会作用在 App 根容器内*/
@@ -124,9 +122,7 @@ Object.entries(AllIcons).forEach(([iconName, IconComponent]) => {
 app.component() 函数接受两个参数：组件的注册名称和组件本身。
 这里表示全局注册组件
 
-# 09.16
-
-## 国际化语言
+# 国际化语言
 
 ```t
 src/
@@ -143,7 +139,7 @@ src/
 └──main.ts # 入口文件配置
 ```
 
-## 导航顶部页签
+# 导航顶部页签
 
 1. 样式问题：左边的页签存放宽度
    100%-左侧导航栏宽度-右侧工具宽度
@@ -156,3 +152,61 @@ src/
 1、初始化时全部删除，存储当前这个页面的标签
 2、点击标签的时候判断是不是 directive 和本页面路径，如果不是再添加到本地
 3、删除标签的时候，也要删除本地的存储（重新保存一遍）
+
+# 如何封装公共组件
+
+主要涉及：
+1、props（父传子）、emit（子传父）、slots（插槽）
+（1）props 跳转： this.$props.name
+（2）emit跳转： this.$emit('click', '参数')
+父组件监听：<child @click="handleClick" />
+
+组件绑定了数据的时候，要实现组件双向绑定:
+1、子组件：
+接收父组件的数据 props
+绑定数据 v-model
+传递数据 emit 通过事件通知父组件执行函数（这里用于将子组件的数据传递给父组件，父组件进行数据改变）
+watch 监听父组件传递过来的数据改变，改变子组件的数据
+2、父组件：
+emit:接收子组件通知和数据，进行数据的更改
+绑定数据
+
+案例
+1、父组件
+
+```html
+<Parent
+  @update:sonChange="Parentvalue = $event"
+  :Parentvalue="parentValue
+  />
+```
+
+2、子组件
+
+```html
+<Child @update:model-value="sonChange" :model-value="sonvalue" />
+```
+
+```js
+// 父组件接收值
+const props = defineProps({
+  parentValue: { type: any, default: "" },
+});
+
+// 值改变的时候发送事件
+const sonChange = () => {
+  emit("update:sonChange", sonvalue.value);
+};
+
+// 监听父组件的值改变
+watch(
+  () => props.parentValue,
+  (newValue) => {}
+);
+```
+
+# 地址插件
+
+1、安装：npm install element-china-area-data -S
+2、使用：
+参考 src\components\PuSearch\components\OptionArea.vue

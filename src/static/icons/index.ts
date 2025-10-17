@@ -8,6 +8,9 @@ import {
   DArrowLeft,
   Expand,
   Fold,
+  Box,
+  Search,
+  Refresh,
 } from "@element-plus/icons-vue";
 
 export const routerIcon = {
@@ -20,6 +23,9 @@ export const routerIcon = {
   DArrowLeft,
   Expand,
   Fold,
+  Box,
+  Search,
+  Refresh,
 };
 
 export const AllIcons = {

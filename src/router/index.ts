@@ -34,56 +34,83 @@ export const routes: RouteRecordRaw[] = [
         },
       },
       {
-        path: "/home1",
-        name: "Home1",
-        redirect: "/home1/test1",
+        path: "/order",
+        name: "Order",
+        redirect: "/order/outbound",
         meta: {
           icon: "Grid",
           titleKey: "base.router.order",
         },
         children: [
           {
-            path: "/test1",
-            name: "Hometest1",
-            component: () => import("@/views/Home/test1/index.vue"),
+            path: "outbound",
+            name: "OutboundOrder",
+            component: () => import("@/views/Order/outbound.vue"),
             meta: {
               titleKey: "base.router.outboundOrder",
             },
           },
           {
-            path: "/test2",
-            name: "Hometest2",
-            component: () => import("@/views/Home/test2/index.vue"),
+            path: "inbound",
+            name: "InboundOrder",
+            component: () => import("@/views/Order/inbound.vue"),
             meta: {
-              titleKey: "base.router.preOrder",
+              titleKey: "base.router.inboundOrder",
             },
           },
         ],
       },
       {
-        path: "/home2",
-        name: "Home2",
-        component: () => import("@/views/Home2/index.vue"),
+        path: "/warehouse",
+        name: "Warehouse",
+        redirect: "/warehouse/inventory",
+        meta: {
+          icon: "Box",
+          titleKey: "base.router.warehouseManagement",
+        },
+        children: [
+          {
+            path: "inventory",
+            name: "Inventory",
+            component: () => import("@/views/Warehouse/inventory.vue"),
+            meta: {
+              titleKey: "base.router.inventory",
+            },
+          },
+          {
+            path: "location",
+            name: "Location",
+            component: () => import("@/views/Warehouse/location.vue"),
+            meta: {
+              titleKey: "base.router.location",
+            },
+          },
+        ],
+      },
+      {
+        path: "/stock",
+        name: "Stock",
+        component: () => import("@/views/Stock/index.vue"),
         meta: {
           icon: "User",
           titleKey: "base.router.stock",
         },
       },
       {
-        path: "/home3",
-        name: "Home3",
-        component: () => import("@/views/Home3/index.vue"),
+        path: "/document",
+        name: "Document",
+        component: () => import("@/views/Document/index.vue"),
         meta: {
           icon: "Document",
           titleKey: "base.router.system",
         },
       },
       {
-        path: "/home4",
-        name: "Home4",
-        component: () => import("@/views/Home4/index.vue"),
+        path: "/bill",
+        name: "Bill",
+        component: () => import("@/views/Bill/index.vue"),
         meta: {
-          icon: "Document",
+          icon: "Money",
           titleKey: "base.router.bill",
         },
       },

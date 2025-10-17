@@ -1,5 +1,5 @@
 <template>
-  <div>{{ t("base.router.order") }}</div>
+  <div>{{ t("base.router.location") }}</div>
 </template>
 
 <script setup>
@@ -8,4 +8,3 @@ const { t } = useI18n();
 </script>
 
 <style lang="scss" scoped></style>
-titleKey: "base.router.stock",

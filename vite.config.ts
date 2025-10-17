@@ -1,20 +1,25 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import path from 'path'
-import { viteMockServe } from 'vite-plugin-mock'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import path from "path";
+import { viteMockServe } from "vite-plugin-mock";
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue(),
+  plugins: [
+    vue(),
     // 使用vite-plugin-mock模拟后端
     viteMockServe({
-      mockPath: './mock',
-      watchFiles: true
+      mockPath: "./mock",
+      watchFiles: true,
     }),
   ],
+  server: {
+    open: true,
+    port: 5179,
+  },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
-  }
-})
+      "@": path.resolve(__dirname, "src"),
+    },
+  },
+});

@@ -1,6 +1,6 @@
 <template>
   <div class="layout-wrapper">
-    <div class="layout-left" :style="{ width: isCollapse ? '64px' : '200px' }">
+    <div class="layout-left">
       <el-menu
         default-active="/home"
         class="el-menu-vertical-demo"
@@ -43,16 +43,13 @@
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
 import type { RouteRecordRaw } from "vue-router";
 import RecursiveMenu from "./components/recusive-menu.vue";
 import HeaderTools from "./components/header-tools.vue";
 import HeaderTabs from "./components/header-tabs.vue";
 
-const { t } = useI18n();
-
 const router = useRouter();
-const isCollapse = ref(true);
+const isCollapse = ref(false);
 const filteredRoutes = ref<RouteRecordRaw[]>([]);
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
@@ -85,7 +82,6 @@ onMounted(() => {
 
 .layout-left {
   height: 100%;
-  transition: width 0.3s;
   position: relative;
 }
 
@@ -94,6 +90,7 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   height: 60px;
+  width: 100%;
   img {
     height: 30px;
   }

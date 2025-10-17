@@ -19,9 +19,14 @@
     "router": { 
         "home": "Home",
         "order": "Order",
-        "outboundOrder": "Outbound Order",
+        "orderManagement": "Order",
+        "outboundOrder": "Outbound Order",  
+        "inboundOrder": "Inbound Order",    
         "preOrder": "Pre Order",
-        "stock": "Stock",
+        "warehouseManagement": "Warehouse",
+        "inventory": "Inventory",
+        "stock": "stock",
+        "location": "Location", 
         "system": "System",
         "bill": "Bill"
     },

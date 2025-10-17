@@ -1,5 +1,10 @@
 <template>
   <div class="pu-table-wrapper">
+    <!-- 添加搜索组件显示数据 -->
+    <div class="search-section">
+      <PuSearch :test="'测试数据'" :searchList="searchList" :showNum="10" />
+    </div>
+
     <PuTable
       :datasource="tableData"
       :stripe="true"
@@ -21,7 +26,6 @@
 import { onMounted, ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { getHomeData } from "@/api/home";
-import PuOperateButton from "@/components/PuOperateButton/index.vue";
 import { ElMessage } from "element-plus";
 
 const { t } = useI18n();
@@ -63,6 +67,44 @@ const fewButtons = ref([
   },
 ]);
 
+const searchList = ref([
+  {
+    type: "input",
+    label: "姓名",
+    value: "name",
+    placeholder: "请输入姓名",
+    showSearch: true,
+  },
+  {
+    type: "select",
+    label: "地址",
+    value: "address",
+    placeholder: "请选择地址",
+    showSearch: true,
+  },
+  {
+    type: "time",
+    label: "时间",
+    value: "address",
+    placeholder: "请选择地址",
+    showSearch: true,
+  },
+
+  {
+    type: "timeFrame",
+    label: "日期",
+    value: "address",
+    placeholder: "请选择地址",
+    showSearch: true,
+  },
+  {
+    type: "area",
+    label: "地址",
+    value: "address",
+    placeholder: "请选择地址",
+    showSearch: true,
+  },
+]);
 const getHomeDataApi = async () => {
   loading.value = true;
   try {
@@ -151,5 +193,18 @@ onMounted(() => {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.search-section {
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+
+  h3 {
+    margin: 0 0 12px 0;
+    color: #333;
+    font-size: 16px;
+  }
 }
 </style>

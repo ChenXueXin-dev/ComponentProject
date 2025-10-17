@@ -66,6 +66,9 @@
 </template>
 
 <script setup lang="ts">
+defineOptions({
+  name: "PuOperateButton",
+});
 import { computed } from "vue";
 
 // 定义按钮的类型
