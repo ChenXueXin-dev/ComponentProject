@@ -139,7 +139,6 @@ onMounted(() => {
 .layout-content-wrapper {
   flex: 1;
   overflow: hidden;
-  padding: 10px;
   display: flex;
   flex-direction: column;
 }
@@ -147,7 +146,6 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background-color: #fff;
   padding: 10px;
   display: flex;
   flex-direction: column;

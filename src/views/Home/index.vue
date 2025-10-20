@@ -1,10 +1,7 @@
 <template>
   <div class="pu-table-wrapper">
     <!-- 添加搜索组件显示数据 -->
-    <div class="search-section">
-      <PuSearch :test="'测试数据'" :searchList="searchList" :showNum="10" />
-    </div>
-
+    <PuSearch :test="'测试数据'" :searchList="searchList" :showNum="12" />
     <PuTable
       :datasource="tableData"
       :stripe="true"
@@ -71,38 +68,41 @@ const searchList = ref([
   {
     type: "input",
     label: "姓名",
-    value: "name",
-    placeholder: "请输入姓名",
-    showSearch: true,
+    searchKey: "name",
+  },
+  {
+    type: "input",
+    selectLabelOptions: [
+      { label: "选项1", value: "option1" },
+      { label: "选项2", value: "option2" },
+      { label: "选项3", value: "option3" },
+    ],
   },
   {
     type: "select",
-    label: "地址",
-    value: "address",
-    placeholder: "请选择地址",
-    showSearch: true,
+    label: "选择",
+    searchKey: "select",
+    SelectOptions: [
+      { label: "选项1", value: "选项1" },
+      { label: "选项2", value: "选项2" },
+      { label: "选项3", value: "选项3" },
+    ],
   },
   {
     type: "time",
     label: "时间",
-    value: "address",
-    placeholder: "请选择地址",
-    showSearch: true,
+    searchKey: "time",
   },
 
   {
     type: "timeFrame",
     label: "日期",
-    value: "address",
-    placeholder: "请选择地址",
-    showSearch: true,
+    searchKey: "timeFrame",
   },
   {
     type: "area",
     label: "地址",
-    value: "address",
-    placeholder: "请选择地址",
-    showSearch: true,
+    searchKey: "area",
   },
 ]);
 const getHomeDataApi = async () => {
@@ -193,18 +193,5 @@ onMounted(() => {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-}
-
-.search-section {
-  margin-bottom: 20px;
-  padding: 16px;
-  background-color: #f5f5f5;
-  border-radius: 8px;
-
-  h3 {
-    margin: 0 0 12px 0;
-    color: #333;
-    font-size: 16px;
-  }
 }
 </style>

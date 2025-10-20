@@ -155,6 +155,8 @@ src/
 
 # 如何封装公共组件
 
+## 方法一
+
 主要涉及：
 1、props（父传子）、emit（子传父）、slots（插槽）
 （1）props 跳转： this.$props.name
@@ -203,6 +205,62 @@ watch(
   () => props.parentValue,
   (newValue) => {}
 );
+```
+
+## 方法二（优化）使用 v-model 无需重新定义
+
+关键：父组件定义 v-model:parent-data="parentvalue"
+子组件定义：model-value="parentvalue"
+子组件监听：@update:model-value="handleChange"
+子组件事件义：handleChange(value)
+
+在 template 中都是用-模式，js 中使用驼峰写法
+
+备注：emit 类型安全的定义
+const emit= defineEmits<{ (e: 'update:modelValue', value: any): void }>
+
+1、父组件
+
+```vue
+<Parent v-model:parent-data="parentvalue" />
+```
+
+这里必须写成顶 v-model:parent-data="parentvalue" =》 parent-data 转换为 parentData
+
+2、子组件
+
+```vue
+<Child :model-value="parentvalue" @update:model-value="handleChange" />
+```
+
+```js
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: any): void
+}>();
+
+const handleChange = (value: any) => {
+  emit('update:modelValue', value)
+}
+```
+
+<!-- 解析代码 -->
+
+```js
+const emit = defineEmits<{
+(e: "update:areaValue", value: any): void;
+}>();
+
+// 简写
+// const emit = defineEmits(["update:areaValue"]); 不够安全
+
+// defineEmits 是 Vue 3 的编译宏函数
+// <T> 是 TypeScript 泛型语法，用来指定类型参数
+// 这里的 T 就是 { (e: "update:areaValue", value: any): void; }
+
+// 描述了一个函数的参数和返回值类型
+// e: "update:areaValue" - 第一个参数名为 e，类型是字面量类型 "update:areaValue"
+// value: any - 第二个参数名为 value，类型是 any
+// : void - 函数没有返回值
 ```
 
 # 地址插件

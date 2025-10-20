@@ -2,7 +2,13 @@
     "pusearch": {
         "placeholder": {
             "input": "请输入",
-            "select": "请选择"
+            "select": "请选择",
+            "time": "请选择时间",
+            "date": "请选择日期"
+        },
+        "btn":{
+            "search": "查询",
+            "reset": "重置"
         }
     }
 }

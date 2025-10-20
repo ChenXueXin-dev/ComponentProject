@@ -2,7 +2,13 @@
     "pusearch": {
         "placeholder": {
             "input": "Please enter",
-            "select": "Please select"
+            "select": "Please",
+            "time": "Please select time",
+            "date": "Please select date"
+        },
+        "btn":{
+            "search": "Search",
+            "reset": "Reset"
         }
     }
 }

@@ -1,63 +1,107 @@
 <template>
-  <div class="search-wrapper">
-    <div v-for="(item, index) in searchDataList.slice(0, showNum)" :key="index">
-      <el-input
-        v-if="item.type === 'input'"
-        v-model="item.value"
-        :placeholder="item.placeholder || t('pu.pusearch.placeholder.input')"
-      />
-      <el-select
-        v-model="item.value"
-        v-if="item.type === 'select'"
-        :options="item.Selectoptions"
-        :placeholder="item.placeholder || t('pu.pusearch.placeholder.select')"
-      />
-      <el-time-select
-        v-model="optionTimeValue"
-        v-if="item.type === 'time'"
-        :picker-options="{
-          start: '08:30',
-          step: '00:15',
-          end: '18:30',
-        }"
-        placeholder="选择时间"
+  <div class="page-wrapper">
+    <div v-show="!ifFold" class="search-wrapper">
+      <div
+        v-for="(item, index) in searchDataList.slice(0, showNum)"
+        :key="index"
       >
-      </el-time-select>
-      <el-date-picker
-        v-if="item.type === 'timeFrame'"
-        v-model="selecttimeFrame"
-        align="right"
-        type="date"
-        placeholder="选择日期"
-        :picker-options="optionPickerValue"
-      >
-      </el-date-picker>
-      <OptionArea
-        v-if="item.type === 'area'"
-        :AreaValue="optionAreaValue"
-        @update:selectedOptions="optionAreaValue = $event"
-      />
+        <el-input
+          :style="{ width: item.selectLabelWidth || '220px' }"
+          v-if="item.type === 'input'"
+          v-model="formModel[item.searchKey || 'input_' + index]"
+          :placeholder="item.placeholder || t('pu.pusearch.placeholder.input')"
+        >
+          <template #prepend>
+            <div style="display: flex; align-items: center; height: 100%">
+              <el-select
+                v-if="item.selectLabelOptions?.length > 0"
+                v-model="formModel[item.searchKey]"
+                :placeholder="
+                  item.placeholder || t('pu.pusearch.placeholder.select')
+                "
+                :style="{ width: item.selectLabelWidth || '115px' }"
+              >
+                <el-option
+                  v-for="option in item.selectLabelOptions"
+                  :key="option.value"
+                  :label="option.label"
+                  :value="option.value"
+                />
+              </el-select>
+              <span v-if="!item.selectLabelOptions">{{ item.label }}</span>
+            </div>
+          </template>
+        </el-input>
+        <el-select
+          :style="{ width: item.selectLabelWidth || '220px' }"
+          v-if="item.type === 'select'"
+          v-model="formModel[item.searchKey]"
+          :placeholder="item.placeholder || t('pu.pusearch.placeholder.select')"
+        >
+          <el-option
+            v-for="i in item.SelectOptions"
+            :key="i.value"
+            :label="i.label"
+            :value="i.value"
+          >
+          </el-option>
+        </el-select>
+        <el-time-select
+          v-model="formModel[item.searchKey]"
+          v-if="item.type === 'time'"
+          :picker-options="{
+            start: '08:30',
+            step: '00:15',
+            end: '18:30',
+          }"
+          :placeholder="item.placeholder || t('pu.pusearch.placeholder.time')"
+        >
+        </el-time-select>
+        <el-date-picker
+          v-if="item.type === 'timeFrame'"
+          class="Selctpicker"
+          v-model="formModel[item.searchKey]"
+          align="right"
+          type="date"
+          :placeholder="item.placeholder || t('pu.pusearch.placeholder.date')"
+          :picker-options="optionPickerValue"
+        >
+        </el-date-picker>
+        <OptionArea
+          v-if="item.type === 'area'"
+          v-model:area-value="formModel[item.searchKey]"
+        />
+      </div>
+      <div>
+        <el-button type="primary" @click="handleSearch">
+          <el-icon><component is="Search" /></el-icon>
+          {{ t("pu.pusearch.btn.search") }}
+        </el-button>
+        <el-button @click="handelReset">
+          <el-icon><component is="Refresh" /></el-icon>
+          {{ t("pu.pusearch.btn.reset") }}
+        </el-button>
+      </div>
     </div>
-    <div>
-      <el-button type="primary">
-        <el-icon><component is="Search" /></el-icon>搜索
-      </el-button>
-      <el-button>
-        <el-icon><component is="Refresh" /></el-icon>重置
-      </el-button>
+    <div class="fold-wrapper">
+      <div class="fold-item">
+        <el-icon @click="ifFold = !ifFold" color="#999" size="18">
+          <span v-if="ifFold"> <CaretBottom /></span>
+          <span v-else><CaretTop /></span>
+        </el-icon>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import OptionArea from "./components/OptionArea.vue";
-defineOptions({
-  name: "PuSearch",
-});
-
 import { computed, ref } from "vue";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
+defineOptions({
+  name: "PuSearch",
+});
 
 const props = withDefaults(
   defineProps<{
@@ -71,8 +115,41 @@ const props = withDefaults(
   }
 );
 
-const optionTimeValue = ref();
-const selecttimeFrame = ref();
+// 折叠
+const ifFold = ref(false);
+
+const formModel = ref<any>({});
+
+// 初始化表单数据
+const searchDataList = computed(() => {
+  const list = props.searchList.filter(
+    (item: any) => item.showSearch !== false
+  );
+  list.forEach((item: any) => {
+    if (item.selectLabelOptions?.length > 0) {
+      const searchKey = item.searchKey;
+      if (formModel.value[searchKey] === undefined) {
+        formModel.value[searchKey] = item.selectLabelOptions[0].value;
+      }
+    }
+  });
+  return list;
+});
+
+const emit = defineEmits<{
+  (e: "search", value: any): void;
+  (e: "reset"): void;
+}>();
+
+const handleSearch = () => {
+  emit("search", formModel.value);
+};
+
+// 重置
+const handelReset = () => {
+  emit("reset");
+};
+
 const optionPickerValue = ref({
   disabledDate(time: any) {
     return time.getTime() > Date.now();
@@ -102,18 +179,38 @@ const optionPickerValue = ref({
     },
   ],
 });
-
-const optionAreaValue = ref();
-
-const searchDataList = computed(() => {
-  return props.searchList.filter((item: any) => item.showSearch !== false);
-});
 </script>
 
 <style>
+.page-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 2px 0;
+}
 .search-wrapper {
+  background-color: #fff;
+  padding: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+.fold-wrapper {
+  display: flex;
+  justify-content: center;
+}
+.fold-item {
+  width: 50px;
+  height: 20px;
+  border-radius: 0 0 8px 8px;
+  background-color: #fff;
+  text-align: center;
+}
+/* 多选输入样式 */
+.el-select .el-input {
+  width: 130px;
+}
+.input-with-select .el-input-group__prepend {
+  background-color: #fff;
 }
 </style>

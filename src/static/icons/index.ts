@@ -11,6 +11,8 @@ import {
   Box,
   Search,
   Refresh,
+  CaretBottom,
+  CaretTop
 } from "@element-plus/icons-vue";
 
 export const routerIcon = {
@@ -26,6 +28,8 @@ export const routerIcon = {
   Box,
   Search,
   Refresh,
+  CaretBottom,
+  CaretTop
 };
 
 export const AllIcons = {

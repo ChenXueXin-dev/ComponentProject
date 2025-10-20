@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <el-cascader
-      size="large"
+      size="mini"
       :options="pcaTextArr"
-      v-model="selectedOptions"
-      @update:model-value="handleChange"
+      :model-value="areaValue"
+      @update:model-value="handleUpdate"
     >
     </el-cascader>
   </div>
@@ -21,7 +21,7 @@ defineOptions({
 // codeToText：是个大对象，属性是区域码，属性值是汉字 用法例如：codeToText['110000']输出北京市
 
 const props = defineProps({
-  AreaValue: {
+  areaValue: {
     type: Object,
     default: {},
   },
@@ -33,22 +33,13 @@ import {
   pcaTextArr,
   // codeToText,
 } from "element-china-area-data";
-import { ref, watch } from "vue";
 
-const emit = defineEmits(["update:selectedOptions"]);
-
-const selectedOptions = ref();
-const handleChange = () => {
-  emit("update:selectedOptions", selectedOptions.value);
+const emit = defineEmits<{
+  (e: "update:areaValue", value: any): void; //类型定义
+}>();
+const handleUpdate = (value: any) => {
+  emit("update:areaValue", value);
 };
-
-// 监听，当选中的时候更新数据要更新数据
-watch(
-  () => props.AreaValue,
-  (newVal) => {
-    selectedOptions.value = newVal;
-  }
-);
 </script>
 
 <style scoped></style>

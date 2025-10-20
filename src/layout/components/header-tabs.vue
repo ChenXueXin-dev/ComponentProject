@@ -65,7 +65,7 @@ const addTags = (path: string) => {
   }
   tags.value.push({
     path: path,
-    name: route.meta.titleKey || "",
+    name: (route.meta.titleKey as string) || "",
   });
   saveTabsToStorage();
 };
