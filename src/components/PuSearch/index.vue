@@ -28,7 +28,9 @@
                   :value="option.value"
                 />
               </el-select>
-              <span v-if="!item.selectLabelOptions">{{ item.label }}</span>
+              <div v-if="!item.selectLabelOptions">
+                {{ item.label }}
+              </div>
             </div>
           </template>
         </el-input>
@@ -59,7 +61,6 @@
         </el-time-select>
         <el-date-picker
           v-if="item.type === 'timeFrame'"
-          class="Selctpicker"
           v-model="formModel[item.searchKey]"
           align="right"
           type="date"
@@ -181,7 +182,7 @@ const optionPickerValue = ref({
 });
 </script>
 
-<style>
+<style lang="scss" scoped>
 .page-wrapper {
   width: 100%;
   display: flex;
@@ -201,7 +202,7 @@ const optionPickerValue = ref({
 }
 .fold-item {
   width: 50px;
-  height: 20px;
+  height: 15px;
   border-radius: 0 0 8px 8px;
   background-color: #fff;
   text-align: center;
@@ -211,6 +212,10 @@ const optionPickerValue = ref({
   width: 130px;
 }
 .input-with-select .el-input-group__prepend {
+  background-color: #fff;
+}
+
+.selectItem {
   background-color: #fff;
 }
 </style>

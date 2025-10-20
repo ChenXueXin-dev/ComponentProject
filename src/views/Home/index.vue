@@ -1,5 +1,12 @@
 <template>
   <div class="pu-table-wrapper">
+    <PuTabs
+      :tabsList="[
+        { label: 'name', value: 'name' },
+        { label: 'user', value: 'user' },
+        { label: 'people', value: 'people' },
+      ]"
+    />
     <!-- 添加搜索组件显示数据 -->
     <PuSearch :test="'测试数据'" :searchList="searchList" :showNum="12" />
     <PuTable

@@ -21,6 +21,7 @@ provide("reload", () => {
   padding: 0;
   /* 关键：盒模型重置，width/height 包含 padding 和 border，避免边距计算错乱 */
   box-sizing: border-box;
+  font-weight: normal !important;
 }
 
 /* 单独强化 body 样式（App 根容器常用） */
