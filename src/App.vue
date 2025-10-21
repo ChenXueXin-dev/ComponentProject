@@ -1,8 +1,16 @@
 <template>
-  <router-view />
+  <a-config-provider :locale="antLocale">
+    <el-config-provider :locale="eleLocale">
+      <router-view />
+    </el-config-provider>
+  </a-config-provider>
 </template>
 <script setup lang="ts">
 import { ref, provide, nextTick } from "vue";
+// 直接引入 组件内置 语言包
+import { useLocale } from "@/i18n/use-locale";
+const { antLocale, eleLocale } = useLocale();
+
 // 刷新页面
 const isRouterActive = ref(true);
 provide("reload", () => {

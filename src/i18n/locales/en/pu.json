@@ -4,7 +4,8 @@
             "input": "Please enter",
             "select": "Please",
             "time": "Please select time",
-            "date": "Please select date"
+            "date": "Please select date",
+            "“area": "Please select area"
         },
         "btn":{
             "search": "Search",

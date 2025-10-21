@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "ant-design-vue": "^3.2.20",
+    "ant-design-vue": "^4.2.6",
     "axios": "^1.12.2",
     "ele-admin-pro": "^1.11.1",
     "element-china-area-data": "^6.1.0",

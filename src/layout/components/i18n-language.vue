@@ -2,13 +2,13 @@
   <div>
     <el-dropdown :hide-on-click="false">
       <span class="el-dropdown-link">
-        {{ locale === "zh_CN" ? "简体中文" : "English" }}
+        {{ locale === "zhCn" ? "简体中文" : "English" }}
       </span>
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item
-            @click="changeLanguege('zh_CN')"
-            :class="{ languageactive: locale === 'zh_CN' }"
+            @click="changeLanguege('zhCn')"
+            :class="{ languageactive: locale === 'zhCn' }"
             >简体中文</el-dropdown-item
           >
           <el-dropdown-item
@@ -24,7 +24,6 @@
 
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-
 const { locale } = useI18n();
 
 const changeLanguege = (lang: string) => {

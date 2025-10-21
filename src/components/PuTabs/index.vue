@@ -1,10 +1,17 @@
 <template>
   <div class="page-wrapper">
-    <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-      <el-tab-pane v-for="item in tabsList" :key="item.value">
-        <template #label>
-          {{ item.label }}
-        </template>
+    <el-tabs
+      :model-value="activeTabsValue"
+      class="demo-tabs"
+      @update:model-value="$emit('update:activeTabs', $event)"
+      @handleClick="handleClick"
+    >
+      <el-tab-pane
+        v-for="item in tabsList"
+        :key="item.value"
+        :name="item.value"
+        :label="item.label"
+      >
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -24,15 +31,17 @@ const props = defineProps({
     type: Array as () => TabItem[],
     default: () => [],
   },
+  activeTabsValue: {
+    type: String,
+  },
 });
-import { ref } from "vue";
 
-import type { TabsPaneContext } from "element-plus";
+const emit = defineEmits<{
+  (e: "update:activeTabs", value: string): void;
+}>();
 
-const activeName = ref("first");
-
-const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event);
+const handleClick = (tab: any) => {
+  emit("update:activeTabs", tab);
 };
 </script>
 

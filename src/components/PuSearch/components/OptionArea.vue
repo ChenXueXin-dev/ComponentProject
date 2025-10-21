@@ -3,6 +3,7 @@
     <el-cascader
       size="mini"
       :options="pcaTextArr"
+      :placeholder="placeholder || t('pu.pusearch.placeholder.area')"
       :model-value="areaValue"
       @update:model-value="handleUpdate"
     >
@@ -20,10 +21,16 @@ defineOptions({
 // pcaTextArr：省市区联动数据，纯汉字
 // codeToText：是个大对象，属性是区域码，属性值是汉字 用法例如：codeToText['110000']输出北京市
 
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
 const props = defineProps({
   areaValue: {
     type: Object,
     default: {},
+  },
+  placeholder: {
+    type: String,
   },
 });
 import {

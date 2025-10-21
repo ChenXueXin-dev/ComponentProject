@@ -9,6 +9,7 @@ import { pinia } from "./store";
 import i18n from "./i18n";
 import VXETable from "vxe-table";
 import "vxe-table/lib/style.css";
+import Antd from 'ant-design-vue';
 
 const app = createApp(App);
 
@@ -28,6 +29,7 @@ app
   .use(i18n)
   .use(router)
   .use(VXETable)
+  .use(Antd)
   .use(registerGlobalComponents)
   .use(pinia)
   .use(ElementPlus)

@@ -142,13 +142,14 @@ const emit = defineEmits<{
   (e: "reset"): void;
 }>();
 
+// 查询
 const handleSearch = () => {
   emit("search", formModel.value);
 };
 
 // 重置
 const handelReset = () => {
-  emit("reset");
+  formModel.value = {};
 };
 
 const optionPickerValue = ref({

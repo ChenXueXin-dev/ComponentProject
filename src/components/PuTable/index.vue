@@ -45,6 +45,17 @@
         </el-table-column>
       </template>
     </el-table>
+    <el-pagination
+      class="pagination-wrapper"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="currentPage4"
+      :page-sizes="[100, 200, 300, 400]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="400"
+    >
+    </el-pagination>
   </div>
 </template>
 
@@ -127,5 +138,11 @@ defineExpose({});
     flex: 1;
     overflow: auto;
   }
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
 }
 </style>

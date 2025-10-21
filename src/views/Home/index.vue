@@ -1,11 +1,9 @@
 <template>
   <div class="pu-table-wrapper">
     <PuTabs
-      :tabsList="[
-        { label: 'name', value: 'name' },
-        { label: 'user', value: 'user' },
-        { label: 'people', value: 'people' },
-      ]"
+      :activeTabsValue="activeTabsValue"
+      :tabsList="tabsList"
+      @update:activeTabs="handleTabChange"
     />
     <!-- 添加搜索组件显示数据 -->
     <PuSearch :test="'测试数据'" :searchList="searchList" :showNum="12" />
@@ -34,8 +32,48 @@ import { ElMessage } from "element-plus";
 
 const { t } = useI18n();
 
+const activeTabsValue = ref("namevalue");
+
 const tableData = ref([]);
 const loading = ref(false);
+
+const getHomeDataApi = async () => {
+  loading.value = true;
+  try {
+    const res = await getHomeData({});
+    tableData.value = res.data.List;
+  } catch (error) {
+    tableData.value = [];
+    console.warn("获取首页数据失败（局部处理）：", error);
+  }
+  loading.value = false;
+};
+
+const search = () => {
+  console.log("搜索参数:");
+};
+// 处理标签操作
+const handleTabChange = (tab) => {
+  activeTabsValue.value = tab;
+  search();
+};
+// 处理编辑操作
+const handleEdit = (row) => {
+  console.log("编辑行数据:", row);
+  ElMessage.info(`编辑用户: ${row.name}`);
+};
+
+// 处理删除操作
+const handleDelete = (row) => {
+  console.log("删除行数据:", row);
+  ElMessage.warning(`删除用户: ${row.name}`);
+};
+
+const tabsList = ref([
+  { label: "name", value: "namevalue" },
+  { label: "user", value: "uservalue" },
+  { label: "people", value: "peoplevalue" },
+]);
 
 const fewButtons = ref([
   {
@@ -112,29 +150,6 @@ const searchList = ref([
     searchKey: "area",
   },
 ]);
-const getHomeDataApi = async () => {
-  loading.value = true;
-  try {
-    const res = await getHomeData({});
-    tableData.value = res.data.List;
-  } catch (error) {
-    tableData.value = [];
-    console.warn("获取首页数据失败（局部处理）：", error);
-  }
-  loading.value = false;
-};
-
-// 处理编辑操作
-const handleEdit = (row) => {
-  console.log("编辑行数据:", row);
-  ElMessage.info(`编辑用户: ${row.name}`);
-};
-
-// 处理删除操作
-const handleDelete = (row) => {
-  console.log("删除行数据:", row);
-  ElMessage.warning(`删除用户: ${row.name}`);
-};
 
 const columns = computed(() => [
   {

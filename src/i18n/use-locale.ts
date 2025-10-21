@@ -1,36 +1,36 @@
-/**
- * AntDesignVue、EleAdminPro、Dayjs 国际化配置
- */
-// import { ref, watch } from 'vue'
-// import { useI18n } from 'vue-i18n'
-// import type { Locale } from 'ant-design-vue/es/locale-provider'
-// import type { EleLocale } from 'ele-admin-pro/es'
-// // AntDesignVue
-// import zh_CN from 'ant-design-vue/es/locale/zh_CN'
-// import en from 'ant-design-vue/es/locale/en_US'
-// // EleAdminPro
-// import eleZh_CN from 'ele-admin-pro/es/lang/zh_CN'
-// import eleEn from 'ele-admin-pro/es/lang/en_US'
-// // Dayjs
-// import dayjs from 'dayjs'
-// import 'dayjs/locale/zh-cn'
-// import 'dayjs/locale/zh-tw'
-// const antLocales = { zh_CN, en } 
-// const eleLocales = { zh_CN: eleZh_CN, en: eleEn }
+//  内置组件翻译配置
+import { useI18n, type Locale } from "vue-i18n";
 
-// export function useLocale() {
-//   const { locale } = useI18n()
-//   const antLocale = ref<Locale>()
-//   const eleLocale = ref<EleLocale>()
+// elementplus
+import zhCn from "element-plus/dist/locale/zh-cn.mjs";
+import en from "element-plus/dist/locale/en.mjs";
 
-//   watch(
-//     locale,
-//     () => {
-//       antLocale.value = antLocales[locale.value]
-//       eleLocale.value = eleLocales[locale.value]
-//       dayjs.locale(locale.value.toLowerCase().replace(/_/g, '-'))
-//     },
-//     { immediate: true }
-//   )
-//   return { antLocale, eleLocale }
-// }
+// ant-design-vue
+import antZh_CN from 'ant-design-vue/es/locale/zh_CN'
+import antEn from 'ant-design-vue/es/locale/en_US'
+import { ref, watch } from "vue";
+import type { EleLocale } from "ele-admin-pro";
+
+const eleLocales = { zhCn, en } as any
+const antLocales = { zhCn: antZh_CN, en: antEn } as any
+
+//监听语言变化的=>组件的语言变化 
+ 
+export const useLocale = () => { 
+    const { locale } = useI18n()
+    
+  const eleLocale = ref<EleLocale>()
+    const antLocale = ref<Locale>()
+    // 当locale变化时，改变elementplus的语言包
+    watch(
+        locale,
+        () => {
+         //给局部对象赋值 
+            eleLocale.value = eleLocales[locale.value]
+            antLocale.value = antLocales[locale.value]
+        },
+        { immediate: true }
+    )
+    // 赋值 zhCn/en 这里赋值的是一整个语言包
+    return { eleLocale, antLocale }
+}
