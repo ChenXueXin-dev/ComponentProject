@@ -7,6 +7,9 @@
 </template>
 
 <script lang="ts" setup>
+defineOptions({
+  name: "PuButton",
+});
 import { defineProps } from "vue";
 // 定义组件 props
 const props = defineProps({

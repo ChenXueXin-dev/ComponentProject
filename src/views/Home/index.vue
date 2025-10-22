@@ -8,10 +8,12 @@
     <!-- 添加搜索组件显示数据 -->
     <PuSearch :test="'测试数据'" :searchList="searchList" :showNum="12" />
     <PuTable
+      ref="tableRef"
       :datasource="tableData"
       :stripe="true"
       :border="true"
       :columns="columns"
+      @search="search"
       :height="'600px'"
       :selection="true"
     >
@@ -29,33 +31,31 @@ import { onMounted, ref, computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { getHomeData } from "@/api/home";
 import { ElMessage } from "element-plus";
+import { useTableData } from "@/hooks/useTableData";
+const tableRef = ref(null);
 
+const { createDatasource, reload } = useTableData(tableRef, {
+  whereParams: { params: {} },
+  getApi:getHomeData
+});
 const { t } = useI18n();
 
 const activeTabsValue = ref("namevalue");
 
-const tableData = ref([]);
+const tableData = createDatasource();
 const loading = ref(false);
 
-const getHomeDataApi = async () => {
-  loading.value = true;
-  try {
-    const res = await getHomeData({});
-    tableData.value = res.data.List;
-  } catch (error) {
-    tableData.value = [];
-    console.warn("获取首页数据失败（局部处理）：", error);
-  }
-  loading.value = false;
-};
-
 const search = () => {
-  console.log("搜索参数:");
+  // const query = {
+  //   ...searchParams.value,
+  // };
 };
 // 处理标签操作
 const handleTabChange = (tab) => {
+  console.log(tab);
   activeTabsValue.value = tab;
-  search();
+  // search();
+  reload();
 };
 // 处理编辑操作
 const handleEdit = (row) => {
@@ -117,6 +117,7 @@ const searchList = ref([
   },
   {
     type: "input",
+    searchKey: "input",
     selectLabelOptions: [
       { label: "选项1", value: "option1" },
       { label: "选项2", value: "option2" },
@@ -203,10 +204,6 @@ const columns = computed(() => [
     fixed: "right",
   },
 ]);
-
-onMounted(() => {
-  getHomeDataApi();
-});
 </script>
 
 <style lang="scss" scoped>

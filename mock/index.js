@@ -16,7 +16,16 @@ export default [
     method: 'post',
     response: (options) => {
       console.log('POST 请求参数：', options.body) 
-      return homeData
+      const { page = 1, size = 20 } = options.query
+      const list = homeData.data.list.slice((page - 1) * size, page * size)
+      return {
+        code: 20000,
+        message: 'success',
+        data: list,
+        total: homeData.data.list.length,
+        poage: page,
+        size: size
+      }
     }
   },
 

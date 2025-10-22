@@ -1,9 +1,9 @@
 <template>
-  <a-config-provider :locale="antLocale">
-    <el-config-provider :locale="eleLocale">
-      <router-view />
-    </el-config-provider>
-  </a-config-provider>
+  <!-- <a-config-provider :locale="antLocale"> -->
+  <el-config-provider :locale="eleLocale">
+    <router-view />
+  </el-config-provider>
+  <!-- </a-config-provider> -->
 </template>
 <script setup lang="ts">
 import { ref, provide, nextTick } from "vue";

@@ -9,7 +9,7 @@ import { pinia } from "./store";
 import i18n from "./i18n";
 import VXETable from "vxe-table";
 import "vxe-table/lib/style.css";
-import Antd from 'ant-design-vue';
+import Antd from "ant-design-vue";
 
 const app = createApp(App);
 
@@ -27,10 +27,9 @@ Object.entries(AllIcons).forEach(([iconName, IconComponent]) => {
 app
   .use(pinia)
   .use(i18n)
-  .use(router)
   .use(VXETable)
   .use(Antd)
+  .use(router)
   .use(registerGlobalComponents)
-  .use(pinia)
   .use(ElementPlus)
   .mount("#app");

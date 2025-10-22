@@ -205,7 +205,9 @@ const optionPickerValue = ref({
   width: 50px;
   height: 15px;
   border-radius: 0 0 8px 8px;
-  background-color: #fff;
+  background-color: #fff !important;
+  margin-top: -1px;
+  z-index: 999;
   text-align: center;
 }
 /* 多选输入样式 */

@@ -270,3 +270,5 @@ const emit = defineEmits<{
 1、安装：npm install element-china-area-data -S
 2、使用：
 参考 src\components\PuSearch\components\OptionArea.vue
+
+# 数据是 Promise 格式，取出要在前面加 await
