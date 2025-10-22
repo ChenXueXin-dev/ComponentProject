@@ -1,6 +1,13 @@
 import Mock from 'mockjs'
-import userInfo from './json/userInfo.json' 
-import homeData from './json/home.json'
+import userInfo from './json/userInfo.json' assert { type: 'json' }
+import allData from './json/Data.json' assert { type: 'json' }
+
+import { createRequire } from 'module'; 
+const require = createRequire(import.meta.url); 
+
+const fs = require('fs');
+const path = require('path');
+const dataFilePath = path.resolve(__dirname, './json/Data.json'); 
 
 export default [
   {
@@ -15,57 +22,42 @@ export default [
     url: '/api/home',
     method: 'post',
     response: (options) => {
-      console.log('POST 请求参数：', options.body) 
-      const { page = 1, size = 20 } = options.query
-      const list = homeData.data.list.slice((page - 1) * size, page * size)
+      const { page = 1 } = options.query
+      const size = allData.data.userhobby.tablePageSize
+      console.log('size',size)
+      const list = allData.data.homedata.slice((page - 1) * size, page * size)
+      // console.log('list',list)
       return {
         code: 20000,
         message: 'success',
         data: list,
-        total: homeData.data.list.length,
+        total: allData.data.homedata.length,
         poage: page,
         size: size
       }
     }
   },
-
-  {
-    url: '/api/list',
-    method: 'get',
-    response: (options) => {
-      const { page = 1, size = 10 } = options.query
-      
+   {
+    url: '/api/userUiPreference/saveOrUpdate',
+    method: 'post',
+     response: (options) => {
+      console.log('调用接口')
+      const body = options.body
+      console.log('body', body)
+      const { configKey, configValue, configDesc } = body;
+      console.log(configKey, configValue, configDesc)
+      const data = allData.data.userhobby
+      const fileContent = fs.readFileSync(dataFilePath, 'utf-8');
+      const fileData = JSON.parse(fileContent); 
+      fileData.data.userhobby[configKey] = configValue;
+      fs.writeFileSync(dataFilePath, JSON.stringify(fileData,null,2),'utf-8')
       return {
         code: 20000,
         message: 'success',
-        data: {
-          total: 100, // 总条数
-          list: Mock.mock({
-            [`items|${size}`]: [ // 生成 size 条数据
-              {
-                'id|+1': (page - 1) * size + 1, // id 自增
-                'name': '@cname', // 随机中文名字
-                'age|18-60': 1 // 随机年龄
-              }
-            ]
-          }).items
-        }
+        data: fileData.data.userhobby
       }
     }
   },
 
-  // 示例 4：POST 请求 - 新增数据（模拟新增逻辑）
-  {
-    url: '/api/add',
-    method: 'post',
-    response: (options) => {
-      const newItem = JSON.parse(options.body) // 解析请求体（新增的数据）
-      // 模拟新增成功（实际项目中可结合 localStorage 实现临时持久化）
-      return {
-        code: 20000,
-        message: '新增成功',
-        data: { ...newItem, id: Mock.Random.guid() } // 返回带 id 的新数据
-      }
-    }
-  }
+ 
 ]

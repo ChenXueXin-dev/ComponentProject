@@ -6,13 +6,14 @@ export const useUserStore = defineStore("user", {
   state: () => {
     return {
       userHabit: [],
+      tablePageSize: 20,
     };
   },
   getters: {
     getUserHabit: (state) => state.userHabit,
   },
   actions: {
-    // 页数
+    // 用户习惯的页数
     setUserHabit(key: any, desc: any, value: any) {
       saveOrUpdate({
         configKey: key,

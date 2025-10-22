@@ -60,7 +60,7 @@
       @current-change="handleCurrentChange"
       :current-page="currentPage"
       :page-sizes="pageSizes || [10, 20, 30, 40, 50, 100]"
-      :page-size="pageSize || 20"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total"
     >
@@ -69,15 +69,16 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from "vue";
 defineOptions({
   name: "PuTable",
 });
 
-import { useTableData } from "../../hooks/useTableData";
-import { ca, fi, tr } from "element-plus/es/locales.mjs";
-const { handlePageChange } = useTableData();
+import { computed, ref, watch } from "vue";
+import { useTableData } from "@/hooks/useTableData";
+import { useUserStore } from "@/store/modules/user";
+import { use } from "vxe-table";
 
+const userStore = useUserStore();
 const loading = ref(true);
 const props = defineProps({
   datasource: { type: [Array, Object, Function], default: () => [] },
@@ -98,13 +99,24 @@ const total = ref(0);
 const lastParams = ref({});
 const eleTableRef = ref();
 
+// 清除数据
+const cleardata = () => {
+  loading.value = true;
+  internalData.value = null;
+  currentPage.value = 1;
+  pageSize.value = userStore.tablePageSize;
+  total.value = 0;
+};
+
 // 获取数据
 const getTableData = async (response) => {
+  cleardata();
   loading.value = true;
   try {
     console.log("getTableData");
     const newData = response;
     const resolvedData = await newData;
+    console.log("resolvedData", resolvedData);
     const tableData = resolvedData?.data;
     internalData.value = resolvedData.data || null;
     currentPage.value = resolvedData.page || 1;
@@ -117,28 +129,23 @@ const getTableData = async (response) => {
   }
 };
 
-// 清除数据
-const cleardata = () => {
-  loading.value = true;
-  internalData.value = null;
-  currentPage.value = 1;
-  pageSize.value = 10;
-  total.value = 0;
-};
-
 const emit = defineEmits(["search"]);
-// 搜索
 const handleSearch = () => {
-  console.log("执行搜索操作");
+  emit("search");
 };
 
-const handleSizeChange = (size) => {
-  // handlePageChange(currentPage.value, size);
-  // 用户更改size
+const handleSizeChange = async (size) => {
+  if (size === userStore.tablePageSize) {
+    return;
+  }
+  userStore.tablePageSize = size || 20;
+  userStore.setUserHabit("tablePageSize", "表格每页数量", size);
+  console.log("切换每页数量", size);
+  emit("search");
 };
 
-const handleCurrentChange = (page) => {
-  // handlePageChange(page, pageSize.value);
+const handleCurrentChange = async (page) => {
+  emit("search");
 };
 
 const showColColumns = computed(() => {

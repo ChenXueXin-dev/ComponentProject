@@ -30,6 +30,6 @@ app
   .use(VXETable)
   .use(Antd)
   .use(router)
-  .use(registerGlobalComponents)
   .use(ElementPlus)
+  .use(registerGlobalComponents)
   .mount("#app");
