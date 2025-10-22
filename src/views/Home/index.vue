@@ -14,7 +14,6 @@
       :border="true"
       :columns="columns"
       @search="search"
-      :height="'600px'"
       :selection="true"
     >
       <template #bodyCell="{ column, row }">
@@ -36,7 +35,7 @@ const tableRef = ref(null);
 
 const { createDatasource, reload } = useTableData(tableRef, {
   whereParams: { params: {} },
-  getApi:getHomeData
+  getApi: getHomeData,
 });
 const { t } = useI18n();
 

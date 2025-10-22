@@ -25,11 +25,12 @@ export function useTableData(tableRef: any, config = {} as any) {
   const updateTablePageSize = (size: number | undefined) => {};
 
   // 刷新表格
-  const reload = (page?: any) => {
+  const reload = async (page?: any) => {
+    tableRef.value.cleardata();
     if (page) {
       page.value = page;
     }
-    createDatasource();
+    await createDatasource();
   };
 
   //分页变化刷新数据
@@ -46,7 +47,7 @@ export function useTableData(tableRef: any, config = {} as any) {
     const response = await getApi(params).then((res: any) => {
       return res || [];
     });
-    return response;
+    tableRef.value.getTableData(response);
   };
 
   return {

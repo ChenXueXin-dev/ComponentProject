@@ -2,17 +2,22 @@
   <div class="pu-table-wrapper">
     <el-table
       :data="internalData"
-      v-loading="loading"
       :columns="Pucolumns"
       :stripe="stripe"
       :border="border"
       ref="eleTableRef"
       style="width: 100%"
-      :height="height"
+      :min-height="height"
       :max-width="maxWidth"
       table-layout="auto"
       @search="handleSearch"
     >
+      <template #empty>
+        <div v-if="loading" class="table-empty">
+          <el-icon size="30" color="#a0cfff"><Loading /></el-icon>
+        </div>
+        <div v-else class="table-empty">暂无数据</div>
+      </template>
       <el-table-column
         v-if="selection"
         type="selection"
@@ -69,12 +74,11 @@ defineOptions({
   name: "PuTable",
 });
 
-const loading = ref(false);
-
 import { useTableData } from "../../hooks/useTableData";
-import { ca } from "element-plus/es/locales.mjs";
+import { ca, fi, tr } from "element-plus/es/locales.mjs";
 const { handlePageChange } = useTableData();
 
+const loading = ref(true);
 const props = defineProps({
   datasource: { type: [Array, Object, Function], default: () => [] },
   stripe: { type: Boolean, default: false },
@@ -94,26 +98,33 @@ const total = ref(0);
 const lastParams = ref({});
 const eleTableRef = ref();
 
-watch(
-  () => props.datasource,
+// 获取数据
+const getTableData = async (response) => {
+  loading.value = true;
+  try {
+    console.log("getTableData");
+    const newData = response;
+    const resolvedData = await newData;
+    const tableData = resolvedData?.data;
+    internalData.value = resolvedData.data || null;
+    currentPage.value = resolvedData.page || 1;
+    pageSize.value = resolvedData.size || 10;
+    total.value = resolvedData.total || 0;
+  } catch (error) {
+    console.warn("获取数据失败：", error);
+  } finally {
+    loading.value = false;
+  }
+};
 
-  async (newData) => {
-    loading.value = true;
-    try {
-      const resolvedData = await newData;
-      const tableData = resolvedData?.data;
-      internalData.value = resolvedData.data || [];
-      currentPage.value = resolvedData.page || 1;
-      pageSize.value = resolvedData.size || 10;
-      total.value = resolvedData.total || 0;
-    } catch {
-      internalData.value = [];
-    } finally {
-      loading.value = false;
-    }
-  },
-  { immediate: true }
-);
+// 清除数据
+const cleardata = () => {
+  loading.value = true;
+  internalData.value = null;
+  currentPage.value = 1;
+  pageSize.value = 10;
+  total.value = 0;
+};
 
 const emit = defineEmits(["search"]);
 // 搜索
@@ -144,17 +155,17 @@ const Pucolumns = computed(() => {
   return showColColumns.value;
 });
 
-// 暴露方法给父组件使用
+// 暴露方法
 defineExpose({
-  eleTableRef,
+  cleardata,
+  getTableData,
 });
 </script>
 
 <style lang="scss" scoped>
 .pu-table-wrapper {
   width: 100%;
-  height: 100%;
-  min-height: 77vh;
+  height: calc(100vh - 120px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -182,5 +193,26 @@ defineExpose({
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
+}
+
+.table-empty {
+  display: flex;
+  height: calc(100vh - 350px);
+  align-items: center;
+  justify-content: center;
+}
+
+.table-empty .el-icon {
+  animation: rotate 1s linear infinite;
+  transform-origin: center center;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

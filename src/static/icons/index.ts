@@ -12,7 +12,9 @@ import {
   Search,
   Refresh,
   CaretBottom,
-  CaretTop
+  CaretTop,
+  Loading,
+  RefreshRight,
 } from "@element-plus/icons-vue";
 
 export const routerIcon = {
@@ -29,7 +31,9 @@ export const routerIcon = {
   Search,
   Refresh,
   CaretBottom,
-  CaretTop
+  CaretTop,
+  Loading,
+  RefreshRight,
 };
 
 export const AllIcons = {
