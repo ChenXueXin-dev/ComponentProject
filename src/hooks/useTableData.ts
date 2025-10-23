@@ -33,13 +33,14 @@ export function useTableData(tableRef: any, config = {} as any) {
     await createDatasource();
   };
 
-  const search = async () => {
-    console.log("执行search");
-    createDatasource();
+  const search = async (e?: any) => {
+    console.log("执行search", e);
+    createDatasource(e);
   };
   // 获取数据
-  const createDatasource = async () => {
+  const createDatasource = async (currentpage?: any) => {
     console.log("执行createDatasource", pageSize.value);
+    page.value = currentpage || page.value;
     const params = {
       ...whereParams.params,
       page: page.value,

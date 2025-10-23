@@ -35,7 +35,7 @@ export default [
         message: 'success',
         data: list,
         total: allData.data.homedata.length,
-        poage: page,
+        page: page,
         size: size
       }
     }

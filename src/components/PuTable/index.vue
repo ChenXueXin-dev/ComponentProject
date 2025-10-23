@@ -76,6 +76,7 @@ defineOptions({
 import { computed, onMounted, ref, watch } from "vue";
 import { useTableData } from "@/hooks/useTableData";
 import { useUserStore } from "@/store/modules/user";
+import { fa } from "element-plus/es/locales.mjs";
 onMounted(() => {
   console.log("PuTable 挂载", useUserStore().tablePageSize);
 });
@@ -95,7 +96,7 @@ const props = defineProps({
 });
 
 const internalData = ref([]);
-const currentPage = ref(0);
+const currentPage = ref(1);
 const total = ref(0);
 
 const lastParams = ref({});
@@ -110,22 +111,18 @@ const cleardata = () => {
 
 // 获取数据
 const getTableData = async (response) => {
-  console.log("开始获取数据");
-  cleardata();
+  internalData.value = [];
   loading.value = true;
   try {
     console.log("getTableData");
     const newData = response;
     const resolvedData = await newData;
-    console.log("resolvedData", resolvedData);
     const tableData = resolvedData?.data;
     internalData.value = resolvedData.data || null;
-    currentPage.value = resolvedData.page || 1;
-
-    console.log("接口返回的分页参数：", resolvedData.size);
+    currentPage.value = resolvedData.page;
     total.value = resolvedData.total || 0;
   } catch (error) {
-    console.warn("获取数据失败：", error);
+    console.log("getTableData error", error);
   } finally {
     loading.value = false;
   }
@@ -148,7 +145,8 @@ const handleSizeChange = async (size) => {
 };
 
 const handleCurrentChange = async (page) => {
-  emit("search");
+  currentPage.value = page;
+  emit("search", page);
 };
 
 const showColColumns = computed(() => {
