@@ -5,35 +5,77 @@
         v-for="(item, index) in searchDataList.slice(0, showNum)"
         :key="index"
       >
-        <el-input
-          :style="{ width: item.selectLabelWidth || '220px' }"
-          v-if="item.type === 'input'"
-          v-model="formModel[item.searchKey || 'input_' + index]"
-          :placeholder="item.placeholder || t('pu.pusearch.placeholder.input')"
-        >
-          <template #prepend>
-            <div style="display: flex; align-items: center; height: 100%">
-              <el-select
-                v-if="item.selectLabelOptions?.length > 0"
-                v-model="formModel[item.searchKey]"
-                :placeholder="
-                  item.placeholder || t('pu.pusearch.placeholder.select')
-                "
-                :style="{ width: item.selectLabelWidth || '115px' }"
-              >
-                <el-option
-                  v-for="option in item.selectLabelOptions"
-                  :key="option.value"
-                  :label="option.label"
-                  :value="option.value"
-                />
-              </el-select>
-              <div v-if="!item.selectLabelOptions">
+        <template v-if="item.type === 'input' && !item.selectLabelOptions">
+          <el-input
+            :style="{ width: item.selectLabelWidth || '220px' }"
+            v-model="formModel[item.searchKey || 'input_' + index]"
+            :placeholder="
+              item.placeholder || t('pu.pusearch.placeholder.input')
+            "
+          >
+            <template #prepend>
+              {{ item.label }}
+            </template>
+          </el-input>
+        </template>
+        <template v-if="item.type === 'input' && item.selectLabelOptions">
+          <div>
+            <el-input v-model="formModel[item.selectLabelOptions[0].value]">
+              <template #prepend>
+                <el-select
+                  v-model="selectedOptionValue"
+                  @change="initValueIfNotExist"
+                  style="width: 120px"
+                >
+                  <el-option
+                    v-for="opt in item.selectLabelOptions"
+                    :key="opt.value"
+                    :label="opt.label"
+                    :value="opt.value"
+                  >
+                  </el-option>
+                </el-select>
+              </template>
+            </el-input>
+
+            <!-- <el-input
+              :style="{ width: item.selectLabelWidth || '220px' }"
+              v-model="formModel[item.searchKey || 'input_' + index]"
+              :placeholder="
+                item.placeholder || t('pu.pusearch.placeholder.input')
+              "
+              @change="initValueIfNotExist"
+            >
+              <template #prepend>
                 {{ item.label }}
-              </div>
-            </div>
-          </template>
-        </el-input>
+              </template>
+            </el-input> -->
+          </div>
+        </template>
+        <!-- <template v-if="item.type === 'input' && item.selectLabelOptions">
+          <div>
+            <el-input
+              :style="{ width: '300px' }"
+           
+              :placeholder="
+                item.placeholder || t('pu.pusearch.placeholder.input')
+              "
+              @change="initValueIfNotExist"
+            >
+              <template #prepend>
+                <el-select v-model="selectedOptionValue" style="width: 120px">
+                  <el-option
+                    v-for="opt in item.selectLabelOptions"
+                    :key="opt.value"
+                    :label="opt.label"
+                    :value="opt.value"
+                  />
+                </el-select>
+              </template>
+            </el-input>
+            <div style="margin-top: 10px">当前键值对：{{ keyValueMap }}</div>
+          </div>
+        </template> -->
         <el-select
           :style="{ width: item.selectLabelWidth || '220px' }"
           v-if="item.type === 'select'"
@@ -97,7 +139,7 @@
 
 <script setup lang="ts">
 import OptionArea from "./components/OptionArea.vue";
-import { computed, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 defineOptions({
@@ -121,6 +163,18 @@ const ifFold = ref(false);
 
 const formModel = ref<any>({});
 
+// 存储选中的选项 value（即当前键）
+const selectedOptionValue = ref("");
+
+// 存储键值对：key 是选项的 value，value 是输入框内容
+const keyValueMap = reactive<any>({});
+
+// 下拉（键）＋输入框（值）联动
+const initValueIfNotExist = (value) => {
+  console.log("formModelasdasdas", value);
+  // formModel.selectedOptionValue.value = newKey;
+};
+
 // 初始化表单数据
 const searchDataList = computed(() => {
   const list = props.searchList.filter(
@@ -137,19 +191,17 @@ const searchDataList = computed(() => {
   return list;
 });
 
-const emit = defineEmits<{
-  (e: "search", value: any): void;
-  (e: "reset"): void;
-}>();
+const emit = defineEmits(["search"]);
 
 // 查询
 const handleSearch = () => {
+  console.log("formModel", formModel.value);
   emit("search", formModel.value);
 };
 
 // 重置
 const handelReset = () => {
-  formModel.value = {};
+  emit("search");
 };
 
 const optionPickerValue = ref({

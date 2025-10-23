@@ -26,10 +26,9 @@ export default [
       const fileContent = fs.readFileSync(dataFilePath, 'utf-8');
       const allData = JSON.parse(fileContent); 
       const { page = 1 } = options.body
+      console.log('home传参',options.body)
       const size = allData.data.userhobby.tablePageSize
-      console.log('size',size)
       const list = allData.data.homedata.slice((page - 1) * size, page * size)
-      // console.log('list',list)
       return {
         code: 20000,
         message: 'success',
@@ -44,11 +43,8 @@ export default [
     url: '/api/userUiPreference/saveOrUpdate',
     method: 'post',
      response: (options) => {
-      console.log('调用接口')
       const body = options.body
-      console.log('body', body)
       const { configKey, configValue, configDesc } = body;
-      console.log(configKey, configValue, configDesc)
       const data = allData.data.userhobby
       const fileContent = fs.readFileSync(dataFilePath, 'utf-8');
       const fileData = JSON.parse(fileContent); 

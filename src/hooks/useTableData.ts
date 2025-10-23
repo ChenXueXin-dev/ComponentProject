@@ -33,19 +33,18 @@ export function useTableData(tableRef: any, config = {} as any) {
     await createDatasource();
   };
 
-  const search = async (e?: any) => {
-    console.log("执行search", e);
-    createDatasource(e);
+  const search = async (newparams?: any) => {
+    createDatasource(newparams);
   };
   // 获取数据
-  const createDatasource = async (currentpage?: any) => {
-    console.log("执行createDatasource", pageSize.value);
-    page.value = currentpage || page.value;
+  const createDatasource = async (newparams?: any) => {
     const params = {
       ...whereParams.params,
       page: page.value,
       size: pageSize.value,
+      ...newparams,
     };
+    console.log("params", params);
     const response = await getApi(params).then((res: any) => {
       return res || [];
     });

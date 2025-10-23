@@ -61,7 +61,7 @@
       :current-page="currentPage"
       :page-sizes="pageSizes || [10, 20, 30, 40, 50, 100]"
       :page-size="useUserStore().tablePageSize || pageSize"
-      layout="total, sizes, prev, pager, next, jumper"
+      layout="total,  prev, pager, next, sizes,jumper"
       :total="total"
     >
     </el-pagination>
@@ -77,9 +77,6 @@ import { computed, onMounted, ref, watch } from "vue";
 import { useTableData } from "@/hooks/useTableData";
 import { useUserStore } from "@/store/modules/user";
 import { fa } from "element-plus/es/locales.mjs";
-onMounted(() => {
-  console.log("PuTable 挂载", useUserStore().tablePageSize);
-});
 
 const loading = ref(true);
 const props = defineProps({
@@ -106,47 +103,39 @@ const eleTableRef = ref();
 const cleardata = () => {
   loading.value = true;
   internalData.value = [];
-  total.value = 0;
 };
 
 // 获取数据
 const getTableData = async (response) => {
-  internalData.value = [];
-  loading.value = true;
-  try {
-    console.log("getTableData");
-    const newData = response;
-    const resolvedData = await newData;
-    const tableData = resolvedData?.data;
-    internalData.value = resolvedData.data || null;
-    currentPage.value = resolvedData.page;
-    total.value = resolvedData.total || 0;
-  } catch (error) {
-    console.log("getTableData error", error);
-  } finally {
-    loading.value = false;
-  }
+  const newData = response;
+  const resolvedData = await newData;
+  const tableData = resolvedData?.data;
+  internalData.value = resolvedData.data || null;
+  currentPage.value = resolvedData.page;
+  total.value = resolvedData.total || 0;
+  loading.value = false;
 };
 
 const emit = defineEmits(["search"]);
 const handleSearch = () => {
+  cleardata();
   emit("search");
 };
 
 const handleSizeChange = async (size) => {
+  cleardata();
   if (size === useUserStore().tablePageSize) {
     return;
   }
-  console.log("切换每页数量", size);
   useUserStore().tablePageSize = size;
   useUserStore().setUserHabit("tablePageSize", "表格每页数量", size);
-  console.log("切换每页数量", size);
   emit("search");
 };
 
-const handleCurrentChange = async (page) => {
-  currentPage.value = page;
-  emit("search", page);
+const handleCurrentChange = async (newpage) => {
+  currentPage.value = newpage;
+  cleardata();
+  emit("search", { page: newpage });
 };
 
 const showColColumns = computed(() => {

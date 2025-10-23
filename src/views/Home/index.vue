@@ -6,7 +6,12 @@
       @update:activeTabs="handleTabChange"
     />
     <!-- 添加搜索组件显示数据 -->
-    <PuSearch :test="'测试数据'" :searchList="searchList" :showNum="12" />
+    <PuSearch
+      :test="'测试数据'"
+      :searchList="searchList"
+      :showNum="12"
+      @search="search"
+    />
     <PuTable
       ref="tableRef"
       :datasource="tableData"
@@ -42,13 +47,10 @@ const { t } = useI18n();
 const activeTabsValue = ref("namevalue");
 
 const tableData = createDatasource();
-const loading = ref(false);
 
 // 处理标签操作
 const handleTabChange = (tab) => {
-  console.log(tab);
   activeTabsValue.value = tab;
-  // search();
   reload();
 };
 // 处理编辑操作
@@ -111,7 +113,6 @@ const searchList = ref([
   },
   {
     type: "input",
-    searchKey: "input",
     selectLabelOptions: [
       { label: "选项1", value: "option1" },
       { label: "选项2", value: "option2" },
