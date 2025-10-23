@@ -22,7 +22,10 @@ export default [
     url: '/api/home',
     method: 'post',
     response: (options) => {
-      const { page = 1 } = options.query
+       // 读取 JSON 文件
+      const fileContent = fs.readFileSync(dataFilePath, 'utf-8');
+      const allData = JSON.parse(fileContent); 
+      const { page = 1 } = options.body
       const size = allData.data.userhobby.tablePageSize
       console.log('size',size)
       const list = allData.data.homedata.slice((page - 1) * size, page * size)
@@ -55,6 +58,20 @@ export default [
         code: 20000,
         message: 'success',
         data: fileData.data.userhobby
+      }
+    }
+  },
+     {
+    url: '/api/user',
+    method: 'post',
+    response: (options) => {
+       // 读取 JSON 文件
+      const fileContent = fs.readFileSync(dataFilePath, 'utf-8');
+      const allData = JSON.parse(fileContent); 
+      return {
+        code: 20000,
+        message: 'success',
+        data: allData.data.userhobby,
       }
     }
   },

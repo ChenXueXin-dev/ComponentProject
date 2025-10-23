@@ -123,4 +123,13 @@ export const router = createRouter({
   routes,
 });
 
+router.beforeEach(async (to, from, next) => {
+  const { useUserStore } = await import("@/store/modules/user");
+  const userStore = useUserStore();
+
+  const res = await userStore.fetchUserInfo();
+  next();
+  console.log(res);
+});
+
 export default router;

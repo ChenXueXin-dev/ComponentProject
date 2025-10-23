@@ -6,8 +6,11 @@
  * search: 搜索方法
  * **/
 
-import { ref } from "vue";
+import { computed, ref } from "vue";
+
+import { useUserStore } from "@/store/modules/user";
 export function useTableData(tableRef: any, config = {} as any) {
+  const userStore = useUserStore();
   const {
     getApi,
     needLimit = true, // 是否需要分页
@@ -19,8 +22,7 @@ export function useTableData(tableRef: any, config = {} as any) {
   });
 
   const page = ref(1);
-
-  const updateTablePageSize = (size: number | undefined) => {};
+  const pageSize = computed(() => userStore.tablePageSize);
 
   // 刷新表格
   const reload = async (page?: any) => {
@@ -37,10 +39,11 @@ export function useTableData(tableRef: any, config = {} as any) {
   };
   // 获取数据
   const createDatasource = async () => {
-    console.log("执行createDatasource");
+    console.log("执行createDatasource", pageSize.value);
     const params = {
       ...whereParams.params,
-      page: page,
+      page: page.value,
+      size: pageSize.value,
     };
     const response = await getApi(params).then((res: any) => {
       return res || [];
@@ -48,31 +51,9 @@ export function useTableData(tableRef: any, config = {} as any) {
     tableRef.value.getTableData(response);
   };
 
-  //   const handleSizeChange = (size) => {
-  //   console.log("切换数据条数");
-  //   cleardata();
-  //   loading.value = true;
-  //   if (size === userStore.tablePageSize) return;
-  //   userStore.tablePageSize = size || 20;
-  //   userStore.setUserHabit("tablePageSize", "表格每页数量", size);
-
-  //   loading.value = false;
-  // };
-
-  // const handlePageChange = (newpage: number) => {
-  //   page.value = newpage;
-  //   reload()
-  // }
-
-  const handleSizeChange = (newSize: number) => {
-    page.value = 1;
-    reload(); // 自动调用刷新
-  };
-
   return {
     createDatasource,
     reload,
-    handleSizeChange,
     where,
     search,
   };

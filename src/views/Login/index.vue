@@ -1,5 +1,7 @@
 <template>
-  <div>login</div>
+  <div>
+    <el-button @click="getLogin"> 登录 </el-button>
+  </div>
 </template>
 
 <script setup></script>

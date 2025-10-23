@@ -60,7 +60,7 @@
       @current-change="handleCurrentChange"
       :current-page="currentPage"
       :page-sizes="pageSizes || [10, 20, 30, 40, 50, 100]"
-      :page-size="pageSize"
+      :page-size="useUserStore().tablePageSize || pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="total"
     >
@@ -73,12 +73,13 @@ defineOptions({
   name: "PuTable",
 });
 
-import { computed, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useTableData } from "@/hooks/useTableData";
 import { useUserStore } from "@/store/modules/user";
-import { use } from "vxe-table";
+onMounted(() => {
+  console.log("PuTable 挂载", useUserStore().tablePageSize);
+});
 
-const userStore = useUserStore();
 const loading = ref(true);
 const props = defineProps({
   datasource: { type: [Array, Object, Function], default: () => [] },
@@ -89,11 +90,12 @@ const props = defineProps({
   selection: { type: Boolean, default: false },
   columns: { type: Array, default: () => [] },
   needPage: { type: Boolean, default: true },
+  pageSizes: { type: Array, default: () => [10, 20, 30, 40, 50, 100] },
+  pageSize: { type: Number },
 });
 
 const internalData = ref([]);
 const currentPage = ref(0);
-const pageSize = ref(0);
 const total = ref(0);
 
 const lastParams = ref({});
@@ -102,14 +104,13 @@ const eleTableRef = ref();
 // 清除数据
 const cleardata = () => {
   loading.value = true;
-  internalData.value = null;
-  currentPage.value = 1;
-  pageSize.value = userStore.tablePageSize;
+  internalData.value = [];
   total.value = 0;
 };
 
 // 获取数据
 const getTableData = async (response) => {
+  console.log("开始获取数据");
   cleardata();
   loading.value = true;
   try {
@@ -120,7 +121,8 @@ const getTableData = async (response) => {
     const tableData = resolvedData?.data;
     internalData.value = resolvedData.data || null;
     currentPage.value = resolvedData.page || 1;
-    pageSize.value = resolvedData.size || 10;
+
+    console.log("接口返回的分页参数：", resolvedData.size);
     total.value = resolvedData.total || 0;
   } catch (error) {
     console.warn("获取数据失败：", error);
@@ -135,11 +137,12 @@ const handleSearch = () => {
 };
 
 const handleSizeChange = async (size) => {
-  if (size === userStore.tablePageSize) {
+  if (size === useUserStore().tablePageSize) {
     return;
   }
-  userStore.tablePageSize = size || 20;
-  userStore.setUserHabit("tablePageSize", "表格每页数量", size);
+  console.log("切换每页数量", size);
+  useUserStore().tablePageSize = size;
+  useUserStore().setUserHabit("tablePageSize", "表格每页数量", size);
   console.log("切换每页数量", size);
   emit("search");
 };
