@@ -23,7 +23,7 @@
     >
       <template #bodyCell="{ column, row }">
         <template v-if="column.property === 'operate'">
-          <PuOperateButton :butlist="fewButtons" :butCount="3" />
+          <MOperateButton :butlist="fewButtons" :butCount="3" />
         </template>
       </template>
     </PuTable>
@@ -167,6 +167,11 @@ const columns = computed(() => [
     customRender: ({ index }) => {
       return index + 1;
     },
+  },
+  {
+    name: "id",
+    label: t("base.home.date"),
+    width: 150,
   },
   {
     name: "date",

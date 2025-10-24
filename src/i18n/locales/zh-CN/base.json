@@ -2,6 +2,7 @@
     "language": "语言",
     "home": {
         "title": "首页",
+        "id": "编号", 
         "serialNumber": "序号",
         "date": "日期",
         "name": "姓名",

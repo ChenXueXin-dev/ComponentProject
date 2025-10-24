@@ -67,7 +67,7 @@
 
 <script setup lang="ts">
 defineOptions({
-  name: "PuOperateButton",
+  name: "MOperateButton",
 });
 import { computed } from "vue";
 
