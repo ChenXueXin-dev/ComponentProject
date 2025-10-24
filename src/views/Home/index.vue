@@ -112,11 +112,19 @@ const searchList = ref([
     searchKey: "name",
   },
   {
-    type: "input",
+    type: "inputTrim",
     selectLabelOptions: [
       { label: "选项1", value: "option1" },
       { label: "选项2", value: "option2" },
       { label: "选项3", value: "option3" },
+    ],
+  },
+  {
+    type: "inputTrim",
+    selectLabelOptions: [
+      { label: "一", value: "num1" },
+      { label: "二", value: "num2" },
+      { label: "三", value: "num3" },
     ],
   },
   {
@@ -143,7 +151,9 @@ const searchList = ref([
   {
     type: "area",
     label: "地址",
-    searchKey: "area",
+    regionProvinceCode: "regionProvinceCode",
+    regionCityCode: "regionCityCode",
+    regionCountyCode: "regionCountyCode",
   },
 ]);
 

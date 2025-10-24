@@ -1,8 +1,10 @@
 <template>
   <div id="app">
     <el-cascader
+      clearable
+      :value-on-clear="''"
       size="mini"
-      :options="pcaTextArr"
+      :options="regionData"
       :placeholder="placeholder || t('pu.pusearch.placeholder.area')"
       :model-value="areaValue"
       @update:model-value="handleUpdate"
@@ -36,8 +38,8 @@ const props = defineProps({
 import {
   // provinceAndCityData,
   // pcTextArr,
-  // regionData,
-  pcaTextArr,
+  regionData,
+  // pcaTextArr,
   // codeToText,
 } from "element-china-area-data";
 
@@ -45,7 +47,8 @@ const emit = defineEmits<{
   (e: "update:areaValue", value: any): void; //类型定义
 }>();
 const handleUpdate = (value: any) => {
-  emit("update:areaValue", value);
+  emit("update:areaValue", [...value]);
+  console.log("area", value);
 };
 </script>
 

@@ -272,3 +272,8 @@ const emit = defineEmits<{
 参考 src\components\PuSearch\components\OptionArea.vue
 
 # 数据是 Promise 格式，取出要在前面加 await
+
+# 搜索（选择[键]＋输入框[值]）组合框
+
+设置选择为键 forModel.value['选择的 value']=空
+将这个 value 绑定到输入框的 v-model.trim="forModel.value['输入框的 value']"

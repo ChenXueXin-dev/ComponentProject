@@ -34,16 +34,32 @@ export function useTableData(tableRef: any, config = {} as any) {
   };
 
   const search = async (newparams?: any) => {
-    createDatasource(newparams);
+    console.log("newparams", typeof newparams);
+    if (typeof newparams === "string") {
+      createDatasource({}, true);
+    } else {
+      createDatasource(newparams);
+    }
   };
+
   // 获取数据
-  const createDatasource = async (newparams?: any) => {
-    const params = {
-      ...whereParams.params,
-      page: page.value,
-      size: pageSize.value,
-      ...newparams,
-    };
+  const createDatasource = async (newparams?: any, isreset?: boolean) => {
+    let params = {};
+    if (isreset) {
+      params = {
+        ...whereParams.params,
+        page: page.value,
+        size: pageSize.value,
+      };
+    } else {
+      params = {
+        ...whereParams.params,
+        page: page.value,
+        size: pageSize.value,
+        ...newparams,
+      };
+    }
+
     console.log("params", params);
     const response = await getApi(params).then((res: any) => {
       return res || [];
