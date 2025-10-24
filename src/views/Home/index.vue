@@ -38,7 +38,7 @@ import { ElMessage } from "element-plus";
 import { useTableData } from "@/hooks/useTableData";
 const tableRef = ref(null);
 
-const { createDatasource, reload, search } = useTableData(tableRef, {
+const { createDatasource, reload, search, where } = useTableData(tableRef, {
   whereParams: { params: {} },
   getApi: getHomeData,
 });
@@ -51,6 +51,7 @@ const tableData = createDatasource();
 // 处理标签操作
 const handleTabChange = (tab) => {
   activeTabsValue.value = tab;
+  where.value.params.tabs = tab;
   reload();
 };
 // 处理编辑操作

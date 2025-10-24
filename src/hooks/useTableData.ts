@@ -23,6 +23,7 @@ export function useTableData(tableRef: any, config = {} as any) {
 
   const page = ref(1);
   const pageSize = computed(() => userStore.tablePageSize);
+  const newparamsData = ref<any>();
 
   // 刷新表格
   const reload = async (page?: any) => {
@@ -30,7 +31,7 @@ export function useTableData(tableRef: any, config = {} as any) {
     if (page) {
       page.value = page;
     }
-    await createDatasource();
+    await createDatasource({ ...newparamsData.value });
   };
 
   const search = async (newparams?: any) => {
@@ -47,20 +48,21 @@ export function useTableData(tableRef: any, config = {} as any) {
     let params = {};
     if (isreset) {
       params = {
-        ...whereParams.params,
+        ...where.value.params,
         page: page.value,
         size: pageSize.value,
       };
     } else {
       params = {
-        ...whereParams.params,
+        ...where.value.params,
         page: page.value,
         size: pageSize.value,
         ...newparams,
       };
     }
-
     console.log("params", params);
+    newparamsData.value = { ...newparams };
+
     const response = await getApi(params).then((res: any) => {
       return res || [];
     });
