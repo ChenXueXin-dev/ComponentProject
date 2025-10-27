@@ -22,6 +22,9 @@
       :selection="true"
     >
       <template #bodyCell="{ column, row }">
+        <template v-if="column.property === 'id'">
+          <MCopyList :Text="row.id" @handle-click="handleDetail" />
+        </template>
         <template v-if="column.property === 'operate'">
           <MOperateButton :butlist="fewButtons" :butCount="3" />
         </template>
@@ -31,12 +34,15 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, Text } from "vue";
 import { useI18n } from "vue-i18n";
 import { getHomeData } from "@/api/home";
 import { ElMessage } from "element-plus";
 import { useTableData } from "@/hooks/useTableData";
+import { useRouter } from "vue-router";
 const tableRef = ref(null);
+
+const router = useRouter();
 
 const { createDatasource, reload, search, where } = useTableData(tableRef, {
   whereParams: { params: {} },
@@ -58,6 +64,11 @@ const handleTabChange = (tab) => {
 const handleEdit = (row) => {
   console.log("编辑行数据:", row);
   ElMessage.info(`编辑用户: ${row.name}`);
+};
+
+const handleDetail = () => {
+  console.log("xingmaikopui ");
+  router.push({ path: "/order/outbound" });
 };
 
 // 处理删除操作
