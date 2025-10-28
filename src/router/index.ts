@@ -15,7 +15,7 @@ declare module "vue-router" {
 export const routes: RouteRecordRaw[] = [
   {
     path: "/login",
-    component: () => import("@/views/Login/index.vue"),
+    component: () => import("@/views/login/index.vue"),
     meta: { hidden: true, title: "" },
   },
   {
@@ -27,10 +27,19 @@ export const routes: RouteRecordRaw[] = [
       {
         path: "/home",
         name: "Home",
-        component: () => import("@/views/Home/index.vue"),
+        component: () => import("@/views/home/index.vue"),
         meta: {
           icon: "House",
           titleKey: "base.router.home",
+        },
+      },
+      {
+        path: "/home/detail",
+        name: "HomeDetail",
+        component: () => import("@/views/home/detail/index.vue"),
+        meta: {
+          hidden: true,
+          titleKey: "base.router.homeDetail",
         },
       },
       {
@@ -45,7 +54,7 @@ export const routes: RouteRecordRaw[] = [
           {
             path: "outbound",
             name: "OutboundOrder",
-            component: () => import("@/views/Order/outbound.vue"),
+            component: () => import("@/views/order/outbound.vue"),
             meta: {
               titleKey: "base.router.outboundOrder",
             },
@@ -53,7 +62,7 @@ export const routes: RouteRecordRaw[] = [
           {
             path: "inbound",
             name: "InboundOrder",
-            component: () => import("@/views/Order/inbound.vue"),
+            component: () => import("@/views/order/inbound.vue"),
             meta: {
               titleKey: "base.router.inboundOrder",
             },
@@ -72,7 +81,7 @@ export const routes: RouteRecordRaw[] = [
           {
             path: "inventory",
             name: "Inventory",
-            component: () => import("@/views/Warehouse/inventory.vue"),
+            component: () => import("@/views/warehouse/inventory.vue"),
             meta: {
               titleKey: "base.router.inventory",
             },
@@ -80,7 +89,7 @@ export const routes: RouteRecordRaw[] = [
           {
             path: "location",
             name: "Location",
-            component: () => import("@/views/Warehouse/location.vue"),
+            component: () => import("@/views/warehouse/location.vue"),
             meta: {
               titleKey: "base.router.location",
             },
@@ -90,7 +99,7 @@ export const routes: RouteRecordRaw[] = [
       {
         path: "/stock",
         name: "Stock",
-        component: () => import("@/views/Stock/index.vue"),
+        component: () => import("@/views/stock/index.vue"),
         meta: {
           icon: "User",
           titleKey: "base.router.stock",
@@ -99,7 +108,7 @@ export const routes: RouteRecordRaw[] = [
       {
         path: "/document",
         name: "Document",
-        component: () => import("@/views/Document/index.vue"),
+        component: () => import("@/views/document/index.vue"),
         meta: {
           icon: "Document",
           titleKey: "base.router.system",
@@ -108,7 +117,7 @@ export const routes: RouteRecordRaw[] = [
       {
         path: "/bill",
         name: "Bill",
-        component: () => import("@/views/Bill/index.vue"),
+        component: () => import("@/views/bill/index.vue"),
         meta: {
           icon: "Money",
           titleKey: "base.router.bill",

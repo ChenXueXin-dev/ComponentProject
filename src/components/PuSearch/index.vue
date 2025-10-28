@@ -129,6 +129,160 @@
           />
         </template>
       </div>
+      <div v-if="searchDataList.length > showNum">
+        <el-popover :visible="popVisible" :width="270">
+          <div
+            class="dshow-wrapper"
+            v-for="(item, index) in searchDataList.slice(
+              showNum,
+              searchDataList.length
+            )"
+          >
+            <template v-if="item.type === 'input'">
+              <div style="display: flex">
+                <div
+                  class="label"
+                  :style="{ width: item.labelWidth || '90px' }"
+                  v-if="item.label"
+                >
+                  {{ item.label }}
+                </div>
+                <div v-else>
+                  <el-select
+                    :style="{ width: item.selectWidth || '90px' }"
+                    v-model="item.selectedOptionValue"
+                    :placeholder="
+                      item.placeholder || item.selectLabelOptions[0].label
+                    "
+                    @change="(v:any, o:any) => selectLabelChange(v, o, item, index)"
+                  >
+                    <el-option
+                      v-for="opt in item.selectLabelOptions"
+                      :key="opt.value"
+                      :label="opt.label"
+                      :value="opt.value"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
+                <el-input
+                  :style="{ width: item.inputWidth || '130px' }"
+                  v-model="formModel[item.searchKey]"
+                  :placeholder="
+                    item.placeholder || t('pu.pusearch.placeholder.input')
+                  "
+                />
+              </div>
+            </template>
+            <template v-if="item.type === 'inputTrim'">
+              <div style="display: flex">
+                <div
+                  class="label"
+                  :style="{ width: item.labelWidth || '90px' }"
+                  v-if="item.label"
+                >
+                  {{ item.label }}
+                </div>
+                <div v-else>
+                  <el-select
+                    :style="{ width: item.selectWidth || '90px' }"
+                    v-model="item.selectedOptionValue"
+                    :placeholder="
+                      item.placeholder || item.selectLabelOptions[0].label
+                    "
+                    @change="(v:any, o:any) => selectLabelChange(v, o, item, index)"
+                  >
+                    <el-option
+                      v-for="opt in item.selectLabelOptions"
+                      :key="opt.value"
+                      :label="opt.label"
+                      :value="opt.value"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
+                <el-input
+                  :style="{ width: item.inputWidth || '130px' }"
+                  v-model.trim="formModel[item.searchKey]"
+                  :placeholder="
+                    item.placeholder || t('pu.pusearch.placeholder.input')
+                  "
+                />
+              </div>
+            </template>
+            <template v-if="item.type === 'select'">
+              <el-select
+                clearable
+                :style="{ width: item.width || '220px' }"
+                v-model="formModel[item.searchKey]"
+                :placeholder="
+                  item.placeholder || t('pu.pusearch.placeholder.select')
+                "
+              >
+                <el-option
+                  v-for="i in item.SelectOptions"
+                  :key="i.value"
+                  :label="i.label"
+                  :value="i.value"
+                >
+                </el-option>
+              </el-select>
+            </template>
+
+            <template v-if="item.type === 'time'">
+              <el-time-select
+                :style="{ width: item.width || '220px' }"
+                v-model="formModel[item.searchKey]"
+                :picker-options="{
+                  start: '08:30',
+                  step: '00:15',
+                  end: '18:30',
+                }"
+                :placeholder="
+                  item.placeholder || t('pu.pusearch.placeholder.time')
+                "
+              >
+              </el-time-select>
+            </template>
+
+            <template v-if="item.type === 'timeFrame'">
+              <el-date-picker
+                :style="{ width: item.width || '220px' }"
+                v-model="formModel[item.searchKey]"
+                align="right"
+                type="date"
+                :value-format="item.format || 'YYYY-MM-DD'"
+                :placeholder="
+                  item.placeholder || t('pu.pusearch.placeholder.date')
+                "
+                :picker-options="optionPickerValue"
+              >
+              </el-date-picker>
+            </template>
+            <template v-if="item.type === 'area'">
+              <OptionArea
+                :style="{ width: item.width || '220px' }"
+                @update:area-value="handleSelectArea($event, item)"
+              />
+            </template>
+          </div>
+          <div style="text-align: right; margin: 0">
+            <div class="drop-btn">
+              <el-button @click="handelCancel">
+                {{ t("pu.pusearch.btn.cancel") }}
+              </el-button>
+              <el-button type="primary" @click="handleConfirm">
+                {{ t("pu.pusearch.btn.search") }}
+              </el-button>
+            </div>
+          </div>
+          <template #reference>
+            <el-button @click="popVisible = true"
+              ><el-icon class="el-icon--right"> <Filter /> </el-icon
+            ></el-button>
+          </template>
+        </el-popover>
+      </div>
       <div>
         <el-button type="primary" @click="handleSearch">
           <el-icon><component is="Search" /></el-icon>
@@ -172,6 +326,17 @@ const props = withDefaults(
     showNum: 4,
   }
 );
+
+const popVisible = ref(false);
+
+const handleConfirm = () => {
+  handleSearch();
+  popVisible.value = false;
+};
+
+const handelCancel = () => {
+  popVisible.value = false;
+};
 
 const selectLabelChange = (value: any, option: any, item: any, index: any) => {
   item.searchKey = value;
@@ -284,6 +449,17 @@ onMounted(() => {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+.dshow-wrapper {
+  padding: 10px;
+}
+
+.drop-btn {
+  padding: 10px 10px 0 10px;
+  border-top: 1px solid #ebeef5;
+  display: flex;
+  justify-content: end;
 }
 .fold-wrapper {
   display: flex;

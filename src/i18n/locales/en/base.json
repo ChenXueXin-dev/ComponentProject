@@ -19,6 +19,7 @@
     },
     "router": { 
         "home": "Home",
+        "homeDetail": "HomeDetail",
         "order": "Order",
         "orderManagement": "Order",
         "outboundOrder": "Outbound Order",  

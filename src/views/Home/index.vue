@@ -1,16 +1,22 @@
 <template>
   <div class="pu-table-wrapper">
     <PuTabs
-      :activeTabsValue="activeTabsValue"
-      :tabsList="tabsList"
-      @update:activeTabs="handleTabChange"
+      :activeTabsValue="topactiveTabsValue"
+      :tabsList="topList"
+      @update:activeTabs="tophandleTabChange"
     />
     <!-- 添加搜索组件显示数据 -->
     <PuSearch
       :test="'测试数据'"
       :searchList="searchList"
-      :showNum="12"
+      :showNum="4"
       @search="search"
+    />
+    <PuTabs
+      :type="'card'"
+      :activeTabsValue="miactiveTabsValue"
+      :tabsList="miList"
+      @update:activeTabs="mihandleTabChange"
     />
     <PuTable
       ref="tableRef"
@@ -50,14 +56,20 @@ const { createDatasource, reload, search, where } = useTableData(tableRef, {
 });
 const { t } = useI18n();
 
-const activeTabsValue = ref("namevalue");
+const topactiveTabsValue = ref("topNamevalue");
+const miactiveTabsValue = ref("miNamevalue");
 
 const tableData = createDatasource();
 
 // 处理标签操作
-const handleTabChange = (tab) => {
-  activeTabsValue.value = tab;
-  where.value.params.tabs = tab;
+const tophandleTabChange = (tab) => {
+  topactiveTabsValue.value = tab;
+  where.value.params.toptabs = tab;
+  reload();
+};
+const mihandleTabChange = (tab) => {
+  miactiveTabsValue.value = tab;
+  where.value.params.mitabs = tab;
   reload();
 };
 // 处理编辑操作
@@ -68,7 +80,7 @@ const handleEdit = (row) => {
 
 const handleDetail = () => {
   console.log("xingmaikopui ");
-  router.push({ path: "/order/outbound" });
+  router.push({ path: "/home/detail" });
 };
 
 // 处理删除操作
@@ -77,10 +89,16 @@ const handleDelete = (row) => {
   ElMessage.warning(`删除用户: ${row.name}`);
 };
 
-const tabsList = ref([
-  { label: "name", value: "namevalue" },
-  { label: "user", value: "uservalue" },
-  { label: "people", value: "peoplevalue" },
+const topList = ref([
+  { label: "topName", value: "topNamevalue" },
+  { label: "toPuser", value: "topUservalue" },
+  { label: "topPeople", value: "topPeoplevalue" },
+]);
+
+const miList = ref([
+  { label: "miName", value: "miNamevalue" },
+  { label: "miUser", value: "miUservalue" },
+  { label: "miPeople", value: "miPeoplevalue" },
 ]);
 
 const fewButtons = ref([

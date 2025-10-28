@@ -9,7 +9,9 @@
         },
         "btn":{
             "search": "Search",
-            "reset": "Reset"
+            "reset": "Reset",
+            "cancel": "Cancel",
+            "confirm": "Confirm"
         }
     }
 }

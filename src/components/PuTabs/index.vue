@@ -1,8 +1,9 @@
 <template>
   <div class="page-wrapper">
     <el-tabs
+      :type="type || ''"
       :model-value="activeTabsValue"
-      class="demo-tabs"
+      :class="type === '' ? 'demo-tabs' : 'card-tabs'"
       @update:model-value="$emit('update:activeTabs', $event)"
       @handleClick="handleClick"
     >
@@ -34,6 +35,10 @@ const props = defineProps({
   activeTabsValue: {
     type: String,
   },
+  type: {
+    type: String,
+    default: "",
+  },
 });
 
 const emit = defineEmits<{
@@ -56,6 +61,32 @@ const handleClick = (tab: any) => {
   :deep(.el-tabs__nav-wrap::after) {
     background-color: #f5f5f5 !important;
     height: 1px !important;
+  }
+  :deep(.el-tab-pane) {
+    font-size: 18px;
+  }
+
+  // 或者更精确地针对标签标题
+  :deep(.el-tabs__item) {
+    font-size: 18px;
+  }
+}
+
+.card-tabs {
+  margin: 10px 0;
+  height: 40px;
+  // 使用 CSS 变量便于主题统一
+  :deep(.el-tabs__nav-wrap::after) {
+    background-color: #f5f5f5 !important;
+    height: 1px !important;
+  }
+  :deep(.el-tab-pane) {
+    font-size: 16px;
+  }
+
+  // 或者更精确地针对标签标题
+  :deep(.el-tabs__item) {
+    font-size: 16px;
   }
 }
 </style>

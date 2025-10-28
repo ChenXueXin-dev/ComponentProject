@@ -19,6 +19,7 @@
     },
     "router": {
         "home": "首页",
+        "homeDetail": "首页详情",
         "order": "订单",
         "orderManagement": "订单管理",
         "outboundOrder": "出货单",
