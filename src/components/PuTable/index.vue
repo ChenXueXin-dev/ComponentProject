@@ -149,8 +149,6 @@ const getSummaries = (param) => {
   columns.forEach((column, index) => {
     // 找到跟字段名匹配的列
     // column 封装columns 中的列信息
-    console.log("column", column);
-    console.log("column.property", column.property);
     const targetColumn = props.columns.find(
       (col) => col.name === column.property
     );

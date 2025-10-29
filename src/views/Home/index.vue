@@ -57,8 +57,10 @@ const { createDatasource, reload, search, where } = useTableData(tableRef, {
 });
 const { t } = useI18n();
 
-const topactiveTabsValue = ref("topNamevalue");
-const miactiveTabsValue = ref("miNamevalue");
+const topactiveTabsValue = ref("");
+const miactiveTabsValue = ref("");
+
+import { keyValueSum } from "@/untils/index";
 
 const tableData = createDatasource();
 
@@ -91,15 +93,15 @@ const handleDelete = (row) => {
 };
 
 const topList = ref([
-  { label: "topName", value: "topNamevalue" },
-  { label: "toPuser", value: "topUservalue" },
-  { label: "topPeople", value: "topPeoplevalue" },
+  { label: t("base.tabs.total"), value: "" },
+  { label: t("base.tabs.finish"), value: 1 },
+  { label: t("base.tabs.unfinish"), value: 0 },
 ]);
 
 const miList = ref([
-  { label: "miName", value: "miNamevalue" },
-  { label: "miUser", value: "miUservalue" },
-  { label: "miPeople", value: "miPeoplevalue" },
+  { label: t("base.tabs.total"), value: "" },
+  { label: t("base.tabs.customer"), value: 1 },
+  { label: t("base.tabs.bussiness"), value: 0 },
 ]);
 
 const fewButtons = ref([
@@ -202,16 +204,21 @@ const columns = computed(() => [
     name: "id",
     label: t("base.home.date"),
     width: 150,
-    summaryRender: () => {
-      return "合计";
+    summaryRender: ({ data }) => {
+      return keyValueSum(data, "id");
     },
   },
   {
     name: "date",
     label: t("base.home.date"),
     width: 150,
-    summaryRender: () => {
-      return "合计";
+  },
+  {
+    name: "purchasecount",
+    label: "购买数量",
+    width: 150,
+    summaryRender: ({ data }) => {
+      return keyValueSum(data, "purchasecount");
     },
   },
   {

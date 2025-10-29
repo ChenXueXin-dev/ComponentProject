@@ -36,5 +36,12 @@
         "personalCenter": "Personal Center",
         "changePassword": "Change Password",
         "logout": "Logout"
+    },
+    "tabs":{
+        "total": "total",
+        "finish": "finish",
+        "unfinish": "unfinish",
+        "customer":"customer",
+        "bussiness":"business"
     }
 }
