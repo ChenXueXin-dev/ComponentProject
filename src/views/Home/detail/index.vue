@@ -15,11 +15,45 @@
       :columns="baseColumns"
       :data="datasource"
     ></PuDetailCard>
+    <PuCard :title="'基础信息'">
+      <PuTable
+        :height="'300px'"
+        ref="tableRef"
+        :datasource="tableData"
+        :needPage="false"
+        :stripe="true"
+        :border="true"
+        :columns="homeColumns"
+        @search="search"
+        :selection="true"
+        :showSummary="true"
+      >
+        <template #bodyCell="{ column, row }">
+          <template v-if="column.property === 'id'">
+            <MCopyList :Text="row.id" @handle-click="handleDetail" />
+          </template>
+          <template v-if="column.property === 'operate'">
+            <MOperateButton :butlist="fewButtons" :butCount="3" />
+          </template>
+        </template>
+      </PuTable>
+    </PuCard>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from "vue";
+import { homeColumns } from "@/views/home/component/columns";
+import { useTableData } from "@/hooks/useTableData";
+import { getHomeData } from "@/api/home";
+
+const tableRef = ref();
+const { createDatasource, reload, search, where } = useTableData(tableRef, {
+  whereParams: { params: {} },
+  getApi: getHomeData,
+});
+
+const tableData = createDatasource();
 
 const baseColumns = computed(() => {
   return [

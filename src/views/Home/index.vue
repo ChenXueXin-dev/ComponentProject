@@ -23,7 +23,7 @@
       :datasource="tableData"
       :stripe="true"
       :border="true"
-      :columns="columns"
+      :columns="homeColumns"
       @search="search"
       :selection="true"
       :showSummary="true"
@@ -46,6 +46,7 @@ import { useI18n } from "vue-i18n";
 import { getHomeData } from "@/api/home";
 import { ElMessage } from "element-plus";
 import { useTableData } from "@/hooks/useTableData";
+import { homeColumns } from "@/views/home/component/columns";
 import { useRouter } from "vue-router";
 const tableRef = ref(null);
 
@@ -187,75 +188,6 @@ const searchList = ref([
     regionProvinceCode: "regionProvinceCode",
     regionCityCode: "regionCityCode",
     regionCountyCode: "regionCountyCode",
-  },
-]);
-
-const columns = computed(() => [
-  {
-    label: t("base.home.serialNumber"),
-    ellipsis: true,
-    width: 80,
-    fixed: "left",
-    customRender: ({ index }) => {
-      return index + 1;
-    },
-  },
-  {
-    name: "id",
-    label: t("base.home.date"),
-    width: 150,
-    summaryRender: ({ data }) => {
-      return keyValueSum(data, "id");
-    },
-  },
-  {
-    name: "date",
-    label: t("base.home.date"),
-    width: 150,
-  },
-  {
-    name: "purchasecount",
-    label: "购买数量",
-    width: 150,
-    summaryRender: ({ data }) => {
-      return keyValueSum(data, "purchasecount");
-    },
-  },
-  {
-    name: "name",
-    label: t("base.home.name"),
-    width: 120,
-  },
-  {
-    name: "address",
-    label: t("base.home.address"),
-    width: 200,
-  },
-  {
-    name: "age",
-    label: t("base.home.age"),
-    width: 80,
-  },
-  {
-    name: "sex",
-    label: t("base.home.sex"),
-    width: 80,
-  },
-  {
-    name: "phone",
-    label: t("base.home.phone"),
-    width: 150,
-  },
-  {
-    name: "email",
-    label: t("base.home.email"),
-    width: 200,
-  },
-  {
-    name: "operate",
-    label: t("base.home.operate"),
-    width: 120,
-    fixed: "right",
   },
 ]);
 </script>

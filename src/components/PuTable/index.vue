@@ -204,7 +204,7 @@ defineExpose({
 <style lang="scss" scoped>
 .pu-table-wrapper {
   width: 100%;
-  height: calc(100vh - 120px);
+  height: calc(100vh - 248px);
   overflow: hidden;
   display: flex;
   flex-direction: column;

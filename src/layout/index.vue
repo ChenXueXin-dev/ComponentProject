@@ -32,11 +32,13 @@
           <HeaderTools />
         </div>
       </div>
-      <div class="layout-content-wrapper">
-        <div class="layout-content">
-          <router-view></router-view>
+      <el-scrollbar height="calc(100vh - 60px)">
+        <div class="layout-content-wrapper">
+          <div class="layout-content">
+            <router-view></router-view>
+          </div>
         </div>
-      </div>
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -138,14 +140,12 @@ onMounted(() => {
 }
 .layout-content-wrapper {
   flex: 1;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 .layout-content {
   width: 100%;
   height: 100%;
-  overflow: hidden;
   padding: 10px;
   display: flex;
   flex-direction: column;
