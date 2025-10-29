@@ -8,7 +8,7 @@
       style="width: 100%"
       :min-height="height"
       :max-width="maxWidth"
-      show-summary="showSummary"
+      :show-summary="showSummary"
       :summary-method="getSummaries"
       table-layout="auto"
       @search="handleSearch"
@@ -147,14 +147,16 @@ const getSummaries = (param) => {
   const { columns, data } = param;
   const sums = [];
   columns.forEach((column, index) => {
+    // 找到跟字段名匹配的列
+    // column 封装columns 中的列信息
+    console.log("column", column);
+    console.log("column.property", column.property);
     const targetColumn = props.columns.find(
       (col) => col.name === column.property
     );
+    // 直接使用自定义的渲染方法
     if (targetColumn?.summaryRender) {
-      sums[index] =
-        typeof targetColumn.summaryRender === "function"
-          ? targetColumn.summaryRender({ data, column: targetColumn })
-          : targetColumn.summaryRender;
+      sums[index] = targetColumn.summaryRender({ data, column: targetColumn });
       return;
     }
     if (index === 0) {
