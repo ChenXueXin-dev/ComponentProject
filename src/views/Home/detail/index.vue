@@ -5,6 +5,16 @@
       :columns="baseColumns"
       :data="datasource"
     ></PuDetailCard>
+    <PuDetailCard
+      :title="'基础信息'"
+      :columns="baseColumns"
+      :data="datasource"
+    ></PuDetailCard>
+    <PuDetailCard
+      :title="'基础信息'"
+      :columns="baseColumns"
+      :data="datasource"
+    ></PuDetailCard>
   </div>
 </template>
 
@@ -21,7 +31,7 @@ const baseColumns = computed(() => {
         {
           label: "操作1",
           value: "action1",
-          customRender: (row, col) => {
+          customRender: (row: any, col: any) => {
             return row.name1 + "/" + col.label;
           },
         },

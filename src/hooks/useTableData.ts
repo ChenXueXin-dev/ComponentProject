@@ -60,7 +60,6 @@ export function useTableData(tableRef: any, config = {} as any) {
         ...newparams,
       };
     }
-    console.log("params", params);
     newparamsData.value = { ...newparams };
 
     const response = await getApi(params).then((res: any) => {

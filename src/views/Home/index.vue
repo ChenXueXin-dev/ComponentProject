@@ -26,6 +26,7 @@
       :columns="columns"
       @search="search"
       :selection="true"
+      :showSummary="true"
     >
       <template #bodyCell="{ column, row }">
         <template v-if="column.property === 'id'">

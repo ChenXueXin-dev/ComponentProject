@@ -73,6 +73,7 @@ const datasource = computed(() => {
 <style scoped>
 .card-wrapper {
   width: 100%;
+  margin: 10px 0;
 }
 :deep(.el-card__header) {
   padding: 15px !important;

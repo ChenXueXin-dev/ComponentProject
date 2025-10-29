@@ -9,6 +9,7 @@
       style="width: 100%"
       :min-height="height"
       :max-width="maxWidth"
+      :show-summary="showSummary"
       table-layout="auto"
       @search="handleSearch"
     >
@@ -107,13 +108,20 @@ const cleardata = () => {
 
 // 获取数据
 const getTableData = async (response) => {
-  const newData = response;
-  const resolvedData = await newData;
-  const tableData = resolvedData?.data;
-  internalData.value = resolvedData.data || null;
-  currentPage.value = resolvedData.page;
-  total.value = resolvedData.total || 0;
-  loading.value = false;
+  console.log("getTableData", response);
+  loading.value = true;
+  try {
+    const newData = response;
+    const resolvedData = await newData;
+    const tableData = resolvedData?.data;
+    internalData.value = resolvedData.data || null;
+    currentPage.value = resolvedData.page;
+    total.value = resolvedData.total || 0;
+  } catch (error) {
+    console.warn("获取表格数据失败（局部处理）：", error);
+  } finally {
+    loading.value = false;
+  }
 };
 
 const emit = defineEmits(["search"]);
