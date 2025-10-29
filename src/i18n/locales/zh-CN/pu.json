@@ -14,5 +14,8 @@
             "cancel": "取消",
             "confirm": "确定"
         }
+    },
+      "putable":{
+        "sum":"合计"
     }
 }

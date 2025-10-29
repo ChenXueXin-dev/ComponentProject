@@ -202,11 +202,17 @@ const columns = computed(() => [
     name: "id",
     label: t("base.home.date"),
     width: 150,
+    summaryRender: () => {
+      return "合计";
+    },
   },
   {
     name: "date",
     label: t("base.home.date"),
     width: 150,
+    summaryRender: () => {
+      return "合计";
+    },
   },
   {
     name: "name",

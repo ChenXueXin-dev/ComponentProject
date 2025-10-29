@@ -13,5 +13,8 @@
             "cancel": "Cancel",
             "confirm": "Confirm"
         }
+    },
+    "putable":{
+        "sum":"Sum"
     }
 }

@@ -2,14 +2,14 @@
   <div class="pu-table-wrapper">
     <el-table
       :data="internalData"
-      :columns="Pucolumns"
       :stripe="stripe"
       :border="border"
       ref="eleTableRef"
       style="width: 100%"
       :min-height="height"
       :max-width="maxWidth"
-      :show-summary="showSummary"
+      show-summary="showSummary"
+      :summary-method="getSummaries"
       table-layout="auto"
       @search="handleSearch"
     >
@@ -32,6 +32,9 @@
           :label="column.label"
           :min-width="column.width"
         >
+          <template #summary>
+            <span style="font-weight: bold">合计</span>
+          </template>
           <template v-for="(_value, key) in $slots" :key="key" #[key]="scope">
             <slot :name="key" v-bind="scope"></slot>
           </template>
@@ -50,6 +53,15 @@
                 {{ row[column.name] !== undefined ? row[column.name] : "--" }}
               </div>
             </slot>
+          </template>
+          <template #append>
+            <tr>
+              <td colspan="1" rowspan="1">dasdas</td>
+              <td colspan="1" rowspan="1">dasdas</td>
+              <td colspan="1" rowspan="1">dasdas</td>
+              <td colspan="1" rowspan="1">dasdas</td>
+              <td colspan="1" rowspan="1">dasdas</td>
+            </tr>
           </template>
         </el-table-column>
       </template>
@@ -79,6 +91,11 @@ import { useTableData } from "@/hooks/useTableData";
 import { useUserStore } from "@/store/modules/user";
 import { fa } from "element-plus/es/locales.mjs";
 
+import { useI18n } from "vue-i18n";
+import { Col } from "ant-design-vue";
+import { sum } from "element-plus/es/components/table-v2/src/utils.mjs";
+const { t } = useI18n();
+
 const loading = ref(true);
 const props = defineProps({
   datasource: { type: [Array, Object, Function], default: () => [] },
@@ -91,6 +108,7 @@ const props = defineProps({
   needPage: { type: Boolean, default: true },
   pageSizes: { type: Array, default: () => [10, 20, 30, 40, 50, 100] },
   pageSize: { type: Number },
+  showSummary: { type: Boolean, default: false },
 });
 
 const internalData = ref([]);
@@ -108,20 +126,14 @@ const cleardata = () => {
 
 // 获取数据
 const getTableData = async (response) => {
-  console.log("getTableData", response);
   loading.value = true;
-  try {
-    const newData = response;
-    const resolvedData = await newData;
-    const tableData = resolvedData?.data;
-    internalData.value = resolvedData.data || null;
-    currentPage.value = resolvedData.page;
-    total.value = resolvedData.total || 0;
-  } catch (error) {
-    console.warn("获取表格数据失败（局部处理）：", error);
-  } finally {
-    loading.value = false;
-  }
+  const newData = response;
+  const resolvedData = await newData;
+  const tableData = resolvedData?.data;
+  internalData.value = resolvedData.data || null;
+  currentPage.value = resolvedData.page;
+  total.value = resolvedData.total || 0;
+  loading.value = false;
 };
 
 const emit = defineEmits(["search"]);
@@ -130,6 +142,28 @@ const handleSearch = () => {
   emit("search");
 };
 
+// 表格汇总(直接返回自定义的数据)
+const getSummaries = (param) => {
+  const { columns, data } = param;
+  const sums = [];
+  columns.forEach((column, index) => {
+    const targetColumn = props.columns.find(
+      (col) => col.name === column.property
+    );
+    if (targetColumn?.summaryRender) {
+      sums[index] =
+        typeof targetColumn.summaryRender === "function"
+          ? targetColumn.summaryRender({ data, column: targetColumn })
+          : targetColumn.summaryRender;
+      return;
+    }
+    if (index === 0) {
+      sums[index] = t("pu.putable.sum");
+      return;
+    }
+  });
+  return sums;
+};
 const handleSizeChange = async (size) => {
   cleardata();
   if (size === useUserStore().tablePageSize) {
@@ -210,6 +244,28 @@ defineExpose({
 .table-empty .el-icon {
   animation: rotate 1s linear infinite;
   transform-origin: center center;
+}
+
+:deep(tfoot.el-table__body-footer) {
+  background-color: #fff1d4 !important;
+}
+
+:deep(tfoot.el-table__body-footer tr) {
+  background-color: #fff1d4 !important;
+}
+
+:deep(tfoot.el-table__body-footer .el-table__cell) {
+  background-color: #fff1d4 !important;
+  color: #333 !important;
+  font-weight: bold !important;
+}
+
+:deep(tfoot.el-table__body-footer .el-table__cell.el-table-fixed-column--left),
+:deep(
+    tfoot.el-table__body-footer .el-table__cell.el-table-fixed-column--right
+  ) {
+  background-color: #fff1d4 !important;
+  z-index: 1;
 }
 
 @keyframes rotate {

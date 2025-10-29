@@ -65,7 +65,7 @@ export function useTableData(tableRef: any, config = {} as any) {
     const response = await getApi(params).then((res: any) => {
       return res || [];
     });
-    tableRef.value.getTableData(response);
+    tableRef?.value.getTableData(response);
   };
 
   return {
