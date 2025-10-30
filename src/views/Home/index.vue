@@ -20,7 +20,6 @@
     />
     <PuTable
       ref="tableRef"
-      :datasource="tableData"
       :stripe="true"
       :border="true"
       :columns="homeColumns"
@@ -41,7 +40,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed, Text } from "vue";
+import { onMounted, ref, computed, Text, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { getHomeData } from "@/api/home";
 import { ElMessage } from "element-plus";
@@ -62,8 +61,6 @@ const topactiveTabsValue = ref("");
 const miactiveTabsValue = ref("");
 
 import { keyValueSum } from "@/untils/index";
-
-const tableData = createDatasource();
 
 // 处理标签操作
 const tophandleTabChange = (tab) => {

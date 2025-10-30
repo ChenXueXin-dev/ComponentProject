@@ -39,6 +39,25 @@ export default [
       }
     }
   },
+  {
+    url: '/api/home/detail',
+    method: 'post',
+     response: (options) => {
+      const body = options.body
+      const { configKey,  configDesc } = body;
+      const fileContent = fs.readFileSync(dataFilePath, 'utf-8');
+      const fileData = JSON.parse(fileContent); 
+      fs.writeFileSync(dataFilePath, JSON.stringify(fileData,null,2),'utf-8')
+      return {
+        code: 20000,
+        message: 'success',
+        data: {
+          baseInfo: fileData.data.baseInfo,
+          homedata: fileData.data.homedata
+        }
+      }
+    }
+  },
    {
     url: '/api/userUiPreference/saveOrUpdate',
     method: 'post',

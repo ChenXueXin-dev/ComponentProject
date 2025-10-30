@@ -1,7 +1,7 @@
 <template>
   <div class="pu-table-wrapper" :style="{ height: height }">
     <el-table
-      :data="internalData"
+      :data="datasource.length ? datasource : internalData"
       :stripe="stripe"
       :border="border"
       ref="eleTableRef"
@@ -92,7 +92,7 @@ defineOptions({
 import { computed, onMounted, ref, watch } from "vue";
 import { useTableData } from "@/hooks/useTableData";
 import { useUserStore } from "@/store/modules/user";
-import { fa } from "element-plus/es/locales.mjs";
+import { da, fa } from "element-plus/es/locales.mjs";
 
 import { useI18n } from "vue-i18n";
 import { Col } from "ant-design-vue";
@@ -101,7 +101,7 @@ const { t } = useI18n();
 
 const loading = ref(true);
 const props = defineProps({
-  datasource: { type: [Array, Object, Function], default: () => [] },
+  datasource: { type: Array, default: () => [] },
   stripe: { type: Boolean, default: false },
   border: { type: Boolean, default: false },
   height: { type: String, default: "calc(100vh - 248px)" },

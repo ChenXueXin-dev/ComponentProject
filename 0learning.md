@@ -308,3 +308,20 @@ javascriptEnabled: true, // 允许 Less 中使用 JS 表达式（如需）
 > 1、@import '../less/common.less';
 > 2、// src/main.ts
 > import './assets/less/common.less'; // 导入 Less 文件
+
+# ts
+
+1、嵌套定义两层=>
+定义一个类型： // loadingHandler?:() => () => void | undefined,
+
+```ts
+// 案例：这里两层:() => 为了给return 一个方法
+const goodLoadingHandler = () => {
+  // 1. 显示加载动画
+  const loading = ElLoading.service({ text: "加载中..." });
+  // 2. 返回一个函数（不立即执行 close）
+  return () => loading.close(); // ✅ 正确
+};
+
+// 如果这里是return loading.close() 就会直接返回函数，不会等待 loading.close() 执行完毕，最终结果是 undefined
+```
