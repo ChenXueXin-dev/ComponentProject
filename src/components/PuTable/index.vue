@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="pu-table-wrapper"
-    :style="{ height: height || 'calc(100vh - 248px)' }"
-  >
+  <div class="pu-table-wrapper" :style="{ height: height }">
     <el-table
       :data="internalData"
       :stripe="stripe"
@@ -107,7 +104,7 @@ const props = defineProps({
   datasource: { type: [Array, Object, Function], default: () => [] },
   stripe: { type: Boolean, default: false },
   border: { type: Boolean, default: false },
-  height: { type: String, default: "100%" },
+  height: { type: String, default: "calc(100vh - 248px)" },
   maxWidth: { type: String, default: "100%" },
   selection: { type: Boolean, default: false },
   columns: { type: Array, default: () => [] },

@@ -279,3 +279,32 @@ const emit = defineEmits<{
 将这个 value 绑定到输入框的 v-model.trim="forModel.value['输入框的 value']"
 
 # 前端动态导入（import.meta.glob）
+
+# tailwindcss 类名样式
+
+https://tailwindcss.com/docs/installation/using-vite
+
+当使用的时候不生效可能被其他给覆盖在元素之前加! 表示 important
+
+# 自定义类名样式 less
+
+> 安装 less：npm install less less-loader --save-dev
+
+> 配置：import { defineConfig } from 'vite'
+
+export default defineConfig({
+css: {
+preprocessorOptions: {
+less: {
+// 可选：配置 Less 全局变量或插件
+javascriptEnabled: true, // 允许 Less 中使用 JS 表达式（如需）
+},
+},
+},
+})
+
+引入
+
+> 1、@import '../less/common.less';
+> 2、// src/main.ts
+> import './assets/less/common.less'; // 导入 Less 文件

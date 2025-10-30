@@ -1,0 +1,24 @@
+ /*
+    margin 通用样式表
+*/
+
+.loopStyle(@counter) when (@counter > 0){
+    body .m-@{counter}{
+        margin: (@counter * 1px);
+    }
+    body .m-t-@{counter}{
+        margin-top: (@counter * 1px);
+    }
+    body .m-b-@{counter}{
+        margin-bottom: (@counter * 1px);
+    }
+    body .m-l-@{counter}{
+        margin-left: (@counter * 1px);
+    }
+    body .m-r-@{counter}{
+        margin-right: (@counter * 1px);
+    }
+    .loopStyle(((@counter - 1)))
+
+}
+.loopStyle(100);

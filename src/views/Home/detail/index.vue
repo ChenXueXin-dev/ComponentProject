@@ -15,9 +15,14 @@
       :columns="baseColumns"
       :data="datasource"
     ></PuDetailCard>
-    <PuCard :title="'基础信息'">
+    <PuDetailCard
+      :title="'基础信息'"
+      :columns="baseColumns"
+      :data="datasource"
+    ></PuDetailCard>
+    <PuCard class="m-b-84" :title="'基础信息'">
       <PuTable
-        :height="'200px'"
+        :height="'300px'"
         ref="tableRef"
         :datasource="tableData"
         :needPage="false"
@@ -38,6 +43,9 @@
         </template>
       </PuTable>
     </PuCard>
+    <div class="com-footer">
+      <el-button @click="router.back()">返回</el-button>
+    </div>
   </div>
 </template>
 
@@ -46,6 +54,7 @@ import { computed, ref } from "vue";
 import { homeColumns } from "@/views/home/component/columns";
 import { useTableData } from "@/hooks/useTableData";
 import { getHomeData } from "@/api/home";
+import router from "@/router";
 
 const tableRef = ref();
 const { createDatasource, reload, search, where } = useTableData(tableRef, {

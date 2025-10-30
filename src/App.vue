@@ -9,7 +9,9 @@
 import { ref, provide, nextTick } from "vue";
 // 直接引入 组件内置 语言包
 import { useLocale } from "@/i18n/use-locale";
-const { antLocale, eleLocale } = useLocale();
+import "@/style/index.less";
+
+const { eleLocale } = useLocale();
 
 // 刷新页面
 const isRouterActive = ref(true);
