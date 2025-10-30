@@ -17,7 +17,7 @@
     ></PuDetailCard>
     <PuCard :title="'基础信息'">
       <PuTable
-        :height="'300px'"
+        :height="'200px'"
         ref="tableRef"
         :datasource="tableData"
         :needPage="false"

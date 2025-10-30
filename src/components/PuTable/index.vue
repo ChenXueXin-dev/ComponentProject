@@ -1,12 +1,14 @@
 <template>
-  <div class="pu-table-wrapper">
+  <div
+    class="pu-table-wrapper"
+    :style="{ height: height || 'calc(100vh - 248px)' }"
+  >
     <el-table
       :data="internalData"
       :stripe="stripe"
       :border="border"
       ref="eleTableRef"
       style="width: 100%"
-      :min-height="height"
       :max-width="maxWidth"
       :show-summary="showSummary"
       :summary-method="getSummaries"
@@ -14,7 +16,11 @@
       @search="handleSearch"
     >
       <template #empty>
-        <div v-if="loading" class="table-empty">
+        <div
+          v-if="loading"
+          class="table-empty"
+          :style="{ height: `${height - '100px'}` || 'calc(100vh - 350px)' }"
+        >
           <el-icon size="30" color="#a0cfff"><Loading /></el-icon>
         </div>
         <div v-else class="table-empty">暂无数据</div>
@@ -204,28 +210,24 @@ defineExpose({
 <style lang="scss" scoped>
 .pu-table-wrapper {
   width: 100%;
-  height: calc(100vh - 248px);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
   padding: 10px;
   background-color: #fff;
+}
 
-  :deep(.el-table) {
-    width: 100% !important;
-    height: 100% !important;
-    display: flex;
-    flex-direction: column;
-  }
+:deep(.el-table) {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+}
 
-  :deep(.el-table__header-wrapper) {
-    flex-shrink: 0;
-  }
+:deep(.el-table__header-wrapper) {
+  flex-shrink: 0;
+}
 
-  :deep(.el-table__body-wrapper) {
-    flex: 1;
-    overflow: auto;
-  }
+:deep(.el-table__body-wrapper) {
+  flex: 1;
+  overflow: auto;
 }
 
 .pagination-wrapper {
@@ -236,7 +238,6 @@ defineExpose({
 
 .table-empty {
   display: flex;
-  height: calc(100vh - 350px);
   align-items: center;
   justify-content: center;
 }
