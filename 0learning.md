@@ -330,3 +330,7 @@ const goodLoadingHandler = () => {
 
 使用穿透 <child v-bind="$attrs" />
 禁用穿透 <child v-bind="{ ...$attrs, disabled: true }" />
+
+# 区别:visible.sync="visible" 和 :visible="visible"
+
+双向绑定

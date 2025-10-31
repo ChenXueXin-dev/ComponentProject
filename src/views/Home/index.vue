@@ -1,11 +1,7 @@
 <template>
   <div class="pu-table-wrapper">
-    {{ tabksdsa }}
-    <PuTabs
-      :activeTabsValue="topactiveTabsValue"
-      :tabsList="topList"
-      @update:activeTabs="tophandleTabChange"
-    />
+    <PuDrawer></PuDrawer>
+    <PuTabs />
     <!-- 添加搜索组件显示数据 -->
     <PuSearch
       :test="'测试数据'"
@@ -65,6 +61,7 @@ const miactiveTabsValue = ref("");
 import { keyValueSum } from "@/untils/index";
 
 const hahahdata = () => {};
+
 // 处理标签操作
 const tophandleTabChange = (tab) => {
   topactiveTabsValue.value = tab;
