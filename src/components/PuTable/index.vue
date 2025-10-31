@@ -1,7 +1,8 @@
 <template>
   <div class="pu-table-wrapper" :style="{ height: height }">
     <el-table
-      :data="datasource.length ? datasource : internalData"
+      v-bind="$attrs"
+      :data="internalData"
       :stripe="stripe"
       :border="border"
       ref="eleTableRef"
@@ -114,7 +115,8 @@ const props = defineProps({
   showSummary: { type: Boolean, default: false },
 });
 
-const internalData = ref([]);
+const tabledata = ref(props.datasource || []);
+const internalData = computed(() => tabledata.value);
 const currentPage = ref(1);
 const total = ref(0);
 
@@ -124,7 +126,7 @@ const eleTableRef = ref();
 // 清除数据
 const cleardata = () => {
   loading.value = true;
-  internalData.value = [];
+  tabledata.value = [];
 };
 
 // 获取数据
@@ -133,7 +135,7 @@ const getTableData = async (response) => {
   const newData = response;
   const resolvedData = await newData;
   const tableData = resolvedData?.data;
-  internalData.value = resolvedData.data || null;
+  tabledata.value = resolvedData.data || null;
   currentPage.value = resolvedData.page;
   total.value = resolvedData.total || 0;
   loading.value = false;

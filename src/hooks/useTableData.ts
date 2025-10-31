@@ -45,6 +45,7 @@ export function useTableData(tableRef: any, config = {} as any) {
 
   // 获取数据
   const createDatasource = async (newparams?: any, isreset?: boolean) => {
+    console.log("newparams", newparams);
     let params = {};
     if (isreset) {
       params = {
@@ -66,6 +67,7 @@ export function useTableData(tableRef: any, config = {} as any) {
       return res || [];
     });
     tableRef?.value.getTableData(response);
+    return response.data;
   };
 
   return {

@@ -22,6 +22,8 @@
         :data="datasource"
       ></PuDetailCard>
       <PuCard class="m-b-84" :title="'基础信息'">
+        {{ homedata }}
+
         <PuTable
           :height="'300px'"
           ref="tableRef"

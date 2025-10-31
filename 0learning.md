@@ -325,3 +325,8 @@ const goodLoadingHandler = () => {
 
 // 如果这里是return loading.close() 就会直接返回函数，不会等待 loading.close() 执行完毕，最终结果是 undefined
 ```
+
+# 属性穿透 $attrs
+
+使用穿透 <child v-bind="$attrs" />
+禁用穿透 <child v-bind="{ ...$attrs, disabled: true }" />

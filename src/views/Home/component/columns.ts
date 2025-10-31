@@ -65,9 +65,19 @@ export const homeColumns = computed(() => [
     width: 200,
   },
   {
+    name: "phone",
+    label: t("base.home.phone"),
+    width: 150,
+  },
+  {
+    name: "email",
+    label: t("base.home.email"),
+    width: 200,
+  },
+  {
     name: "operate",
     label: t("base.home.operate"),
-    width: 120,
     fixed: "right",
+    width: 120,
   },
 ]);
