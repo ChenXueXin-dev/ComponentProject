@@ -1,5 +1,6 @@
 <template>
   <div class="pu-table-wrapper">
+    {{ tabksdsa }}
     <PuTabs
       :activeTabsValue="topactiveTabsValue"
       :tabsList="topList"
@@ -22,6 +23,7 @@
       ref="tableRef"
       :stripe="true"
       :border="true"
+      :datasource="hahahdata"
       :columns="homeColumns"
       @search="search"
       :selection="true"
@@ -62,6 +64,7 @@ const miactiveTabsValue = ref("");
 
 import { keyValueSum } from "@/untils/index";
 
+const hahahdata = () => {};
 // 处理标签操作
 const tophandleTabChange = (tab) => {
   topactiveTabsValue.value = tab;
@@ -75,18 +78,15 @@ const mihandleTabChange = (tab) => {
 };
 // 处理编辑操作
 const handleEdit = (row) => {
-  console.log("编辑行数据:", row);
   ElMessage.info(`编辑用户: ${row.name}`);
 };
 
 const handleDetail = () => {
-  console.log("xingmaikopui ");
   router.push({ path: "/home/detail" });
 };
 
 // 处理删除操作
 const handleDelete = (row) => {
-  console.log("删除行数据:", row);
   ElMessage.warning(`删除用户: ${row.name}`);
 };
 

@@ -58,15 +58,6 @@
               </div>
             </slot>
           </template>
-          <template #append>
-            <tr>
-              <td colspan="1" rowspan="1">dasdas</td>
-              <td colspan="1" rowspan="1">dasdas</td>
-              <td colspan="1" rowspan="1">dasdas</td>
-              <td colspan="1" rowspan="1">dasdas</td>
-              <td colspan="1" rowspan="1">dasdas</td>
-            </tr>
-          </template>
         </el-table-column>
       </template>
     </el-table>
@@ -102,7 +93,7 @@ const { t } = useI18n();
 
 const loading = ref(true);
 const props = defineProps({
-  datasource: { type: Array, default: () => [] },
+  datasource: { type: [Array, Function], default: () => [] },
   stripe: { type: Boolean, default: false },
   border: { type: Boolean, default: false },
   height: { type: String, default: "calc(100vh - 248px)" },
@@ -115,8 +106,14 @@ const props = defineProps({
   showSummary: { type: Boolean, default: false },
 });
 
-const tabledata = ref(props.datasource || []);
-const internalData = computed(() => tabledata.value);
+// 判断接收的datasource是函数还是数组（数组直接展示、函数则请求数据）
+const isFunction = typeof props.datasource === "function";
+
+const tableData = ref([]);
+
+const internalData = computed(() =>
+  isFunction ? tableData.value : props.datasource
+);
 const currentPage = ref(1);
 const total = ref(0);
 
@@ -125,20 +122,24 @@ const eleTableRef = ref();
 
 // 清除数据
 const cleardata = () => {
+  console.log("清空数据");
   loading.value = true;
-  tabledata.value = [];
+  tableData.value = [];
 };
-
 // 获取数据
 const getTableData = async (response) => {
   loading.value = true;
-  const newData = response;
-  const resolvedData = await newData;
-  const tableData = resolvedData?.data;
-  tabledata.value = resolvedData.data || null;
-  currentPage.value = resolvedData.page;
-  total.value = resolvedData.total || 0;
-  loading.value = false;
+  try {
+    const newData = response;
+    const resolvedData = await newData;
+    tableData.value = resolvedData.data || null;
+    currentPage.value = resolvedData.page;
+    total.value = resolvedData.total || 0;
+  } catch (error) {
+    console.warn("获取数据失败：", error);
+  } finally {
+    loading.value = false;
+  }
 };
 
 const emit = defineEmits(["search"]);
