@@ -194,6 +194,8 @@ const searchList = ref([
   width: 100%;
   overflow: hidden;
   display: flex;
+  min-height: 300px;
+
   flex-direction: column;
 }
 </style>
