@@ -1,6 +1,12 @@
 <template>
   <div class="pu-table-wrapper">
-    <PuDrawer></PuDrawer>
+    <el-button @click="handledrawerVisible">
+      drawVisible：{{ drawVisible }}</el-button
+    >
+    <PuDrawer
+      :visible="drawVisible"
+      @update:visible="drawVisible = $event"
+    ></PuDrawer>
     <PuTabs />
     <!-- 添加搜索组件显示数据 -->
     <PuSearch
@@ -61,6 +67,12 @@ const miactiveTabsValue = ref("");
 import { keyValueSum } from "@/untils/index";
 
 const hahahdata = () => {};
+
+const drawVisible = ref(false);
+const handledrawerVisible = () => {
+  drawVisible.value = !drawVisible.value;
+  console.log("drawVisible", drawVisible.value);
+};
 
 // 处理标签操作
 const tophandleTabChange = (tab) => {
