@@ -1,16 +1,39 @@
 <template>
   <div>
-    <el-tag v-if="normal.includes(Number(value))">{{ text }}</el-tag>
-    <el-tag v-if="success.includes(Number(value))" type="success">{{
-      text
-    }}</el-tag>
-    <el-tag v-if="info.includes(Number(value))" type="info">{{ text }}</el-tag>
-    <el-tag v-if="warning.includes(Number(value))" type="warning">{{
-      text
-    }}</el-tag>
-    <el-tag v-if="danger.includes(Number(value))" type="danger">{{
-      text
-    }}</el-tag>
+    <el-tag
+      :class="isNoBorder ? 'no-border' : ''"
+      v-if="normal.includes(Number(value))"
+      :effect="effect"
+      >{{ text }}</el-tag
+    >
+    <el-tag
+      :class="isNoBorder ? 'no-border' : ''"
+      v-if="success.includes(Number(value))"
+      type="success"
+      :effect="effect"
+      >{{ text }}</el-tag
+    >
+    <el-tag
+      :class="isNoBorder ? 'no-border' : ''"
+      v-if="info.includes(Number(value))"
+      type="info"
+      :effect="effect"
+      >{{ text }}</el-tag
+    >
+    <el-tag
+      :class="isNoBorder ? 'no-border' : ''"
+      v-if="warning.includes(Number(value))"
+      type="warning"
+      :effect="effect"
+      >{{ text }}</el-tag
+    >
+    <el-tag
+      :class="isNoBorder ? 'no-border' : ''"
+      v-if="danger.includes(Number(value))"
+      type="danger"
+      :effect="effect"
+      >{{ text }}</el-tag
+    >
   </div>
 </template>
 
@@ -20,6 +43,15 @@ defineOptions({
 });
 // 蓝色（设置成default）、绿色success、灰色info、橙色warning、红色danger
 const props = defineProps({
+  //  dark light plain
+  isNoBorder: {
+    type: Boolean,
+    default: false,
+  },
+  effect: {
+    type: String,
+    default: "light",
+  },
   value: {
     type: String || Number,
     default: "",
@@ -51,4 +83,13 @@ const props = defineProps({
 });
 </script>
 
-<style scoped></style>
+<style scoped>
+.no-border {
+  background: none;
+  border: none;
+}
+
+:deep(.el-tag) {
+  padding: none !important;
+}
+</style>
