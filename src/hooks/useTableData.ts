@@ -35,6 +35,7 @@ export function useTableData(tableRef: any, config = {} as any) {
   };
 
   const search = async (newparams?: any) => {
+    console.log("newparams", newparams);
     if (typeof newparams === "string") {
       createDatasource({}, true);
     } else {

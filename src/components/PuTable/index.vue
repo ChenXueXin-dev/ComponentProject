@@ -45,26 +45,32 @@
                 <div v-if="column.searchSlot == 'input'">
                   <el-input
                     :style="{ width: column.inputWidth || '180px' }"
+                    v-model="formModel[column.searchKey || column.name]"
                     :placeholder="
                       column.placeholder || t('pu.pusearch.placeholder.input')
                     "
+                    @change="handleSearch"
                   />
                 </div>
                 <div v-if="column.searchSlot == 'inputTrim'">
                   <el-input
                     :style="{ width: column.inputWidth || '180px' }"
+                    v-model="formModel[column.searchKey || column.name]"
                     :placeholder="
                       column.placeholder || t('pu.pusearch.placeholder.input')
                     "
+                    @change="handleSearch"
                   />
                 </div>
                 <div v-if="column.searchSlot == 'select'">
                   <el-select
                     clearable
                     :style="{ width: column.width || '220px' }"
+                    v-model="formModel[column.searchKey || column.name]"
                     :placeholder="
                       column.placeholder || t('pu.pusearch.placeholder.select')
                     "
+                    @change="handleSearch"
                   >
                     <el-option
                       v-for="i in column.SelectOptions"
@@ -83,9 +89,11 @@
                       step: '00:15',
                       end: '18:30',
                     }"
+                    v-model="formModel[column.searchKey || column.name]"
                     :placeholder="
                       column.placeholder || t('pu.pusearch.placeholder.time')
                     "
+                    @change="handleSearch"
                   >
                   </el-time-select>
                 </div>
@@ -95,17 +103,21 @@
                     align="right"
                     type="date"
                     :value-format="column.format || 'YYYY-MM-DD'"
+                    v-model="formModel[column.searchKey || column.name]"
                     :placeholder="
                       column.placeholder || t('pu.pusearch.placeholder.date')
                     "
                     :picker-options="optionPickerValue"
+                    @change="handleSearch"
                   >
                   </el-date-picker>
                 </div>
                 <div v-if="column.searchSlot == 'area'">
                   <OptionArea
+                    v-model="formModel[column.searchKey || column.name]"
                     :style="{ width: column.width || '220px' }"
                     @update:area-value="handleSelectArea($event, column)"
+                    @change="handleSearch"
                   />
                 </div>
               </div>
@@ -163,7 +175,10 @@ import { useUserStore } from "@/store/modules/user";
 import OptionArea from "./components/OptionArea.vue";
 
 import { useI18n } from "vue-i18n";
+import { formContextKey } from "element-plus";
 const { t } = useI18n();
+
+const formModel = ref({});
 
 const loading = ref(true);
 const props = defineProps({
@@ -224,9 +239,10 @@ const getTableData = async (response) => {
 };
 
 const emit = defineEmits(["search"]);
-const handleSearch = () => {
+
+const handleSearch = (e) => {
   cleardata();
-  emit("search");
+  emit("search", formModel.value);
 };
 
 // 表格汇总(直接返回自定义的数据)

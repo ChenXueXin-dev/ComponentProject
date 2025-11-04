@@ -390,6 +390,7 @@ const handleSearch = () => {
       delete formModel.value[key];
     }
   });
+  console.log("PUSEARCH:handleSearch", formModel.value);
   emit("search", formModel.value);
 };
 
