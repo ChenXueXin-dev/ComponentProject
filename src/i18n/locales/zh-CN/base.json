@@ -1,51 +1,52 @@
 {
-    "language": "语言",
-    "home": {
-        "title": "首页",
-        "id": "编号", 
-        "serialNumber": "序号",
-        "date": "日期",
-        "tabs": "标签",
-        "name": "姓名",
-        "address": "地址",
-        "age": "年龄",
-        "sex": "性别",
-        "phone": "电话",
-        "email": "邮箱",
-        "operate": "操作"
-    },
-    "layout": {
-        "collapse": "折叠",
-        "expand": "展开"
-    },
-    "router": {
-        "home": "首页",
-        "homeDetail": "首页详情",
-        "order": "订单",
-        "orderManagement": "订单管理",
-        "outboundOrder": "出货单",
-        "inboundOrder": "入库单",
-        "preOrder": "预订单",
-        "warehouseManagement": "仓库管理",
-        "stock": "库存",
-        "system": "系统",
-        "inventory": "库存",    
-        "location": "位置",
-        "bill": "账单"
-    },
-    "user": {
-        "personalCenter": "个人中心",
-        "changePassword": "修改密码",
-        "logout": "退出登录"
-    },
-    "tabs":{
-        "total": "全部",
-        "finish": "完成",
-        "unfinish": "未完成",
-        "customer":"客户",
-        "bussiness":"商家"
-    },
-    "drawer":{
-        "back":"返回"
-    }
+  "language": "语言",
+  "home": {
+    "title": "首页",
+    "id": "编号",
+    "serialNumber": "序号",
+    "money": "金额",
+    "date": "日期",
+    "tabs": "标签",
+    "name": "姓名",
+    "address": "地址",
+    "age": "年龄",
+    "sex": "性别",
+    "phone": "电话",
+    "email": "邮箱",
+    "operate": "操作"
+  },
+  "layout": {
+    "collapse": "折叠",
+    "expand": "展开"
+  },
+  "router": {
+    "home": "首页",
+    "homeDetail": "首页详情",
+    "order": "订单",
+    "orderManagement": "订单管理",
+    "outboundOrder": "出货单",
+    "inboundOrder": "入库单",
+    "preOrder": "预订单",
+    "warehouseManagement": "仓库管理",
+    "stock": "库存",
+    "system": "系统",
+    "inventory": "库存",
+    "location": "位置",
+    "bill": "账单"
+  },
+  "user": {
+    "personalCenter": "个人中心",
+    "changePassword": "修改密码",
+    "logout": "退出登录"
+  },
+  "tabs": {
+    "total": "全部",
+    "finish": "完成",
+    "unfinish": "未完成",
+    "customer": "客户",
+    "bussiness": "商家"
+  },
+  "drawer": {
+    "back": "返回"
+  }
 }

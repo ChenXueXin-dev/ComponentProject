@@ -95,7 +95,6 @@
             </el-option>
           </el-select>
         </template>
-
         <template v-if="item.type === 'time'">
           <el-time-select
             :style="{ width: item.width || '220px' }"
@@ -109,7 +108,6 @@
           >
           </el-time-select>
         </template>
-
         <template v-if="item.type === 'timeFrame'">
           <el-date-picker
             :style="{ width: item.width || '220px' }"

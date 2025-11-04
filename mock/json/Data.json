@@ -1203,7 +1203,7 @@
       }
     ],
     "userhobby": {
-      "tablePageSize": "20"
+      "tablePageSize": "30"
     },
     "baseInfo": {
       "name": "张三",

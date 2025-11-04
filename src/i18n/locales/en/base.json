@@ -1,50 +1,51 @@
 {
-    "language": "Language",
-    "home": {
-        "title": "Home",
-        "id":"ID",
-        "serialNumber": "SerialNum",
-        "date": "Date",
-        "name": "Name",
-        "address": "Address",
-        "age": "Age",
-        "sex": "Sex",
-        "phone": "Phone",
-        "email": "Email",
-        "operate": "Operate"
-    },
-    "layout": {
-        "collapse": "Collapse",
-        "expand": "Expand"
-    },
-    "router": { 
-        "home": "Home",
-        "homeDetail": "HomeDetail",
-        "order": "Order",
-        "orderManagement": "Order",
-        "outboundOrder": "Outbound Order",  
-        "inboundOrder": "Inbound Order",    
-        "preOrder": "Pre Order",
-        "warehouseManagement": "Warehouse",
-        "inventory": "Inventory",
-        "stock": "stock",
-        "location": "Location", 
-        "system": "System",
-        "bill": "Bill"
-    },
-    "user": {
-        "personalCenter": "Personal Center",
-        "changePassword": "Change Password",
-        "logout": "Logout"
-    },
-    "tabs":{
-        "total": "total",
-        "finish": "finish",
-        "unfinish": "unfinish",
-        "customer":"customer",
-        "bussiness":"business"
-    },
-     "drawer":{
-        "back":"Back"
-    }
+  "language": "Language",
+  "home": {
+    "title": "Home",
+    "id": "ID",
+    "serialNumber": "SerialNum",
+    "money": "money",
+    "date": "Date",
+    "name": "Name",
+    "address": "Address",
+    "age": "Age",
+    "sex": "Sex",
+    "phone": "Phone",
+    "email": "Email",
+    "operate": "Operate"
+  },
+  "layout": {
+    "collapse": "Collapse",
+    "expand": "Expand"
+  },
+  "router": {
+    "home": "Home",
+    "homeDetail": "HomeDetail",
+    "order": "Order",
+    "orderManagement": "Order",
+    "outboundOrder": "Outbound Order",
+    "inboundOrder": "Inbound Order",
+    "preOrder": "Pre Order",
+    "warehouseManagement": "Warehouse",
+    "inventory": "Inventory",
+    "stock": "stock",
+    "location": "Location",
+    "system": "System",
+    "bill": "Bill"
+  },
+  "user": {
+    "personalCenter": "Personal Center",
+    "changePassword": "Change Password",
+    "logout": "Logout"
+  },
+  "tabs": {
+    "total": "total",
+    "finish": "finish",
+    "unfinish": "unfinish",
+    "customer": "customer",
+    "bussiness": "business"
+  },
+  "drawer": {
+    "back": "Back"
+  }
 }

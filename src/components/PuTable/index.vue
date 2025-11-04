@@ -36,6 +36,83 @@
           :label="column.label"
           :min-width="column.width"
         >
+          <template #header>
+            <div style="height: 20px; line-height: 20px">
+              {{ column.label }}
+            </div>
+            <div style="height: 40px; line-height: 40px" v-if="headSearchSlot">
+              <div v-if="column.searchSlot?.trim().length">
+                <div v-if="column.searchSlot == 'input'">
+                  <el-input
+                    :style="{ width: column.inputWidth || '180px' }"
+                    :placeholder="
+                      column.placeholder || t('pu.pusearch.placeholder.input')
+                    "
+                  />
+                </div>
+                <div v-if="column.searchSlot == 'inputTrim'">
+                  <el-input
+                    :style="{ width: column.inputWidth || '180px' }"
+                    :placeholder="
+                      column.placeholder || t('pu.pusearch.placeholder.input')
+                    "
+                  />
+                </div>
+                <div v-if="column.searchSlot == 'select'">
+                  <el-select
+                    clearable
+                    :style="{ width: column.width || '220px' }"
+                    :placeholder="
+                      column.placeholder || t('pu.pusearch.placeholder.select')
+                    "
+                  >
+                    <el-option
+                      v-for="i in column.SelectOptions"
+                      :key="i.value"
+                      :label="i.label"
+                      :value="i.value"
+                    >
+                    </el-option>
+                  </el-select>
+                </div>
+                <div v-if="column.searchSlot == 'time'">
+                  <el-time-select
+                    :style="{ width: column.width || '220px' }"
+                    :picker-options="{
+                      start: '08:30',
+                      step: '00:15',
+                      end: '18:30',
+                    }"
+                    :placeholder="
+                      column.placeholder || t('pu.pusearch.placeholder.time')
+                    "
+                  >
+                  </el-time-select>
+                </div>
+                <div v-if="column.searchSlot == 'timeFrame'">
+                  <el-date-picker
+                    :style="{ width: column.width || '220px' }"
+                    align="right"
+                    type="date"
+                    :value-format="column.format || 'YYYY-MM-DD'"
+                    :placeholder="
+                      column.placeholder || t('pu.pusearch.placeholder.date')
+                    "
+                    :picker-options="optionPickerValue"
+                  >
+                  </el-date-picker>
+                </div>
+                <div v-if="column.searchSlot == 'area'">
+                  <OptionArea
+                    :style="{ width: column.width || '220px' }"
+                    @update:area-value="handleSelectArea($event, column)"
+                  />
+                </div>
+              </div>
+              <div v-else></div>
+            </div>
+          </template>
+
           <template #summary>
             <span style="font-weight: bold">合计</span>
           </template>
@@ -80,15 +157,12 @@
 defineOptions({
   name: "PuTable",
 });
-
 import { computed, onMounted, ref, watch } from "vue";
 import { useTableData } from "@/hooks/useTableData";
 import { useUserStore } from "@/store/modules/user";
-import { da, fa } from "element-plus/es/locales.mjs";
+import OptionArea from "./components/OptionArea.vue";
 
 import { useI18n } from "vue-i18n";
-import { Col } from "ant-design-vue";
-import { sum } from "element-plus/es/components/table-v2/src/utils.mjs";
 const { t } = useI18n();
 
 const loading = ref(true);
@@ -104,12 +178,19 @@ const props = defineProps({
   pageSizes: { type: Array, default: () => [10, 20, 30, 40, 50, 100] },
   pageSize: { type: Number },
   showSummary: { type: Boolean, default: false },
+  headSearchSlot: { type: Boolean, default: false },
 });
 
 // 判断接收的datasource是函数还是数组（数组直接展示、函数则请求数据）
 const isFunction = typeof props.datasource === "function";
 
 const tableData = ref([]);
+
+const handleSelectArea = (e, item) => {
+  formModel.value[item.regionProvinceCode] = e[0];
+  formModel.value[item.regionCityCode] = e[1];
+  formModel.value[item.regionCountyCode] = e[2];
+};
 
 const internalData = computed(() =>
   isFunction ? tableData.value : props.datasource

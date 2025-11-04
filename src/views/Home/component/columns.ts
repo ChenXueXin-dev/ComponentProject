@@ -15,26 +15,30 @@ export const homeColumns = computed(() => [
   },
   {
     name: "id",
-    label: t("base.home.date"),
+    label: t("base.home.money"),
     width: 150,
     summaryRender: ({ data }: any) => {
       return keyValueSum(data, "id");
     },
+    searchSlot: "input",
   },
   {
     name: "date",
     label: t("base.home.date"),
     width: 150,
+    searchSlot: "time",
   },
   {
     name: "tabs",
     label: t("base.home.tabs"),
     width: 150,
+    searchSlot: "select",
   },
   {
     name: "purchasecount",
     label: "购买数量",
     width: 150,
+    searchSlot: "inputTrim",
     summaryRender: ({ data }: any) => {
       return keyValueSum(data, "purchasecount");
     },
@@ -48,6 +52,7 @@ export const homeColumns = computed(() => [
     name: "address",
     label: t("base.home.address"),
     width: 200,
+    searchSlot: "area",
   },
   {
     name: "age",

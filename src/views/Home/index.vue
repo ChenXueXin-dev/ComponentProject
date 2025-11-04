@@ -32,6 +32,7 @@
       @search="search"
       :selection="true"
       :showSummary="true"
+      :headSearchSlot="true"
     >
       <template #bodyCell="{ column, row }">
         <template v-if="column.property === 'id'">
