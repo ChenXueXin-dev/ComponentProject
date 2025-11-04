@@ -27,6 +27,11 @@ export const homeColumns = computed(() => [
     width: 150,
   },
   {
+    name: "tabs",
+    label: t("base.home.tabs"),
+    width: 150,
+  },
+  {
     name: "purchasecount",
     label: "购买数量",
     width: 150,

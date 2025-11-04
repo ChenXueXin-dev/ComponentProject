@@ -1,6 +1,5 @@
 <template>
   <div class="pu-table-wrapper">
-    <!-- <MTags :value="5" :success="[5]" :text="'ahshash'" /> -->
     <DetailDrawer
       :visible="drawVisible"
       @update:visible="drawVisible = $event"
@@ -40,6 +39,17 @@
           <div @click="handledrawerVisible" style="color: #5d9eff">
             {{ row.id }}
           </div>
+        </template>
+        <template v-if="column.property === 'tabs'">
+          <MTags
+            :normal="[0]"
+            :success="[1]"
+            :info="[4]"
+            :warning="[3]"
+            :danger="[5]"
+            :value="row.tabs.status"
+            :text="row.tabs.text"
+          />
         </template>
         <template v-if="column.property === 'operate'">
           <MOperateButton :butlist="fewButtons" :butCount="3" />

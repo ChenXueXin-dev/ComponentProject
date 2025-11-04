@@ -1,10 +1,16 @@
 <template>
   <div>
-    <el-tag v-if="normal.includes(value)">{{ text }}</el-tag>
-    <el-tag v-if="success.includes(value)" type="success">{{ text }}</el-tag>
-    <el-tag v-if="info.includes(value)" type="info">{{ text }}</el-tag>
-    <el-tag v-if="warning.includes(value)" type="warning">{{ text }}</el-tag>
-    <el-tag v-if="danger.includes(value)" type="danger">{{ text }}</el-tag>
+    <el-tag v-if="normal.includes(Number(value))">{{ text }}</el-tag>
+    <el-tag v-if="success.includes(Number(value))" type="success">{{
+      text
+    }}</el-tag>
+    <el-tag v-if="info.includes(Number(value))" type="info">{{ text }}</el-tag>
+    <el-tag v-if="warning.includes(Number(value))" type="warning">{{
+      text
+    }}</el-tag>
+    <el-tag v-if="danger.includes(Number(value))" type="danger">{{
+      text
+    }}</el-tag>
   </div>
 </template>
 
