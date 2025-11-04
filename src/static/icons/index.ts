@@ -16,6 +16,7 @@ import {
   Loading,
   RefreshRight,
   Filter,
+  Close,
 } from "@element-plus/icons-vue";
 
 export const routerIcon = {
@@ -36,6 +37,7 @@ export const routerIcon = {
   Loading,
   RefreshRight,
   Filter,
+  Close,
 };
 
 export const AllIcons = {

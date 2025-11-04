@@ -43,5 +43,8 @@
         "unfinish": "unfinish",
         "customer":"customer",
         "bussiness":"business"
+    },
+     "drawer":{
+        "back":"Back"
     }
 }

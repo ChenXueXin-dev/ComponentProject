@@ -334,3 +334,16 @@ const goodLoadingHandler = () => {
 # 区别:visible.sync="visible" 和 :visible="visible"
 
 双向绑定
+
+# 抽屉公共组件实现
+
+1、父组件：要设置初始值，返回子组件的事件时候改变值
+2、子组件：监听父组件传递的参数，改变自身数据。关闭时传递事件通知父组件改变值
+以此实现双向绑定
+
+# 封装公共组件自定义插槽
+
+子组件中添加：<slot name="title"></slot>
+父组件中添加：
+<template v-slot:title>自定义插槽</template>
+<slot name="title"></slot>

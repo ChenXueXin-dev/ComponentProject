@@ -1,12 +1,10 @@
 <template>
   <div class="pu-table-wrapper">
-    <el-button @click="handledrawerVisible">
-      drawVisible：{{ drawVisible }}</el-button
-    >
-    <PuDrawer
+    <DetailDrawer
       :visible="drawVisible"
       @update:visible="drawVisible = $event"
-    ></PuDrawer>
+    />
+
     <PuTabs />
     <!-- 添加搜索组件显示数据 -->
     <PuSearch
@@ -33,7 +31,10 @@
     >
       <template #bodyCell="{ column, row }">
         <template v-if="column.property === 'id'">
-          <MCopyList :Text="row.id" @handle-click="handleDetail" />
+          <!-- <MCopyList :Text="row.id" @handle-click="handleDetail" /> -->
+          <div @click="handledrawerVisible" style="color: #5d9eff">
+            {{ row.id }}
+          </div>
         </template>
         <template v-if="column.property === 'operate'">
           <MOperateButton :butlist="fewButtons" :butCount="3" />
@@ -50,6 +51,7 @@ import { getHomeData } from "@/api/home";
 import { ElMessage } from "element-plus";
 import { useTableData } from "@/hooks/useTableData";
 import { homeColumns } from "@/views/home/component/columns";
+import DetailDrawer from "./component/DetailDrawer.vue";
 import { useRouter } from "vue-router";
 const tableRef = ref(null);
 
@@ -71,7 +73,6 @@ const hahahdata = () => {};
 const drawVisible = ref(false);
 const handledrawerVisible = () => {
   drawVisible.value = !drawVisible.value;
-  console.log("drawVisible", drawVisible.value);
 };
 
 // 处理标签操作

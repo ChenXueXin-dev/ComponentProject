@@ -43,5 +43,8 @@
         "unfinish": "未完成",
         "customer":"客户",
         "bussiness":"商家"
+    },
+    "drawer":{
+        "back":"返回"
     }
 }

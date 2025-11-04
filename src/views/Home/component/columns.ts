@@ -81,3 +81,38 @@ export const homeColumns = computed(() => [
     width: 120,
   },
 ]);
+
+export const baseColumns = computed(() => {
+  return [
+    {
+      columns: [
+        { label: "姓名1", value: "name1" },
+        { label: "年龄1", value: "age1" },
+        { label: "地址1", value: "address1" },
+        {
+          label: "操作1",
+          value: "action1",
+          customRender: (row: any, col: any) => {
+            return row.name1 + "/" + col.label;
+          },
+        },
+      ],
+    },
+    {
+      columns: [
+        { label: "姓名2", value: "name2" },
+        { label: "年龄2", value: "age2" },
+        { label: "地址2", value: "address2" },
+        { label: "操作2", value: "action2" },
+      ],
+    },
+    {
+      columns: [
+        { label: "姓名3", value: "name3" },
+        { label: "年龄3", value: "age3" },
+        { label: "地址3", value: "address3" },
+        { label: "操作3", value: "action3" },
+      ],
+    },
+  ];
+});
