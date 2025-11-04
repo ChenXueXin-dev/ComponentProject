@@ -1,11 +1,16 @@
 <template>
   <div class="pu-table-wrapper">
+    <!-- <MTags :value="5" :success="[5]" :text="'ahshash'" /> -->
     <DetailDrawer
       :visible="drawVisible"
       @update:visible="drawVisible = $event"
     />
 
-    <PuTabs />
+    <PuTabs
+      :activeTabsValue="topactiveTabsValue"
+      :tabsList="topList"
+      @update:activeTabs="tophandleTabChange"
+    />
     <!-- 添加搜索组件显示数据 -->
     <PuSearch
       :test="'测试数据'"
