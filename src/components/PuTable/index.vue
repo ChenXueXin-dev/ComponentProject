@@ -113,8 +113,8 @@
                   </el-date-picker>
                 </div>
                 <div v-if="column.searchSlot == 'area'">
+                  <!-- v-model="formModel[column.searchKey || column.name]" -->
                   <OptionArea
-                    v-model="formModel[column.searchKey || column.name]"
                     :style="{ width: column.width || '220px' }"
                     @update:area-value="handleSelectArea($event, column)"
                     @change="handleSearch"
@@ -202,6 +202,8 @@ const isFunction = typeof props.datasource === "function";
 const tableData = ref([]);
 
 const handleSelectArea = (e, item) => {
+  console.log(e);
+  console.log(item);
   formModel.value[item.regionProvinceCode] = e[0];
   formModel.value[item.regionCityCode] = e[1];
   formModel.value[item.regionCountyCode] = e[2];
@@ -239,8 +241,8 @@ const getTableData = async (response) => {
 };
 
 const emit = defineEmits(["search"]);
-
 const handleSearch = (e) => {
+  console.log("handleSearch", formModel.value);
   cleardata();
   emit("search", formModel.value);
 };

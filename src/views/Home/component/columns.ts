@@ -53,6 +53,9 @@ export const homeColumns = computed(() => [
     label: t("base.home.address"),
     width: 200,
     searchSlot: "area",
+    regionProvinceCode: "regionProvinceCode",
+    regionCityCode: "regionCityCode",
+    regionCountyCode: "regionCountyCode",
   },
   {
     name: "age",
