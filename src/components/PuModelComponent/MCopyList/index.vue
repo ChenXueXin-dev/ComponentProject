@@ -1,6 +1,6 @@
 <template>
   <div style="color:#409eff;'" @click="handleClick">
-    {{ Text }}
+    {{ text }}
   </div>
 </template>
 <script setup>
@@ -8,7 +8,7 @@ defineOptions({
   name: "MCopyList",
 });
 const props = defineProps({
-  Text: {
+  text: {
     type: String,
     default: "",
   },

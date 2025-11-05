@@ -67,14 +67,13 @@
           :stripe="true"
           :border="true"
           :columns="homeColumns"
-          @search="search"
           :selection="true"
           :showSummary="true"
         >
           <template #bodyCell="{ column, row }">
-            <template v-if="column.property === 'id'">
+            <!-- <template v-if="column.property === 'id'">
               <MCopyList :Text="row.id" @handle-click="handleDetail" />
-            </template>
+            </template> -->
             <template v-if="column.property === 'operate'">
               <MOperateButton :butlist="fewButtons" :butCount="3" />
             </template>
@@ -98,6 +97,7 @@ import { baseColumns, homeColumns } from "../component/columns";
 const tableRef = ref();
 
 import { useApiRequest } from "@/hooks/useApiRequest";
+import { ElMessage } from "element-plus";
 
 const { fetchData, data: requestData } = useApiRequest<any>();
 
@@ -139,6 +139,40 @@ const getDetail = async () => {
     loading.value = false;
   }
 };
+
+const fewButtons = ref([
+  {
+    label: "编辑",
+    type: "primary",
+    display: false,
+    onClick: () => ElMessage.info("点击了编辑按钮"),
+  },
+  {
+    label: "删除",
+    type: "danger",
+    onClick: () => ElMessage.warning("点击了删除按钮"),
+  },
+  {
+    label: "查看",
+    type: "warning",
+    onClick: () => ElMessage.info("点击了查看按钮"),
+  },
+  {
+    label: "复制",
+    type: "info",
+    onClick: () => ElMessage.warning("点击了复制按钮"),
+  },
+  {
+    label: "导出",
+    type: "success",
+    onClick: () => ElMessage.info("点击了导出按钮"),
+  },
+  {
+    label: "打印",
+    type: "primary",
+    onClick: () => ElMessage.info("点击了打印按钮"),
+  },
+]);
 
 onMounted(() => {
   getDetail();
