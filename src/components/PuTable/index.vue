@@ -225,6 +225,7 @@ const cleardata = () => {
 };
 // 获取数据
 const getTableData = async (response) => {
+  console.log("获取数据");
   loading.value = true;
   try {
     const newData = response;

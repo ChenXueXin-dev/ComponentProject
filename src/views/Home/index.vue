@@ -47,7 +47,7 @@
             :success="[1]"
             :info="[4]"
             :warning="[3]"
-            :danger="[5]"
+            :danger="[2]"
             :value="row.tabs.status"
             :text="row.tabs.text"
           />

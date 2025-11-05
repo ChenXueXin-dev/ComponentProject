@@ -1,10 +1,5 @@
 <template>
   <div class="pu-table-wrapper">
-    <DetailDrawer
-      :visible="drawVisible"
-      @update:visible="drawVisible = $event"
-    />
-
     <PuTabs
       :type="'card'"
       :activeTabsValue="miactiveTabsValue"
@@ -16,6 +11,7 @@
       :stripe="true"
       :border="true"
       :datasource="hahahdata"
+      :height="'1250px'"
       :columns="homeColumns"
       @search="search"
       :selection="true"
@@ -35,7 +31,7 @@
             :success="[1]"
             :info="[4]"
             :warning="[3]"
-            :danger="[5]"
+            :danger="[2]"
             :value="row.tabs.status"
             :text="row.tabs.text"
           />
@@ -49,7 +45,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed, Text, watch } from "vue";
+import { onMounted, ref, computed, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { getHomeData } from "@/api/home";
 import { ElMessage } from "element-plus";
@@ -136,6 +132,12 @@ const fewButtons = ref([
     onClick: () => ElMessage.info("点击了打印按钮"),
   },
 ]);
+
+const searchList = ref([]);
+
+onMounted(() => {
+  reload();
+});
 </script>
 
 <style lang="scss" scoped>

@@ -430,7 +430,6 @@ const optionPickerValue = ref({
   ],
 });
 onMounted(() => {
-  searchDataListInit();
   reset();
 });
 </script>
