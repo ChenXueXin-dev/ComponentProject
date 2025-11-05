@@ -380,6 +380,7 @@ const handleSelectArea = (e: any, item: any) => {
   formModel.value[item.regionProvinceCode] = e[0];
   formModel.value[item.regionCityCode] = e[1];
   formModel.value[item.regionCountyCode] = e[2];
+  handleSearch();
 };
 const emit = defineEmits(["search"]);
 

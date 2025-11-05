@@ -48,7 +48,6 @@ const emit = defineEmits<{
 }>();
 const handleUpdate = (value: any) => {
   emit("update:areaValue", [...value]);
-  console.log("area", value);
 };
 </script>
 
