@@ -1,28 +1,63 @@
 <template>
   <div>
     <a-spin :spinning="loading">
-      <PuAnchor></PuAnchor>
+      <PuAnchor :anchorList="anchorList"></PuAnchor>
 
       <PuDetailCard
-        :title="'基础信息'"
+        ref="base1"
+        :title="'基础信息1'"
         :columns="baseColumns"
         :data="datasource"
       ></PuDetailCard>
       <PuDetailCard
-        :title="'基础信息'"
+        ref="base2"
+        :title="'基础信息2'"
         :columns="baseColumns"
         :data="tableData"
       ></PuDetailCard>
       <PuDetailCard
-        :title="'基础信息'"
+        ref="base3"
+        :title="'基础信息3'"
         :columns="baseColumns"
         :data="datasource"
       ></PuDetailCard>
       <PuDetailCard
-        :title="'基础信息'"
+        ref="base4"
+        :title="'基础信息4'"
         :columns="baseColumns"
         :data="datasource"
       ></PuDetailCard>
+      <PuDetailCard
+        ref="base5"
+        :title="'基础信息5'"
+        :columns="baseColumns"
+        :data="datasource"
+      ></PuDetailCard>
+      <PuDetailCard
+        ref="base6"
+        :title="'基础信息6'"
+        :columns="baseColumns"
+        :data="datasource"
+      ></PuDetailCard>
+      <PuDetailCard
+        ref="base7"
+        :title="'基础信息7'"
+        :columns="baseColumns"
+        :data="datasource"
+      ></PuDetailCard>
+      <PuDetailCard
+        ref="base8"
+        :title="'基础信息8'"
+        :columns="baseColumns"
+        :data="datasource"
+      ></PuDetailCard>
+      <PuDetailCard
+        ref="base9"
+        :title="'基础信息9'"
+        :columns="baseColumns"
+        :data="datasource"
+      ></PuDetailCard>
+
       <PuCard class="m-b-84" :title="'基础信息'">
         <PuTable
           :height="'300px'"
@@ -69,12 +104,35 @@ const { fetchData, data: requestData } = useApiRequest<any>();
 const homedata = ref([]);
 const loading = ref(false);
 const tableData = ref({});
+const datasource = ref({});
+const base1 = ref();
+const base2 = ref();
+const base3 = ref();
+const base4 = ref();
+const base5 = ref();
+const base6 = ref();
+const base7 = ref();
+const base8 = ref();
+const base9 = ref();
+
+const anchorList = [
+  { name: "基础1", ref: base1 },
+  { name: "基础2", ref: base2 },
+  { name: "基础3", ref: base3 },
+  { name: "基础4", ref: base4 },
+  { name: "基础5", ref: base5 },
+  { name: "基础6", ref: base6 },
+  { name: "基础7", ref: base7 },
+  { name: "基础8", ref: base8 },
+  { name: "基础9", ref: base9 },
+];
 const getDetail = async () => {
   loading.value = true;
   try {
     await fetchData(getHomeDetailData, {});
     tableData.value = requestData.value.data;
     homedata.value = requestData.value.data.homedata;
+    datasource.value = requestData.value.data;
   } catch (error) {
     console.log(error);
   } finally {

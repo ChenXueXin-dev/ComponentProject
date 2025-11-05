@@ -353,6 +353,8 @@ const goodLoadingHandler = () => {
 1、ref：Vue 内置，负责 “找到 DOM”（定位）；
 2、scrollIntoView ()：浏览器内置，负责 “滚动到 DOM”（执行）。
 
+.scrollIntoView() 浏览器原生 DOM 方法（W3C 标准 API），作用是让当前 DOM 元素滚动到视口内
+
 <div ref="div" @click="scrollToDiv">跳转</div>
 
 <script setup>
