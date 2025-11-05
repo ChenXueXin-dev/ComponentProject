@@ -29,7 +29,6 @@ const { locale } = useI18n();
 const changeLanguege = (lang: string) => {
   locale.value = lang;
   localStorage.setItem("localelanguage", lang);
-  console.log("locale", locale.value);
 };
 </script>
 

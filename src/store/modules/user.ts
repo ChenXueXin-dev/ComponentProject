@@ -23,13 +23,11 @@ export const useUserStore = defineStore("user", {
       });
     },
     async fetchUserInfo() {
-      console.log("fetchUserInfo");
       try {
         const userInfo = await getUserInfo({});
         if (userInfo?.data) {
           this.tablePageSize = Number(userInfo.data?.tablePageSize);
         }
-        console.log("userInfo", userInfo);
       } catch (error) {
         console.log(error);
       }

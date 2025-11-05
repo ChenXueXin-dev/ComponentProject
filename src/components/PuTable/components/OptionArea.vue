@@ -3,7 +3,7 @@
     <el-cascader
       clearable
       :value-on-clear="''"
-      size="mini"
+      size="small"
       :options="regionData"
       :placeholder="placeholder || t('pu.pusearch.placeholder.area')"
       :model-value="areaValue"

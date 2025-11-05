@@ -12,16 +12,13 @@ import elementEn from "element-plus/dist/locale/en.mjs";
 
 export const elementLocales = {
   zhCn: elementZhCn,
-  en: elementEn
+  en: elementEn,
 };
 
 const messages = {
   zhCn: { ...zhLocale, ...zhCn },
-  en: { ...enLocale, ...en},
+  en: { ...enLocale, ...en },
 };
-
-console.log("messages", messages);
-
 
 export const defaultLocale = localStorage.getItem("localelanguage") || "zhCn";
 // 语言配置

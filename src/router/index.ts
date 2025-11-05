@@ -138,7 +138,6 @@ router.beforeEach(async (to, from, next) => {
 
   const res = await userStore.fetchUserInfo();
   next();
-  console.log(res);
 });
 
 export default router;

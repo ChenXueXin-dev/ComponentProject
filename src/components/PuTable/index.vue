@@ -23,12 +23,8 @@
         </div>
         <div v-else class="table-empty">暂无数据</div>
       </template>
-      <el-table-column
-        v-if="selection"
-        type="selection"
-        :selectable="selectable"
-        width="55"
-      />
+      <el-table-column v-if="selection" type="selection" width="55" />
+      <!-- :selectable="selectable" -->
       <template v-for="column in Pucolumns" :key="column.prop">
         <el-table-column
           :fixed="column.fixed"
@@ -176,6 +172,7 @@ import { isEmpty } from "@/untils/commom";
 
 import { useI18n } from "vue-i18n";
 import { formContextKey } from "element-plus";
+
 const { t } = useI18n();
 
 const formModel = ref({});
@@ -185,7 +182,7 @@ const props = defineProps({
   datasource: { type: [Array, Function], default: () => [] },
   stripe: { type: Boolean, default: false },
   border: { type: Boolean, default: false },
-  height: { type: String, default: "calc(100vh - 248px)" },
+  height: { type: String, default: "calc(100vh - 290px)" },
   maxWidth: { type: String, default: "100%" },
   selection: { type: Boolean, default: false },
   columns: { type: Array, default: () => [] },
@@ -194,11 +191,11 @@ const props = defineProps({
   pageSize: { type: Number },
   showSummary: { type: Boolean, default: false },
   headSearchSlot: { type: Boolean, default: false },
+  autoLoad: { type: Boolean, default: true },
 });
 
 // 判断接收的datasource是函数还是数组（数组直接展示、函数则请求数据）
 const isFunction = typeof props.datasource === "function";
-
 const tableData = ref([]);
 
 const handleSelectArea = (e, item) => {
@@ -219,13 +216,11 @@ const eleTableRef = ref();
 
 // 清除数据
 const cleardata = () => {
-  console.log("清空数据");
   loading.value = true;
   tableData.value = [];
 };
 // 获取数据
 const getTableData = async (response) => {
-  console.log("获取数据");
   loading.value = true;
   try {
     const newData = response;
@@ -301,6 +296,12 @@ const showColColumns = computed(() => {
 
 const Pucolumns = computed(() => {
   return showColColumns.value;
+});
+
+onMounted(() => {
+  if (props.autoLoad) {
+    handleSearch();
+  }
 });
 
 // 暴露方法

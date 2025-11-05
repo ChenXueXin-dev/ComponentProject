@@ -11,7 +11,7 @@
       :stripe="true"
       :border="true"
       :datasource="hahahdata"
-      :height="'1250px'"
+      :height="'calc(100vh - 144px)'"
       :columns="homeColumns"
       @search="search"
       :selection="true"
@@ -95,8 +95,8 @@ const handleDelete = (row) => {
 
 const miList = ref([
   { label: t("base.tabs.total"), value: "" },
-  { label: t("base.tabs.customer"), value: 1 },
-  { label: t("base.tabs.bussiness"), value: 0 },
+  { label: t("base.tabs.customer"), value: "1" },
+  { label: t("base.tabs.bussiness"), value: "0" },
 ]);
 
 const fewButtons = ref([
@@ -134,10 +134,6 @@ const fewButtons = ref([
 ]);
 
 const searchList = ref([]);
-
-onMounted(() => {
-  reload();
-});
 </script>
 
 <style lang="scss" scoped>

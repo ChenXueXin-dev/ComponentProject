@@ -31,7 +31,6 @@
       :columns="homeColumns"
       @search="search"
       :selection="true"
-      :showSummary="true"
       :headSearchSlot="true"
     >
       <template #bodyCell="{ column, row }">
@@ -118,14 +117,14 @@ const handleDelete = (row) => {
 
 const topList = ref([
   { label: t("base.tabs.total"), value: "" },
-  { label: t("base.tabs.finish"), value: 1 },
-  { label: t("base.tabs.unfinish"), value: 0 },
+  { label: t("base.tabs.finish"), value: "1" },
+  { label: t("base.tabs.unfinish"), value: "0" },
 ]);
 
 const miList = ref([
   { label: t("base.tabs.total"), value: "" },
-  { label: t("base.tabs.customer"), value: 1 },
-  { label: t("base.tabs.bussiness"), value: 0 },
+  { label: t("base.tabs.customer"), value: "1" },
+  { label: t("base.tabs.bussiness"), value: "0" },
 ]);
 
 const fewButtons = ref([

@@ -5,7 +5,7 @@
         <!-- 类型：primary\success\warning\danger\info -->
         <el-link
           v-if="butItem.display !== false"
-          :underline="false"
+          underline="never"
           :type="butItem.type || 'primary'"
           :disabled="butItem.disabled"
           @click="handleClick(butItem)"
@@ -24,7 +24,7 @@
       >
         <el-link
           v-if="butItem.display !== false"
-          :underline="false"
+          underline="never"
           :type="butItem.type || 'primary'"
           :disabled="butItem.disabled"
           @click="handleClick(butItem)"
@@ -36,7 +36,7 @@
         />
       </template>
       <el-dropdown>
-        <el-link type="primary" underline="false">
+        <el-link type="primary" underline="never">
           更多
           <el-icon class="el-icon--right">
             <arrow-down />
@@ -51,7 +51,7 @@
               :disabled="butItem.disabled"
             >
               <el-link
-                :underline="false"
+                underline="never"
                 :type="butItem.type || 'primary'"
                 :disabled="butItem.disabled"
                 @click="handleClick(butItem)"

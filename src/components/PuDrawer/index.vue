@@ -77,7 +77,6 @@ watch(
   () => props.visible,
   (newVal) => {
     internalDrawer.value = newVal;
-    console.log("newVal", newVal);
   }
 );
 
