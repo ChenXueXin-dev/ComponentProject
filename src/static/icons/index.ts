@@ -17,6 +17,8 @@ import {
   RefreshRight,
   Filter,
   Close,
+  ArrowRightBold,
+  DArrowRight,
 } from "@element-plus/icons-vue";
 
 export const routerIcon = {
@@ -38,6 +40,8 @@ export const routerIcon = {
   RefreshRight,
   Filter,
   Close,
+  ArrowRightBold,
+  DArrowRight,
 };
 
 export const AllIcons = {

@@ -347,3 +347,38 @@ const goodLoadingHandler = () => {
 父组件中添加：
 <template v-slot:title>自定义插槽</template>
 <slot name="title"></slot>
+
+# 锚点滚动
+
+1、ref：Vue 内置，负责 “找到 DOM”（定位）；
+2、scrollIntoView ()：浏览器内置，负责 “滚动到 DOM”（执行）。
+
+<div ref="div" @click="scrollToDiv">跳转</div>
+
+<script setup>
+  import { ref } from 'vue'
+  const div = ref(null)
+  const scrollToDiv = () => {
+    div.value.scrollIntoView()
+    div.value.scrollIntoView({ behavior: 'smooth' })
+    div.value.scrollIntoView({ block: 'start', behavior: 'smooth' })
+    div.value.scrollIntoView({ block: 'center', behavior: 'smooth' })
+}
+</script>
+
+# style
+
+## box-shadow
+
+box-shadow: 0 0 12px 5px rgba(129, 127, 127, 0.1);
+对应表示：水平偏移 → 垂直偏移 → 模糊半径 → 扩散半径
+
+## 固定页面实现居中
+
+.page-wrapper {
+position: fixed;
+right: 10px;
+z-index: 9999;
+top: 50%;
+transform: translateY(-50%); // 自身向上偏移，实现完美居中
+}

@@ -1,6 +1,8 @@
 <template>
   <div>
     <a-spin :spinning="loading">
+      <PuAnchor></PuAnchor>
+
       <PuDetailCard
         :title="'基础信息'"
         :columns="baseColumns"
