@@ -52,7 +52,7 @@ export const routes: RouteRecordRaw[] = [
         },
         children: [
           {
-            path: "outbound",
+            path: "/order/outbound",
             name: "OutboundOrder",
             component: () => import("@/views/order/outbound.vue"),
             meta: {
@@ -60,7 +60,7 @@ export const routes: RouteRecordRaw[] = [
             },
           },
           {
-            path: "inbound",
+            path: "/order/inbound",
             name: "InboundOrder",
             component: () => import("@/views/order/inbound.vue"),
             meta: {
@@ -79,7 +79,7 @@ export const routes: RouteRecordRaw[] = [
         },
         children: [
           {
-            path: "inventory",
+            path: "/warehouse/inventory",
             name: "Inventory",
             component: () => import("@/views/warehouse/inventory.vue"),
             meta: {
@@ -87,7 +87,7 @@ export const routes: RouteRecordRaw[] = [
             },
           },
           {
-            path: "location",
+            path: "/warehouse/location",
             name: "Location",
             component: () => import("@/views/warehouse/location.vue"),
             meta: {

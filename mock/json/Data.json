@@ -68,7 +68,7 @@
         "name": "David",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 321, Elm St, Seattle",
         "age": 35,
@@ -113,7 +113,7 @@
         "name": "Grace",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 147, Birch Rd, Phoenix",
         "age": 26,
@@ -248,7 +248,7 @@
         "name": "Paul",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 417, Magnolia St, Orlando",
         "age": 28,
@@ -323,7 +323,7 @@
         "name": "Uma",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 962, Redwood Rd, Sacramento",
         "age": 27,
@@ -398,7 +398,7 @@
         "name": "Zack",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 517, Mahogany St, Madison",
         "age": 28,
@@ -473,7 +473,7 @@
         "name": "Eleanor",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 162, Cedar Ave, Albuquerque",
         "age": 24,
@@ -548,7 +548,7 @@
         "name": "Jackson",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 617, Hickory St, Kansas City",
         "age": 27,
@@ -623,7 +623,7 @@
         "name": "Olivia",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 262, Fir Rd, Raleigh",
         "age": 22,
@@ -698,7 +698,7 @@
         "name": "Samuel",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 717, Mahogany St, Minneapolis",
         "age": 34,
@@ -773,7 +773,7 @@
         "name": "Vivian",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 362, Cedar Ave, Honolulu",
         "age": 24,
@@ -848,7 +848,7 @@
         "name": "Aaron",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 817, Hickory St, Cincinnati",
         "age": 32,
@@ -923,7 +923,7 @@
         "name": "Faith",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 462, Fir Rd, Orlando",
         "age": 23,
@@ -998,7 +998,7 @@
         "name": "Kevin",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 917, Mahogany St, Lubbock",
         "age": 34,
@@ -1073,7 +1073,7 @@
         "name": "Piper",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 562, Cedar Ave, Scottsdale",
         "age": 21,
@@ -1148,7 +1148,7 @@
         "name": "Tristan",
         "tabs": {
           "text": "审核不通过",
-          "status": "5"
+          "status": "2"
         },
         "address": "No. 117, Hickory St, Modesto",
         "age": 28,

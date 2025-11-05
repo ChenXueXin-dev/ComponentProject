@@ -173,6 +173,7 @@ import { computed, onMounted, ref, watch } from "vue";
 import { useTableData } from "@/hooks/useTableData";
 import { useUserStore } from "@/store/modules/user";
 import OptionArea from "./components/OptionArea.vue";
+import { isEmpty } from "@/untils/commom";
 
 import { useI18n } from "vue-i18n";
 import { formContextKey } from "element-plus";
@@ -242,7 +243,11 @@ const getTableData = async (response) => {
 
 const emit = defineEmits(["search"]);
 const handleSearch = (e) => {
-  console.log("handleSearch", formModel.value);
+  Object.keys(formModel.value).forEach((key) => {
+    if (isEmpty(formModel.value[key])) {
+      delete formModel.value[key];
+    }
+  });
   cleardata();
   emit("search", formModel.value);
 };
