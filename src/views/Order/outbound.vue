@@ -1,5 +1,7 @@
 <template>
-  <div>{{ t("base.router.outboundOrder") }}</div>
+  <div>
+    <PuMdEditor />
+  </div>
 </template>
 
 <script setup>

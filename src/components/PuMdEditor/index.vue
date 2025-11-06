@@ -21,16 +21,18 @@
 defineOptions({
   name: "PuMdEditor",
 });
-import "@wangeditor/editor/dist/css/style.css"; // 引入 css
+import "@wangeditor/editor/dist/css/style.css";
 
 import { onBeforeUnmount, ref, shallowRef, onMounted } from "vue";
 import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 import { DomEditor } from "@wangeditor/editor";
-// 编辑器实例，必须用 shallowRef
 const editorRef = shallowRef();
-
-// 内容 HTML
-const valueHtml = ref("<p>hello</p>");
+const props = defineProps({
+  defaultvalue: {
+    type: String,
+    default: "",
+  },
+});
 
 // 模拟 ajax 异步获取内容
 onMounted(() => {});
