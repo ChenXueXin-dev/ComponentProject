@@ -1,25 +1,25 @@
 export const formColumns = [
   {
     label: "活动名称",
-    name: "name",
+    name: "input",
     type: "input",
     placeholder: "请输入活动名称",
     rules: [],
   },
   {
     label: "活动选择",
-    name: "region",
+    name: "select",
     type: "select",
     placeholder: "please select your zone",
     rules: [],
     options: [
-      { label: "lanqiu", value: "篮球" },
-      { label: "zuqiu", value: "足球" },
+      { label: "篮球", value: "lanqiu" },
+      { label: "足球", value: "zuqiu" },
     ],
   },
   {
     label: "活动区域",
-    name: "region",
+    name: "areaSelect",
     type: "areaSelect",
     placeholder: "please select your zone",
     rules: [],
@@ -70,13 +70,13 @@ export const formColumns = [
   },
   {
     label: "即时配送",
-    name: "delivery",
+    name: "switch",
     type: "switch",
     defaultValue: false, // 初始默认值
   },
   {
     label: "活动类型",
-    name: "type",
+    name: "checkbox",
     type: "checkbox",
     rules: [],
     options: [
@@ -88,7 +88,7 @@ export const formColumns = [
   },
   {
     label: "资源类型",
-    name: "resource",
+    name: "radio",
     type: "radio",
     rules: [],
     options: [
@@ -98,7 +98,7 @@ export const formColumns = [
   },
   {
     label: "活动形式",
-    name: "desc",
+    name: "textarea",
     type: "textarea",
     placeholder: "请输入活动形式",
     rules: [],

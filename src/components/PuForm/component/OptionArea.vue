@@ -2,8 +2,8 @@
   <div id="app">
     <el-cascader
       clearable
+      :style="{ width: width }"
       :value-on-clear="''"
-      size="small"
       :options="regionData"
       :placeholder="placeholder || t('pu.pusearch.placeholder.area')"
       :model-value="areaValue"
@@ -33,6 +33,10 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
+  },
+  width: {
+    type: String,
+    default: "100%",
   },
 });
 import {
