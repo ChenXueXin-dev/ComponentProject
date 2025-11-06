@@ -20,10 +20,10 @@
     >
       <template #bodyCell="{ column, row }">
         <template v-if="column.property === 'id'">
-          <!-- <MCopyList :Text="row.id" @handle-click="handleDetail" /> -->
-          <div @click="handledrawerVisible" style="color: #5d9eff">
+          <MCopyList :text="row.id" @handle-click="handleDetail" />
+          <!-- <div @click="handledrawerVisible" style="color: #5d9eff">
             {{ row.id }}
-          </div>
+          </div> -->
         </template>
         <template v-if="column.property === 'tabs'">
           <MTags

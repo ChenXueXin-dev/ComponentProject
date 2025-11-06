@@ -1,5 +1,6 @@
 <template>
   <div class="pu-table-wrapper">
+    <PuMdEditor />
     <DetailDrawer
       :visible="drawVisible"
       @update:visible="drawVisible = $event"

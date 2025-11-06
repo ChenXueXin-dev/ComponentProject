@@ -2,7 +2,6 @@
   <div>
     <a-spin :spinning="loading">
       <PuAnchor :anchorList="anchorList"></PuAnchor>
-
       <PuDetailCard
         ref="base1"
         :title="'基础信息1'"
