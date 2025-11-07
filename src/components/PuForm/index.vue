@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper" :style="{ backgroundColor: backgroundColor }">
-    <el-form :model="formModel" label-width="auto">
+    <el-form :model="formModel" label-width="auto" :validate-event="true">
       <el-form-item
         v-for="col in columns"
         :label="col.label"
@@ -95,11 +95,22 @@
           :style="{ width: `${col.width}px` || '280px' }"
         >
           <el-checkbox
-            v-for="item in col.options"
-            v-model="formModel[col.name]"
-            :label="item.label"
-            :size="col.size"
-          />
+            v-if="col.isNeedCheckAll"
+            v-model="formModel[col.checkAllName]"
+            @change="onAllcheck(col)"
+          >
+            {{ t("pu.puform.allselect") }}
+          </el-checkbox>
+          <el-checkbox-group v-model="formModel[col.name]">
+            <el-checkbox
+              v-for="item in col.options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+              {{ item.label }}
+            </el-checkbox>
+          </el-checkbox-group>
         </template>
         <template v-if="col.type == 'radio'">
           <el-radio-group
@@ -126,9 +137,9 @@
         </template>
       </el-form-item>
     </el-form>
-    <div class="footer-wrapper">
-      <el-button @click="handleCancel">取消</el-button>
-      <el-button @click="handleSubmit" type="primary">保存</el-button>
+    <div v-if="showSubmitBtn" class="footer-wrapper">
+      <el-button @click="onCancel">取消</el-button>
+      <el-button @click="onSubmit" type="primary">保存</el-button>
     </div>
   </div>
 </template>
@@ -159,26 +170,43 @@ const props = defineProps({
     type: String,
     default: "#fff",
   },
+  showSubmitBtn: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const handleCancel = () => {
-  props.formModel.value = {};
-};
-const handleSubmit = () => {
-  console.log(props.formModel.value);
+// checkbox 全选择
+const onAllcheck = (item: any) => {
+  if (props.formModel[item.checkAllName]) {
+    props.formModel[item.name] = item.options.map((item: any) => item.value);
+  } else {
+    props.formModel[item.name] = [];
+  }
 };
 
+const emit = defineEmits(["submit", "cancel"]);
+
+const onCancel = () => {
+  emit("cancel", {});
+};
+
+const onSubmit = () => {
+  emit("submit");
+};
+
+// 选择地区加入表单
 const handleSelectArea = (e: any, item: any) => {
-  props.formModel.value[item.regionProvinceCode] = e[0];
-  props.formModel.value[item.regionCityCode] = e[1];
-  props.formModel.value[item.regionCountyCode] = e[2];
+  props.formModel[item.regionProvinceCode] = e[0];
+  props.formModel[item.regionCityCode] = e[1];
+  props.formModel[item.regionCountyCode] = e[2];
 };
 </script>
 <style scoped>
 .page-wrapper {
   padding: 20px;
   width: 400px;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 
 .footer-wrapper {

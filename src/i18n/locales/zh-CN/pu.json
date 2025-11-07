@@ -15,7 +15,7 @@
       "confirm": "确定"
     }
   },
-  "puTable": {
+  "putable": {
     "sum": "合计"
   },
   "puform": {
@@ -30,6 +30,7 @@
       "datetimerangeend": "结束日期",
       "area": "请选择地区",
       "textarea": "请输入"
-    }
+    },
+    "allselect": "全选"
   }
 }

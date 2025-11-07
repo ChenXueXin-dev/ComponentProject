@@ -22,6 +22,9 @@ export const formColumns = [
     name: "area",
     type: "area",
     rules: [],
+    regionProvinceCode: "regionProvinceCode",
+    regionCityCode: "regionCityCode",
+    regionCountyCode: "regionCountyCode",
     options: [
       { label: "Zone one", value: "shanghai" },
       { label: "Zone two", value: "beijing" },
@@ -75,6 +78,8 @@ export const formColumns = [
     label: "活动类型",
     name: "checkbox",
     type: "checkbox",
+    isNeedCheckAll: true,
+    checkAllName: "checkAllHobbies",
     rules: [],
     options: [
       { label: "茶话会", value: "cha" },

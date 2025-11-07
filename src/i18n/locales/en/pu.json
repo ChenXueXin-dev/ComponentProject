@@ -15,7 +15,7 @@
     }
   },
   "putable": {
-    "sum": "Sum"
+    "sum": "sum"
   },
   "puform": {
     "placeholder": {
@@ -29,6 +29,7 @@
       "datetimerangeend": "End Date",
       "“area": "Please select area",
       "textarea": "Please enter"
-    }
+    },
+    "allselect": "All Select"
   }
 }
