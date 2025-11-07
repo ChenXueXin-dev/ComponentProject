@@ -1,6 +1,10 @@
 <template>
   <div>
-    <PuForm :columns="formColumns" :formModel="formModel"></PuForm>
+    <PuForm
+      :columns="formColumns"
+      :formModel="formModel"
+      :width="'400px'"
+    ></PuForm>
   </div>
 </template>
 

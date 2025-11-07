@@ -1,21 +1,35 @@
 {
-    "pusearch": {
-        "placeholder": {
-            "input": "请输入",
-            "select": "请选择",
-            "time": "请选择时间",
-            "date": "请选择日期",
-            "area": "请选择地区"
-        },
-        "btn":{
-            "search": "查询",
-            "reset": "重置",
-            "add": "添加",
-            "cancel": "取消",
-            "confirm": "确定"
-        }
+  "pusearch": {
+    "placeholder": {
+      "input": "请输入",
+      "select": "请选择",
+      "time": "请选择时间",
+      "date": "请选择日期",
+      "area": "请选择地区"
     },
-      "putable":{
-        "sum":"合计"
+    "btn": {
+      "search": "查询",
+      "reset": "重置",
+      "add": "添加",
+      "cancel": "取消",
+      "confirm": "确定"
     }
+  },
+  "puTable": {
+    "sum": "合计"
+  },
+  "puform": {
+    "placeholder": {
+      "input": "请输入",
+      "select": "请选择",
+      "date": "请选择日期",
+      "datetime": "请选择时间",
+      "datetimestart": "开始时间",
+      "datetimeend": "结束时间",
+      "datetimerangestart": "开始日期",
+      "datetimerangeend": "结束日期",
+      "area": "请选择地区",
+      "textarea": "请输入"
+    }
+  }
 }

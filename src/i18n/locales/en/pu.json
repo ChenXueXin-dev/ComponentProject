@@ -1,20 +1,34 @@
 {
-    "pusearch": {
-        "placeholder": {
-            "input": "Please enter",
-            "select": "Please",
-            "time": "Please select time",
-            "date": "Please select date",
-            "“area": "Please select area"
-        },
-        "btn":{
-            "search": "Search",
-            "reset": "Reset",
-            "cancel": "Cancel",
-            "confirm": "Confirm"
-        }
+  "pusearch": {
+    "placeholder": {
+      "input": "Please enter",
+      "select": "Please select",
+      "time": "Please select time",
+      "date": "Please select date",
+      "“area": "Please select area"
     },
-    "putable":{
-        "sum":"Sum"
+    "btn": {
+      "search": "Search",
+      "reset": "Reset",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
     }
+  },
+  "putable": {
+    "sum": "Sum"
+  },
+  "puform": {
+    "placeholder": {
+      "input": "Please enter",
+      "select": "Please select",
+      "date": "Please select date",
+      "datetime": "Please select time",
+      "datetimestart": "Start Time",
+      "datetimeend": "End Time",
+      "datetimerangestart": "Start Date",
+      "datetimerangeend": "End Date",
+      "“area": "Please select area",
+      "textarea": "Please enter"
+    }
+  }
 }

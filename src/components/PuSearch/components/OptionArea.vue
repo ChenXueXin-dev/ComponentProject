@@ -5,7 +5,7 @@
       :value-on-clear="''"
       size="small"
       :options="regionData"
-      :placeholder="placeholder || t('pu.pusearch.placeholder.area')"
+      :placeholder="placeholder || t('pu.puform.placeholder.area')"
       :model-value="areaValue"
       @update:model-value="handleUpdate"
     >
