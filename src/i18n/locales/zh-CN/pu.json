@@ -31,6 +31,9 @@
       "area": "请选择地区",
       "textarea": "请输入"
     },
-    "allselect": "全选"
+    "allselect": "全选",
+    "message": {
+      "error": "表单验证失败！"
+    }
   }
 }

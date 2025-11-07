@@ -30,6 +30,9 @@
       "“area": "Please select area",
       "textarea": "Please enter"
     },
-    "allselect": "All Select"
+    "allselect": "All Select",
+    "message": {
+      "error": "Form Valid Error"
+    }
   }
 }

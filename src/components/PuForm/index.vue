@@ -1,10 +1,18 @@
 <template>
   <div class="page-wrapper" :style="{ backgroundColor: backgroundColor }">
-    <el-form :model="formModel" label-width="auto" :validate-event="true">
+    <el-form
+      ref="ruleFormRef"
+      :model="formModel"
+      label-width="auto"
+      :validate-event="isValidate"
+      :rules="rules"
+    >
       <el-form-item
         v-for="col in columns"
         :label="col.label"
-        :plcaceholder="col.placeholder"
+        :rules="col.rules"
+        :prop="col.name"
+        v-model="formModel[col.name]"
         :style="{ width: `${col.width}px` || '280px' }"
       >
         <template v-if="col.type == 'input'">
@@ -139,19 +147,22 @@
     </el-form>
     <div v-if="showSubmitBtn" class="footer-wrapper">
       <el-button @click="onCancel">取消</el-button>
-      <el-button @click="onSubmit" type="primary">保存</el-button>
+      <el-button @click="onSubmit(ruleFormRef)" type="primary">保存</el-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
 import OptionArea from "./component/OptionArea.vue";
+import type { FormInstance } from "element-plus";
+import { useI18n } from "vue-i18n";
+import { ElMessage } from "element-plus";
+import { isEmpty } from "@/untils/commom";
+const { t } = useI18n();
 defineOptions({
   name: "PuForm",
 });
-
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
 
 const props = defineProps({
   formModel: {
@@ -174,8 +185,15 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  isValidate: {
+    type: Boolean,
+    default: true,
+  },
+  rules: {
+    type: Object,
+    default: () => {},
+  },
 });
-
 // checkbox 全选择
 const onAllcheck = (item: any) => {
   if (props.formModel[item.checkAllName]) {
@@ -186,13 +204,28 @@ const onAllcheck = (item: any) => {
 };
 
 const emit = defineEmits(["submit", "cancel"]);
-
 const onCancel = () => {
+  Object.keys(props.formModel).forEach((key) => {
+    delete props.formModel[key];
+  });
   emit("cancel", {});
 };
 
-const onSubmit = () => {
-  emit("submit");
+const ruleFormRef = ref<FormInstance>();
+const onSubmit = (ruleFormRef: FormInstance | undefined) => {
+  if (!ruleFormRef) return;
+  ruleFormRef.validate((valid) => {
+    if (valid) {
+      Object.keys(props.formModel).forEach((key) => {
+        if (isEmpty(props.formModel[key])) {
+          delete props.formModel[key];
+        }
+      });
+      emit("submit");
+    } else {
+      ElMessage.error(t("pu.puform.message.error"));
+    }
+  });
 };
 
 // 选择地区加入表单

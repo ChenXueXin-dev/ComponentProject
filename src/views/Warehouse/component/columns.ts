@@ -3,7 +3,6 @@ export const formColumns = [
     label: "活动名称",
     name: "input",
     type: "input",
-    rules: [],
     width: 300,
   },
   {

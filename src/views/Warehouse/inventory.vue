@@ -8,6 +8,7 @@
       :showSubmitBtn="true"
       @cancel="onCancel"
       @submit="onSubmit"
+      :rules="rules"
     ></PuForm>
   </div>
 </template>
@@ -16,6 +17,10 @@
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 import { reactive } from "vue";
+
+const rules = reactive({
+  input: [{ required: true, message: "请输入名称", trigger: "blur" }],
+});
 
 import { formColumns } from "./component/columns";
 const formModel = reactive({});
