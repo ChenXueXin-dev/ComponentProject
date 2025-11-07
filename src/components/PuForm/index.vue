@@ -205,8 +205,6 @@ import OptionArea from "./component/OptionArea.vue";
 import type { FormInstance } from "element-plus";
 import { useI18n } from "vue-i18n";
 import { ElMessage } from "element-plus";
-import { isEmpty } from "@/untils/commom";
-import type { format } from "path";
 const { t } = useI18n();
 defineOptions({
   name: "PuForm",
@@ -264,7 +262,8 @@ const onCancel = () => {
   Object.keys(props.formModel).forEach((key) => {
     delete props.formModel[key];
   });
-  emit("cancel", {});
+  ruleFormRef.value?.clearValidate();
+  emit("cancel", { ...props.formModel });
 };
 
 const ruleFormRef = ref<FormInstance>();
@@ -273,9 +272,7 @@ const onSubmit = (ruleFormRef: FormInstance | undefined) => {
   ruleFormRef.validate((valid) => {
     if (valid) {
       Object.keys(props.formModel).forEach((key) => {
-        if (isEmpty(props.formModel[key])) {
-          delete props.formModel[key];
-        }
+        props.formModel[key] = ""; // 所有字段统一置空（字符串/数组都兼容，空字符串不影响提交过滤）
       });
       emit("submit", props.formModel);
     } else {
