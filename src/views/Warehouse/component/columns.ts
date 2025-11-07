@@ -4,6 +4,7 @@ export const formColumns = [
     name: "input",
     type: "input",
     width: 300,
+    clearable: false,
   },
   {
     label: "活动名称",
@@ -11,6 +12,7 @@ export const formColumns = [
     disabled: true,
     type: "input",
     width: 300,
+    clearable: false,
   },
   {
     label: "活动选择",

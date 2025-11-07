@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <el-cascader
-      clearable
       :style="{ width: width }"
       :value-on-clear="''"
+      :clearable="clearable"
       :disabled="disabled"
       :options="regionData"
       :placeholder="placeholder || t('pu.pusearch.placeholder.area')"
@@ -41,6 +41,10 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false,
+  },
+  clearable: {
+    type: Boolean,
+    default: true,
   },
 });
 import {

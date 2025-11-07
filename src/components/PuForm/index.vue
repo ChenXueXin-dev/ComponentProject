@@ -15,6 +15,7 @@
       <el-scrollbar always :height="`${height}px`">
         <el-form-item
           v-for="col in columns"
+          :key="col.name"
           :label="col.label"
           :rules="col.rules"
           :prop="col.name"
@@ -24,6 +25,7 @@
           <template v-if="col.type == 'input'">
             <el-input
               v-model="formModel[col.name]"
+              :clearable="col.clearable"
               :disabled="col.disabled"
               :placeholder="col.placeholder || t('pu.puform.placeholder.input')"
             />
@@ -31,12 +33,14 @@
           <template v-if="col.type == 'inputTrim'">
             <el-input
               v-model.trim="formModel[col.name]"
+              :clearable="col.clearable"
               :disabled="col.disabled"
             />
           </template>
           <template v-if="col.type == 'select'">
             <el-select
               v-model="formModel[col.name]"
+              :clearable="col.clearable"
               :disabled="col.disabled"
               :placeholder="col.placeholder || t('pu.puform.placeholder.area')"
             >
@@ -51,6 +55,7 @@
           <template v-if="col.type == 'area'">
             <OptionArea
               :width="`${col.width - 74}px `"
+              :clearable="col.clearable"
               :disabled="col.disabled"
               :placeholder="col.placeholder"
               @update:area-value="handleSelectArea($event, col)"
@@ -65,6 +70,11 @@
                 col.placeholder || t('pu.puform.placeholder.datetime')
               "
               :style="{ width: `${col.width}px` || '280px' }"
+              :default-value="col.defaultValue"
+              :format="col.format || 'YYYY-MM-DD HH:mm:ss'"
+              :date-format="col.dateformat || 'YYYY/MM/DD ddd'"
+              :value-format="col.valueformat || 'YYYY-MM-DD HH:mm:ss'"
+              :clearable="col.clearable"
             />
           </template>
           <template v-if="col.type == 'date'">
@@ -74,6 +84,11 @@
               :disabled="col.disabled"
               :placeholder="col.placeholder || t('pu.puform.placeholder.date')"
               :style="{ width: `${col.width}px` || '280px' }"
+              :format="col.format || 'YYYY-MM-DD'"
+              :date-format="col.dateformat || 'YYYY/MM/DD ddd'"
+              :default-value="col.defaultValue || 'YYYY-MM-DD'"
+              :value-format="col.valueformat || 'YYYY-MM-DD'"
+              :clearable="col.clearable"
             />
           </template>
           <template v-if="col.type == 'datetimerange'">
@@ -87,9 +102,12 @@
               :end-placeholder="
                 col.placeholder || t('pu.puform.placeholder.datetimerangeend')
               "
-              format="YYYY-MM-DD HH:mm:ss"
-              date-format="YYYY/MM/DD ddd"
+              :format="col.format || 'YYYY-MM-DD HH:mm:ss'"
+              :date-format="col.dateformat || 'YYYY/MM/DD ddd'"
               :style="{ width: `${col.width}px` || '280px' }"
+              :default-value="col.defaultValue || 'YYYY-MM-DD HH:mm:ss'"
+              :value-format="col.valueformat || 'YYYY-MM-DD HH:mm:ss'"
+              :clearable="col.clearable"
             />
           </template>
           <template v-if="col.type == 'daterange'">
@@ -103,8 +121,13 @@
               :end-placeholder="
                 col.placeholder || t('pu.puform.placeholder.datetimeend')
               "
-              :default-value="[new Date(2010, 9, 1), new Date(2010, 10, 1)]"
+              :default-value="col.defaultValue"
               :style="{ width: `${col.width}px` || '280px' }"
+              :format="col.format || 'YYYY-MM-DD'"
+              :date-format="col.dateFormat || 'YYYY/MM/DD ddd'"
+              value-format="YYYY-MM-DD"
+              :clearable="col.clearable"
+              :disabled-date="col.disabledDate"
             />
           </template>
           <template v-if="col.type == 'switch'">
@@ -163,6 +186,7 @@
               "
               type="textarea"
               :style="{ width: `${col.width}px` || '280px' }"
+              :clearable="col.clearable"
             />
           </template>
         </el-form-item>
@@ -182,6 +206,7 @@ import type { FormInstance } from "element-plus";
 import { useI18n } from "vue-i18n";
 import { ElMessage } from "element-plus";
 import { isEmpty } from "@/untils/commom";
+import type { format } from "path";
 const { t } = useI18n();
 defineOptions({
   name: "PuForm",
