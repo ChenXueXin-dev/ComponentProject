@@ -4,6 +4,7 @@
       clearable
       :style="{ width: width }"
       :value-on-clear="''"
+      :disabled="disabled"
       :options="regionData"
       :placeholder="placeholder || t('pu.pusearch.placeholder.area')"
       :model-value="areaValue"
@@ -36,6 +37,10 @@ const props = defineProps({
   },
   width: {
     type: String,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 });
 import {

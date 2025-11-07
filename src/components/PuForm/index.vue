@@ -24,15 +24,20 @@
           <template v-if="col.type == 'input'">
             <el-input
               v-model="formModel[col.name]"
+              :disabled="col.disabled"
               :placeholder="col.placeholder || t('pu.puform.placeholder.input')"
             />
           </template>
           <template v-if="col.type == 'inputTrim'">
-            <el-input v-model="formModel[col.name]" />
+            <el-input
+              v-model.trim="formModel[col.name]"
+              :disabled="col.disabled"
+            />
           </template>
           <template v-if="col.type == 'select'">
             <el-select
               v-model="formModel[col.name]"
+              :disabled="col.disabled"
               :placeholder="col.placeholder || t('pu.puform.placeholder.area')"
             >
               <el-option
@@ -46,6 +51,7 @@
           <template v-if="col.type == 'area'">
             <OptionArea
               :width="`${col.width - 74}px `"
+              :disabled="col.disabled"
               :placeholder="col.placeholder"
               @update:area-value="handleSelectArea($event, col)"
             />
@@ -53,6 +59,7 @@
           <template v-if="col.type == 'datetime'">
             <el-date-picker
               v-model="formModel[col.name]"
+              :disabled="col.disabled"
               type="datetime"
               :placeholder="
                 col.placeholder || t('pu.puform.placeholder.datetime')
@@ -64,6 +71,7 @@
             <el-date-picker
               v-model="formModel[col.name]"
               type="date"
+              :disabled="col.disabled"
               :placeholder="col.placeholder || t('pu.puform.placeholder.date')"
               :style="{ width: `${col.width}px` || '280px' }"
             />
@@ -72,6 +80,7 @@
             <el-date-picker
               v-model="formModel[col.name]"
               type="datetimerange"
+              :disabled="col.disabled"
               :start-placeholder="
                 col.placeholder || t('pu.puform.placeholder.datetimerangestart')
               "
@@ -87,6 +96,7 @@
             <el-date-picker
               v-model="formModel[col.name]"
               type="daterange"
+              :disabled="col.disabled"
               :start-placeholder="
                 col.placeholder || t('pu.puform.placeholder.datetimestart')
               "
@@ -101,6 +111,7 @@
             <el-switch
               v-model="formModel[col.name]"
               class="ml-2"
+              :disabled="col.disabled"
               :style="{ width: `${col.width}px` || '280px' }"
             />
           </template>
@@ -110,6 +121,7 @@
           >
             <el-checkbox
               v-if="col.isNeedCheckAll"
+              :disabled="col.disabled"
               v-model="formModel[col.checkAllName]"
               @change="onAllcheck(col)"
             >
@@ -118,6 +130,7 @@
             <el-checkbox-group v-model="formModel[col.name]">
               <el-checkbox
                 v-for="item in col.options"
+                :disabled="item.disabled"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -129,11 +142,13 @@
           <template v-if="col.type == 'radio'">
             <el-radio-group
               v-model="formModel[col.name]"
+              :disabled="col.disabled"
               :style="{ width: `${col.width}px` || '280px' }"
             >
               <el-radio
                 v-for="item in col.options"
                 :value="item.value"
+                :disabled="item.disabled"
                 :size="item.size"
                 >{{ item.label }}</el-radio
               >
@@ -142,6 +157,7 @@
           <template v-if="col.type == 'textarea'">
             <el-input
               v-model="formModel[col.name]"
+              :disabled="col.disabled"
               :placeholder="
                 col.placeholder || t('pu.puform.placeholder.textarea')
               "
@@ -236,7 +252,7 @@ const onSubmit = (ruleFormRef: FormInstance | undefined) => {
           delete props.formModel[key];
         }
       });
-      emit("submit");
+      emit("submit", props.formModel);
     } else {
       ElMessage.error(t("pu.puform.message.error"));
     }

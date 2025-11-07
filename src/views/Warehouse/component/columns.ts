@@ -6,6 +6,13 @@ export const formColumns = [
     width: 300,
   },
   {
+    label: "活动名称",
+    name: "input",
+    disabled: true,
+    type: "input",
+    width: 300,
+  },
+  {
     label: "活动选择",
     name: "select",
     type: "select",
@@ -81,7 +88,10 @@ export const formColumns = [
     checkAllName: "checkAllHobbies",
     rules: [],
     options: [
-      { label: "茶话会", value: "cha" },
+      {
+        label: "茶话会",
+        value: "cha",
+      },
       { label: "漫展", value: "man" },
       { label: "运动", value: "yun" },
     ],
@@ -93,8 +103,14 @@ export const formColumns = [
     type: "radio",
     rules: [],
     options: [
-      { label: "中国", value: "china" },
-      { label: "日本", value: "janpan" },
+      {
+        label: "中国",
+        value: "china",
+      },
+      {
+        label: "日本",
+        value: "janpan",
+      },
       { label: "美国", value: "amira" },
       { label: "澳大利亚", value: "ostra" },
     ],
