@@ -9,6 +9,7 @@
       @cancel="onCancel"
       @submit="onSubmit"
       :rules="rules"
+      :title="'表单组件'"
     ></PuForm>
   </div>
 </template>
